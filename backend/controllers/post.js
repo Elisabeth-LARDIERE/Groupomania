@@ -70,3 +70,19 @@ exports.getAllPosts = (req, res) => {
         res.status(500).json({error})
     }
 };
+
+// exportation de la fonction de suppression d'un article
+exports.deletePost = (req, res) => {
+    try {
+        db.query(`SELECT * FROM posts WHERE postId = '${req.query.postId}'`, (err, row) => {
+            if (err || row.length === 0) {
+                res.status(401).json({message: 'Impossible de supprimer l article !'})
+            } else {
+                db.query(`DELETE FROM posts WHERE postId = '${req.query.postId}'`);
+                res.status(200).json({message: 'Article supprimé !'})
+            }
+        })
+    } catch (error) {
+        res.status(500).json({error})
+    }
+};
