@@ -7,6 +7,7 @@ import Home from "./pages/Home/Home";
 import DisplayOnePost from "./pages/DisplayOnePost/DisplayOnePost";
 import Terms from "./pages/Terms/Terms";
 import CreateNewPost from "./pages/CreateNewPost/CreateNewPost";
+import UserAccount from "./pages/UserAccount/UserAccount";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/displayOnePost" component={DisplayOnePost}/>
             <Route path="/terms" component={Terms}/>
             <Route path="/createNewPost" component={CreateNewPost}/>
+            <Route path="/userAccount" component={UserAccount}/>
         </Switch>
       </Router>
   );

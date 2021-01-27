@@ -161,8 +161,43 @@ const createPostRequest = (title, content) => {
     );
 }
 
+const updateUserRequest = (lastname, firstname, email, avatar) => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    const userId = JSON.parse(localStorage.getItem('userId'));
+    const formData = new FormData();
+    formData.append('firstname', firstname);
+    formData.append('lastname', lastname);
+    formData.append('email', email);
+    formData.append('image', avatar);
+    return axios.put(
+        'http://localhost:3001/api/v1/auth/update/?userId=' + userId,
+        formData,
+        {
+            headers: {
+                'Content-type': 'multipart/form-data',
+                'Authorization': 'Bearer ' + token
+            }
+        }
+    );
+}
+
+const deleteUserRequest = () => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    const userId = JSON.parse(localStorage.getItem('userId'));
+    return axios.delete(
+        'http://localhost:3001/api/v1/auth/delete/?userId=' + userId,
+        {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        }
+    );
+}
+
 export { signupRequest, loginRequest, getOneUserRequest, getAllPostsRequest, getOnePostRequest, getOldPostsRequest,
-        getPopularPostsRequest, likePostRequest, dislikePostRequest, createComRequest, getAllComsRequest, createPostRequest
+        getPopularPostsRequest, likePostRequest, dislikePostRequest, createComRequest, getAllComsRequest, createPostRequest,
+        updateUserRequest, deleteUserRequest
 };
 
 
