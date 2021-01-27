@@ -110,3 +110,171 @@
     padding: 10px 15px;
     margin: 20px 40px;
 }
+
+/******************** MEDIA QUERIES ********************/
+
+/********** Small Devices **********/
+
+@media screen and (min-width: 480px) {
+
+    .userPostsSection {
+        height: 86vh;
+    }
+}
+
+/********** Medium Devices **********/
+
+@media screen and (min-width: 768px) {
+
+    .userPostsSection {
+        height: 79vh;
+    }
+
+    .userPost {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .userPostTitle {
+        font-size: 1em;
+        margin: 0;
+    }
+
+    .userPostComsAndLikes {
+        margin-right: 40px;
+    }
+
+    .userPostsCreateNewPostButton {
+        width: 210px;
+        font-size: 0.9em;
+        margin-top: 10px;
+    }
+
+}
+
+/********** Large Devices **********/
+
+@media screen and (min-width: 1024px) {
+
+    .userPostTitle {
+        font-size: 1.2em;
+    }
+
+    .userPostComsAndLikes {
+        margin-right: 70px;
+    }
+
+    .userPostLikesBox {
+        height: 30px;
+        padding: 0 30px 0 10px;
+        margin-left: 30px;
+    }
+
+    .userPostComsBox {
+        height: 30px;
+        padding: 0 30px 0 10px;
+    }
+
+    .comsIconUserPost, .likesIconUserPost, .dislikesIconUserPost {
+        font-size: 0.9em;
+    }
+
+    .iconStyleUserPost {
+        font-size: 0.9em;
+    }
+
+    .userPostChoicesSmallDevices {
+        font-size: 1.2em;
+    }
+
+    .seeUserPostIconSmallDevices {
+        margin-right: 50px;
+    }
+
+    .userPostsCreateNewPostButton {
+        width: 230px;
+        font-size: 1em;
+    }
+}
+
+/********** Extra Large Devices **********/
+
+@media screen and (min-width: 1280px) {
+
+    .mainUserPosts {
+        display: flex;
+    }
+
+    .userPostsSection {
+        width: 75vw;
+        margin-right: 25vw;
+        height: 84%;
+    }
+
+    .userPostsSectionTitle {
+        padding: 0;
+    }
+
+    .userPost {
+        height: 60px;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .userPostTitle {
+        font-size: 1.4em;
+    }
+
+    .userPostChoicesAndInfos {
+        font-size: 1.2em;
+    }
+
+    .userPostsSectionTitleAndCreate {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .userPostsCreateNewPostButton {
+        width: 270px;
+        height: 50px;
+        font-size: 1.2em;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+
+}
+
+@media screen and (min-width: 1600px) {
+
+    .userPostsSection {
+        width: 75vw;
+        margin-right: 25vw;
+    }
+}
+
+@media screen and (min-width: 1920px) {
+
+    .userPostsSection {
+        height: 81%;
+        width: 80vw;
+        margin-right: 20vw;
+    }
+
+    .userPostComsAndLikes {
+        margin-right: 150px;
+    }
+
+    .userPostLikesBox {
+        margin-left: 60px;
+    }
+
+    .userPostChoicesSmallDevices {
+        font-size: 1.4em;
+    }
+
+    .seeUserPostIconSmallDevices {
+        margin-right: 70px;
+    }
+}
