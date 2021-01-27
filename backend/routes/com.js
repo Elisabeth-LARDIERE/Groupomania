@@ -2,16 +2,19 @@
 
 // importations
 const express = require('express');
+const comCtrl = require('../controllers/com');
+const auth = require('../middleware/auth');
+
 
 // création d'un routeur express
 const router = express.Router();
 
 
 // application des fonctions de gestion des commentaires aux différentes routes
-router.post('/create', comCtrl.createCom);
-router.get('/', comCtrl.getAllComs);
-router.get('/:comId', comCtrl.getOneCom);
-router.delete('/:comId', comCtrl.deleteCom);
+router.post('/create', auth, comCtrl.createCom);
+router.get('/', auth, comCtrl.getAllComs);
+router.get('/:comId', auth, comCtrl.getOneCom);
+router.delete('/:comId', auth, comCtrl.deleteCom);
 
 
 // exportation du router article
