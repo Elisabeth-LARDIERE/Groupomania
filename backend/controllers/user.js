@@ -93,3 +93,37 @@ exports.login = (req, res) => {
         res.status(500).json({error})
     }
 };
+
+// exportation de la fonction de récupération d'un utilisateur
+
+exports.getOneUser = (req, res) => {
+    try {
+        db.query(`SELECT * FROM users WHERE userId = '${req.query.userId}'`, (err, row) => {
+            if (err || row.length === 0) {
+                res.status(401).json({message: 'Utilisateur non trouvé !'})
+            } else {
+                const user = row[0];
+                res.status(200).json(user);
+            }
+        })
+    } catch (error) {
+        res.status(500).json({error})
+    }
+};
+
+// exportation de la fonction de récupération de tous les utilisateurs
+
+exports.getAllUsers = (req, res) => {
+    try {
+        db.query(`SELECT * FROM users ORDER BY lastname`, (err, row) => {
+            if (err || row.length === 0) {
+                res.status(401).json({message: 'Auteurs non trouvés!'})
+            } else {
+                const authors = row;
+                res.status(200).json(authors);
+            }
+        })
+    } catch (error) {
+        res.status(500).json({error})
+    }
+};
