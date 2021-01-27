@@ -1,0 +1,122 @@
+/******************** HOME ********************/
+
+/********** Extra Small Devices **********/
+
+.postsBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #F1FCFC;
+    box-shadow: 5px 4px 15px rgba(24, 30, 86, 0.25), 0 5px 5px rgba(24, 30, 86, 0.22);
+}
+
+.postsList {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.post {
+    border-radius: 5px;
+    background-color: white;
+    width: 270px;
+    height: 200px;
+    margin: 15px auto;
+    padding: 0 10px 10px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    line-height: 1.5em;
+    box-shadow: 0 1px 3px rgba(24, 30, 86, 0.12), 0 1px 2px rgba(24, 30, 86, 0.24);
+    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+}
+
+.post:hover {
+    box-shadow: 0 14px 28px rgba(24, 30, 86, 0.25), 0 10px 10px rgba(24, 30, 86, 0.22);
+}
+
+.postHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.postAuthor {
+    display: flex;
+    align-items: center;
+}
+
+.postAuthorName {
+    padding-left: 3px;
+    font-size: 0.6em;
+}
+
+.avatarHome {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+}
+
+.postAuthorId {
+    display: flex;
+    font-size: 1.1em;
+    padding-left: 3px;
+}
+
+.postDate {
+    font-family: 'Libre Baskerville', 'serif';
+    font-size: 0.6em;
+}
+
+.postPreview {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0;
+}
+
+.postPreviewContent {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    font-size: 0.6em;
+}
+
+.postPreviewTitle {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 0.8em;
+}
+
+.postFooter {
+    display: flex;
+    justify-content: space-between;
+    height: 20px;
+    justify-self: flex-end;
+}
+
+.postComsBox, .postLikesBox {
+    display: flex;
+    align-items: center;
+}
+
+.comsIconHome, .likesIconHome, .dislikesIconHome {
+    padding-right: 5px;
+    font-size: 0.8em;
+    color: darkgrey;
+}
+
+.iconStyleHome {
+    font-family: 'Libre Baskerville', 'serif';
+    font-size: 0.8em;
+    color: darkgrey;
+}
+
+.postLikesBox {
+    padding-right: 10px;
+}
+
+.postLikes {
+    padding-right: 20px;
+}

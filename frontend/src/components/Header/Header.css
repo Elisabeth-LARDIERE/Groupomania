@@ -1,0 +1,52 @@
+/******************** HEADER ********************/
+
+/********** Extra Small Devices **********/
+
+header {
+    display: flex;
+    position: sticky;
+    top: 0;
+    background-image: radial-gradient(#2FC4D5, #07ADC1);
+    flex-direction: column;
+    padding: 1vh;
+    height: 10vh;
+}
+
+.headerLogo .logoName {
+    display: block;
+}
+
+.headerLogo .logoSphere {
+    display: block;
+}
+
+.headerLogo {
+    display: flex;
+    align-items: center;
+}
+
+.burgerMenu {
+    display: block;
+}
+
+.navBar {
+    display: none;
+}
+
+.menuChoice {
+    font-size: 0.6em;
+
+}
+
+.headerAvatar {
+    display: none;
+}
+
+.headerAvatarSmallDevices {
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    align-self: flex-end;
+    margin: auto 0;
+}

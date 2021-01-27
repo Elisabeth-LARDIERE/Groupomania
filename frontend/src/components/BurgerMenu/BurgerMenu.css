@@ -1,0 +1,121 @@
+/******************** BURGER MENU ********************/
+
+/********** Extra Small Devices **********/
+
+#sidebarMenu {
+    position: fixed;
+    left: 0;
+    width: 50%;
+    margin-top: 79px;
+    transform: translateX(-50vw);
+    transition: transform 250ms ease-in-out;
+    background-image: radial-gradient(#2FC4D5, #07ADC1);
+}
+
+.sidebarMenuInner {
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.sidebarMenuInner li {
+    list-style: none;
+    color: #181E56;
+    font-weight: bold;
+    padding: 15px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    transform: scale(1);
+    transition: all 0.4s linear;
+}
+
+.sidebarMenuInner li:hover, .sidebarMenuInner li:focus {
+    transform: scale(1.1);
+}
+
+input[type=checkbox]:checked ~ #sidebarMenu {
+    transform: translateX(0);
+}
+
+input[type=checkbox] {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    display: none;
+}
+
+.sidebarIconToggle {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    cursor: pointer;
+    position: absolute;
+    top: 35%;
+    left: 15px;
+    height: 22px;
+    width: 22px;
+
+}
+
+.spinner {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background-color: white;
+}
+
+.horizontal {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    position: relative;
+    float: left;
+    margin-top: 3px;
+}
+
+.diagonal.part-1 {
+    position: relative;
+    transition: all 0.3s;
+    box-sizing: border-box;
+    float: left;
+}
+
+.diagonal.part-2 {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    position: relative;
+    float: left;
+    margin-top: 3px;
+}
+
+input[type=checkbox]:checked ~ .sidebarIconToggle > .horizontal {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    opacity: 0;
+}
+
+input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-1 {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    transform: rotate(135deg);
+    margin-top: 8px;
+}
+
+input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    transform: rotate(-135deg);
+    margin-top: -9px;
+}
+
+.menuSupport {
+    font-size: 0.7em;
+    padding-left: 15px;
+}
+
+.menuMail {
+    font-size: 0.9em;
+}
+
+.menuMail:hover, .menuMail:focus {
+    color: #D72C6C;
+}
