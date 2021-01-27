@@ -4,6 +4,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const userRoutes = require('./routes/user');
+const postRoutes = require('./routes/post');
+const comRoutes = require('./routes/com');
 const cors = require('cors');
 
 // création de l'application express
@@ -28,5 +31,10 @@ app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce
 
 // gestion de la ressource images de manière statique
 app.use('/images', express.static(path.join(__dirname, 'images')));
+
+// enregistrement des routeurs utilisateur, article et commentaire
+app.use ('/api/v1/auth', userRoutes);
+app.use('/api/v1/posts', postRoutes);
+app.use('/api/v1/coms', comRoutes);
 
 module.exports = app;
