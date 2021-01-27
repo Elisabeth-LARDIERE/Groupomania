@@ -88,6 +88,67 @@ const getPopularPostsRequest = () => {
     );
 }
 
-export { signupRequest, loginRequest, getOneUserRequest, getAllPostsRequest, getOnePostRequest, getOldPostsRequest, getPopularPostsRequest};
+const likePostRequest = (likes) => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    const postId = JSON.parse(localStorage.getItem('postId'));
+    return axios.put(
+        'http://localhost:3001/api/v1/posts/updateLike/?postId=' + postId,
+        {likes},
+        {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        }
+    );
+}
+
+const dislikePostRequest = (dislikes) => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    const postId = JSON.parse(localStorage.getItem('postId'));
+    return axios.put(
+        'http://localhost:3001/api/v1/posts/updateDislike/?postId=' + postId,
+        {dislikes},
+        {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        }
+    );
+}
+
+const createComRequest = (content, postId) => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    return axios.post(
+        'http://localhost:3001/api/v1/coms/create',
+        {content, postId},
+        {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        }
+    );
+}
+
+const getAllComsRequest = () => {
+    const token = JSON.parse(localStorage.getItem('token'))
+    const postId = JSON.parse(localStorage.getItem('postId'));
+    return axios.get(
+        'http://localhost:3001/api/v1/coms/?postId=' + postId,
+        {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+
+        }
+    );
+}
+
+export { signupRequest, loginRequest, getOneUserRequest, getAllPostsRequest, getOnePostRequest, getOldPostsRequest,
+        getPopularPostsRequest, likePostRequest, dislikePostRequest, createComRequest, getAllComsRequest
+};
 
 
