@@ -47,3 +47,150 @@
     margin: 35px;
     align-self: center;
 }
+
+
+/******************** MEDIA QUERIES ********************/
+
+/********** Small Devices **********/
+
+@media screen and (min-width: 480px) {
+
+    .newPostSection {
+        height: 86vh;
+    }
+
+    .newPostBox {
+        margin-bottom: 20px;
+    }
+
+    .newPostValidationButtonSmallDevices {
+        margin: 0;
+    }
+}
+
+/********** Medium Devices **********/
+
+@media screen and (min-width: 768px) {
+
+    .newPostSection {
+        height: 79vh;
+    }
+
+    .newPostTitleAndValidation {
+        display: flex;
+        align-items: center;
+        padding: 0 2vw;
+        justify-content: space-between;
+    }
+
+    .newPostValidationButton {
+        display: block;
+        height: 35px;
+        width: 200px;
+        font-size: 1em;
+        margin-top: 20px;
+    }
+
+    .newPostValidationButtonSmallDevices {
+        display: none;
+    }
+}
+
+/********** Large Devices **********/
+
+@media screen and (min-width: 1024px) {
+
+    .newPostBox {
+        margin-bottom: 15px;
+    }
+
+    .newPostTitleLabel {
+        font-size: 1.2em;
+    }
+
+    .newPostValidationButtonSmallDevices {
+        height: 40px;
+        width: 230px;
+        font-size: 1.2em;
+    }
+}
+
+/********** Extra Large Devices **********/
+
+@media screen and (min-width: 1280px) {
+
+    .mainNewPost {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .newPostTitleAndValidation {
+        justify-content: space-between;
+        padding: 0;
+    }
+
+    .newPostValidationButton {
+        display: block;
+        height: 40px;
+        width: 230px;
+        font-size: 1.2em;
+        margin-right: 10px;
+    }
+
+    .newPostValidationButtonSmallDevices {
+        display: none;
+    }
+
+    .newPostSection {
+        box-shadow: 5px 4px 15px rgba(24, 30, 86, 0.25), 0 5px 5px rgba(24, 30, 86, 0.22);
+        width: 75vw;
+        margin-right: 25vw;
+        height: 84vh;
+    }
+
+    .newPostBox {
+        width: 70vw;
+        padding: 0 0 0 50px;
+        margin: 0;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+
+    .newPostBox {
+        width: 70vw;
+    }
+
+    .newPostValidationButton {
+        margin-right: 20px;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+
+    .newPostSection {
+        width: 75vw;
+        margin-right: 25vw;
+        height: 81vh;
+    }
+
+    .newPostBox {
+        width: 70vw;
+    }
+
+    .newPostValidationButton {
+        margin-right: 25px;
+    }
+}
+
+@media screen and (min-width: 1920px) {
+
+    .newPostSection {
+        width: 80vw;
+        margin-right: 20vw;
+    }
+
+    .newPostValidationButton {
+        margin-right: 145px;
+    }
+}
