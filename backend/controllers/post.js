@@ -173,3 +173,35 @@ exports.dislikePost = (req, res) => {
     }
 };
 
+// exportation de la fonction de récupération des articles par ordre d'ancienneté
+exports.getOldPosts = (req, res) => {
+    try {
+        db.query(`SELECT *, DATE_FORMAT(date, "%d-%m-%Y") AS date FROM posts ORDER BY date ASC`, (err, row) => {
+            if (err || row.length === 0) {
+                res.status(401).json({message: 'Articles non trouvés !'})
+            } else {
+                const post = row;
+                res.status(200).json(post);
+            }
+        })
+    } catch (error) {
+        res.status(500).json({error})
+    }
+};
+
+// exportation de la fonction de récupération des articles par ordre de popularité
+exports.getPopularPosts = (req, res) => {
+    try {
+        db.query(`SELECT *, DATE_FORMAT(date, "%d-%m-%Y") AS date FROM posts ORDER BY likes DESC`, (err, row) => {
+            if (err || row.length === 0) {
+                res.status(401).json({message: 'Articles non trouvés !'})
+            } else {
+                const post = row;
+                res.status(200).json(post);
+            }
+        })
+    } catch (error) {
+        res.status(500).json({error})
+    }
+};
+
