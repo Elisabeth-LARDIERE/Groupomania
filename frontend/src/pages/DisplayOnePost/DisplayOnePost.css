@@ -1,0 +1,172 @@
+/******************** FULL POST ********************/
+
+/********** Extra Small Devices **********/
+
+.asideFullPost {
+    display: none;
+}
+
+.fullPostBox {
+    display: flex;
+    flex-direction: column;
+    height: 93vh;
+    justify-content: space-between;
+}
+
+.fullPostBoxContent {
+    padding: 10px;
+    min-height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.fullPostIntro {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.fullPostAuthor {
+    display: flex;
+    align-items: center;
+}
+
+.fullPostAuthorId {
+    font-family: 'Libre Baskerville', 'serif';
+    font-size: 0.9em;
+    margin: 0;
+}
+
+.fullPostAuthorAvatar {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.fullPostSeparator {
+    background-color: #BFC9D6;
+    border: none;
+    height: 1px;
+}
+
+.fullPostComsLikes {
+    display: none;
+}
+
+.fullPostComsLikesSmallDevices {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.comsIconPost, .likesIconPost, .dislikesIconPost {
+    padding-right: 3px;
+    font-size: 0.7em;
+    color: #FFCAD4;
+}
+
+.likesIconPost:hover, .dislikesIconPost:hover,
+.likesIconPost:focus, .dislikesIconPost:focus {
+    animation: hoverIcon 1s linear infinite alternate;
+    color: #D72C6C;
+    outline: none;
+}
+
+@keyframes hoverIcon {
+    from {
+        transform: scale(1);
+        color: #FFCAD4;
+    }
+    to {
+        transform: scale(1.2);
+        color: #D72C6C;
+    }
+}
+
+.iconStylePost {
+    font-family: 'Libre Baskerville', 'serif';
+    font-size: 0.7em;
+    color: #FFCAD4;
+    margin: 0;
+    padding-right: 10px;
+}
+
+.fullPostTotalComsBox {
+    display: flex;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(24, 30, 86, 0.12), 0 1px 2px rgba(24, 30, 86, 0.24);
+    border-radius: 15px;
+    padding: 0 15px 0 10px;
+    margin-right: 20px;
+    height: 20px;
+}
+
+.fullPostLikesBox {
+    display: flex;
+    align-items: center;
+    padding: 0 15px 0 10px;
+    box-shadow: 0 1px 3px rgba(24, 30, 86, 0.12), 0 1px 2px rgba(24, 30, 86, 0.24);
+    border-radius: 15px;
+    height: 20px;
+}
+
+.fullPostContent {
+    line-height: 2em;
+}
+
+.fullPostBoxComs {
+    background-color: #F1FCFC;
+    padding: 10px;
+}
+
+.fullPostComment {
+    display: flex;
+    flex-direction: column;
+}
+
+.editorCom {
+    margin-bottom: 10px;
+}
+
+.tox-tbtn:hover, .tox-tbtn:focus {
+    animation: none;
+}
+
+.fullPostCommentButton {
+    height: 30px;
+    font-size: 0.8em;
+    width: 100px;
+    align-self: flex-end;
+    margin-bottom: 10px;
+}
+
+.com {
+    border-radius: 10px;
+    box-shadow: 5px 4px 15px rgba(24, 30, 86, 0.25), 0 5px 5px rgba(24, 30, 86, 0.22);
+    margin: 10px 0;
+    padding: 5px;
+    background-color: white;
+}
+
+.comAuthor {
+    display: flex;
+    align-items: center;
+    font-family: 'Libre Baskerville', serif;
+    margin-bottom: 10px;
+}
+
+.comAvatar {
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+}
+
+.comAuthorId {
+    padding: 0 8px;
+    margin: 0;
+}
+
+.comContent {
+    font-size: 0.9em;
+    line-height: 1.5em;
+}
