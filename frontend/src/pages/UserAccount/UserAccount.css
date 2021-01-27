@@ -80,3 +80,258 @@
     margin-top: 15px;
     font-size: 0.9em;
 }
+
+
+/******************** MEDIA QUERIES ********************/
+
+/********** Small Devices **********/
+
+@media screen and (min-width: 480px) {
+
+    .accountBloc {
+        height: 86vh;
+    }
+
+    .accountInfosList {
+        width: 90vw;
+    }
+
+    .accountAvatarField {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .accountSeparator {
+        margin-bottom: 20px;
+    }
+
+    .accountAvatar {
+        width: 20vw;
+        height: 20vw;
+        margin-bottom: 0;
+    }
+
+    .accountButtonsAndBigAvatar {
+        width: 100%;
+    }
+
+    .accountButtons {
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-around;
+        margin-top: 20px;
+    }
+
+    .accountUpdateButton, .accountDeleteButton {
+        height: 35px;
+        padding: 5px 10px;
+        width: 170px;
+    }
+}
+
+/********** Medium Devices **********/
+
+@media screen and (min-width: 768px) {
+
+    .accountBloc {
+        height: 79vh;
+    }
+
+    .accountInfosList {
+        width: 80vw;
+    }
+
+    .accountAvatarField {
+        justify-content: inherit;
+    }
+
+    .accountAvatar {
+        width: 7vw;
+        height: 7vw;
+        margin-right: 20px;
+    }
+
+    .accountButtons {
+        margin-top: 20px;
+    }
+}
+
+/********** Large Devices **********/
+
+@media screen and (min-width: 1024px) {
+
+    .accountBloc {
+        height: 79vh;
+    }
+
+    .accountBoxInfos {
+        flex-direction: row;
+        align-items: inherit;
+        justify-content: center;
+        height: 65vh;
+        margin: 30px 15px 0;
+    }
+
+    .accountInfosList {
+        width: 60vh;
+        height: 60vh;
+    }
+
+    .accountAvatar {
+        width: 8vw;
+        height: 8vw;
+    }
+
+    .accountButtonsAndBigAvatar {
+        display: flex;
+        flex-direction: column;
+        height: 60vh;
+    }
+
+    .bigAvatar {
+        display: block;
+        width: 40vh;
+        height: 40vh;
+        align-self: center;
+        margin: auto 0;
+        border-radius: 10px;
+    }
+
+    .accountButtons {
+        margin: 0;
+    }
+
+    .accountUpdateButton, .accountDeleteButton {
+        margin: 0 15px;
+    }
+}
+
+/********** ExtraLarge Devices **********/
+
+@media screen and (min-width: 1280px) {
+
+    .mainAccount {
+        display: flex;
+    }
+
+    .accountBloc {
+        width: 75vw;
+        height: 84vh;
+        margin-right: 25vw;
+        box-shadow: 5px 4px 15px rgba(24, 30, 86, 0.25), 0 5px 5px rgba(24, 30, 86, 0.22);
+    }
+
+    .accountInfosList {
+        height: 60vh;
+    }
+
+    .accountBoxInfos {
+        margin: 20px 0 0;
+        padding-left: 50px;
+    }
+
+    .accountAvatar {
+        width: 7vw;
+        height: 7vw;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+
+    .accountInfosList {
+        height: 65vh;
+    }
+
+    .accountLabel {
+        font-size: 1.1em;
+    }
+
+    .accountInput {
+        font-size: 1.1em;
+    }
+
+    .accountButtons {
+        margin: 0;
+    }
+
+    .accountUpdateButton, .accountDeleteButton {
+        font-size: 1em;
+        width: 200px;
+    }
+
+    .accountSeparator {
+        margin-bottom: 20px;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+
+    .accountInfosList {
+        height: 60vh;
+        width: 80vw;
+    }
+
+    .accountBloc {
+        width: 75vw;
+        margin-right: 25vw;
+        height: 81vh;
+    }
+
+    .accountSeparator {
+        margin-bottom: 10px;
+    }
+
+    .accountAvatar {
+        width: 5vw;
+        height: 5vw;
+    }
+
+    .accountButtons {
+        justify-content: space-around;
+    }
+
+    .accountUpdateButton, .accountDeleteButton {
+        margin: 0;
+    }
+}
+
+@media screen and (min-width: 1920px) {
+
+    .accountBloc {
+        width: 80vw;
+        margin-right: 20vw;
+    }
+
+    .accountBoxInfos {
+        justify-content: inherit;
+    }
+
+    .accountInfosList {
+        width: 60vw;
+        height: 60vh;
+    }
+
+    .accountField {
+        margin: 20px;
+    }
+
+    .accountLabel {
+        margin-bottom: 15px;
+        font-size: 1.2em;
+    }
+
+    .accountInput {
+        padding: 10px;
+        font-size: 1.2em;
+    }
+
+    .accountUpdateButton, .accountDeleteButton {
+        font-size: 1.2em;
+        width: 220px;
+        margin: 0 25px;
+    }
+
+    .accountSeparator {
+        margin-bottom: 20px;
+    }
+}
