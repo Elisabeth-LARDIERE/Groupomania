@@ -127,3 +127,65 @@ exports.getAllUsers = (req, res) => {
         res.status(500).json({error})
     }
 };
+
+// exportation de la fonction de modification d'un utilisateur
+
+exports.updateUser = (req, res) => {
+    try {
+        db.query(`SELECT * FROM users WHERE userId = '${req.query.userId}'`, (err, row) => {
+            if (err || row.length === 0) {
+                res.status(401).json({message: 'Impossible de modifier le profil !'})
+            } else {
+                const user = row[0];
+                const userUpdated = req.file ? {
+                    firstname: req.body.firstname,
+                    lastname: req.body.lastname,
+                    email: req.body.email,
+                    avatar: `images/${req.file.filename}`
+                } : {
+                    firstname: req.body.firstname,
+                    lastname: req.body.lastname,
+                    email: req.body.email
+                }
+
+                let query = `UPDATE users SET `;
+                let updated = false;
+                if (userUpdated.email !== user.email) {
+                    query += `email = '${userUpdated.email}'`
+                    updated = true;
+                }
+                if (userUpdated.firstname !== user.firstname) {
+                    if (updated) {
+                        query += `, `;
+                    }
+                    query += `firstname = '${userUpdated.firstname}'`
+                    updated = true;
+                }
+                if (userUpdated.lastname !== user.lastname) {
+                    if (updated) {
+                        query += `, `;
+                    }
+                    query += `lastname = '${userUpdated.lastname}'`
+                    updated = true;
+                }
+                if (userUpdated.avatar != null) {
+                    if (updated) {
+                        query += `, `;
+                    }
+                    query += `avatar = '${userUpdated.avatar}'`
+                    updated = true;
+                }
+
+                if (updated) {
+                    db.query(query + `WHERE userId = '${req.query.userId}'`);
+                    res.status(200).json({avatar: userUpdated.avatar ? userUpdated.avatar : user.avatar});
+                } else {
+                    res.status(204).json();
+                }
+            }
+        })
+
+    } catch (error) {
+        res.status(500).json({error})
+    }
+};
