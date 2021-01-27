@@ -1,0 +1,77 @@
+/******************** FOOTER ********************/
+
+/********** Extra Small Devices **********/
+
+.footer {
+    display: none;
+}
+
+/******************** MEDIA QUERIES ********************/
+
+/********** Medium Devices **********/
+
+@media screen and (min-width: 768px) {
+
+    .footer {
+        display: flex;
+        height: 7vh;
+        justify-content: space-between;
+        padding: 0 30px;
+        font-family: 'Montserrat', serif;
+        font-size: 1em;
+        position: sticky;
+        bottom: 0;
+        background-image: radial-gradient(#2FC4D5, #07ADC1);
+    }
+
+    .titleFooter {
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .mailFooter {
+        color: #181E56;
+    }
+
+    .mailFooter:hover, .mailFooter:focus {
+        color: #D72C6C;
+    }
+
+    .contactFooterFullBox {
+        position: fixed;
+        display: flex;
+        font-size: 0.8em;
+        flex-direction: column;
+        padding-left: 5px;
+        left: 0;
+        bottom: 0;
+        width: 30%;
+        transform: translateX(-31vw);
+        transition: transform 250ms ease-in-out;
+        background-image: radial-gradient(#2FC4D5, #07ADC1);
+    }
+
+    .openContact:checked ~ .contactFooterFullBox {
+        transform: translateX(0);
+    }
+
+    .fa-angle-double-left {
+        font-size: 1em;
+        cursor: pointer;
+        padding-bottom: 5px;
+    }
+
+    .pFooter {
+        margin: 10px;
+    }
+}
+
+/********** Extra Large Devices **********/
+
+@media screen and (min-width: 1280px) {
+
+    .footer {
+        display: none;
+    }
+}
+
