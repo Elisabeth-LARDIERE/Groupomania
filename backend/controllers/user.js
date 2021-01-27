@@ -189,3 +189,226 @@ exports.updateUser = (req, res) => {
         res.status(500).json({error})
     }
 };
+
+// exportation de la fonction de suppression d'un utlisateur
+/*let queryPromise = async function (sql, values) {
+    return new Promise((resolve, reject) => {
+       setTimeout(() => {
+           resolve();
+       }, 100)
+    });
+}
+
+queryPromise('1', {}).then((row) => {
+    lsllsl
+}).catch((err) => {
+    res.status(401).json({message: 'Impossible de supprimer le compte !'}); // si on le trouve pas : message d'impossibilité de suppression
+});
+queryPromise('2')
+    .then(() => {
+        return queryPromise('3')
+    })
+    .then(() => {
+        return queryPromise('4').catch(() => {
+
+        })
+    })
+    .then(() => {
+        // tout cest bien passer
+    }).catch(() => {
+        // ouille
+})
+Promise.all([queryPromise(), queryPromise()]).then(() => {
+
+})
+sdhfskj*/
+
+/*db.query().then(() => {
+    sdfsd
+}).then(() => {
+    sdf
+})
+let promise = Promise.resolve();
+for(let i = jhsj) {
+    promise = promise.then(() => {
+        return db.query1()
+    }).then((dfs) => {
+
+    })
+}
+promise.then(() => {
+    // tout qui est fini
+})*/
+
+// db.query(`SELECT * FROM users WHERE userId = '${req.query.userId}'`).then((row) => {
+//     if (row.length === 0) {
+//         res.status(401).json({message: 'Impossible de supprimer le compte !'}); // si on le trouve pas : message d'impossibilité de suppression
+//     }  else {
+//         db.query(`SELECT postId, COUNT(*) AS totalComs FROM coms WHERE userId = '${req.query.userId}' GROUP BY postId`, (err, row) => { //on cherche le nombre de commentaires laissés par l'utilisateur, et sur quels articles
+//                 if (err || row.length === 0) { // si pas de résultats : erreur
+//                     console.log('pas de commentaires publiés');
+//                 } else { // si résultats
+//                     console.log(1);
+//                     for (let i of row) { // pour chaque paire clé/valeur obtenue...
+//                         const comsPostId = i.postId; // ... on crée une constante pour chaque valeur : id de l'article et total de coms associé,
+//                         console.log(2);
+//                         const comsTotalComs = i.totalComs;
+//                         console.log(3);
+//                         db.query(`SELECT * FROM posts WHERE postId = '${comsPostId}'`, (err, row) => { // ... on cherche dans la table articles tous les articles avec les id obtenus
+//                                 if (err || row.length === 0) {
+//                                     console.log('chou');
+//                                 } else {
+//                                     const totalComs = row[0].totalComs;
+//                                     console.log(4);
+//                                     const newTotal = totalComs - comsTotalComs;
+//                                     console.log(5);
+//                                     db.query(`UPDATE posts SET posts.totalComs = '${newTotal}' WHERE postId = '${comsPostId}'`); // on met à jour le total des coms pour chacun de ces articles.
+//                                     console.log(6);
+//                                 }
+//                             }
+//                         )
+//                     }
+//                 }
+//             }
+//         )
+//
+//         db.query(`SELECT * FROM likes WHERE userId = '${req.query.userId}' GROUP BY postId`, (err, row) => { //on cherche le nombre de commentaires laissés par l'utilisateur, et sur quels articles
+//             if (err || row.length === 0) { // si pas de résultats : erreur
+//                 console.log('pas de likes publiés');
+//             } else { // si résultats
+//                 console.log(7);
+//                 for (let i of row) { // pour chaque paire clé/valeur obtenue...
+//                     const likesPostId = i.postId; // ... on crée une constante pour chaque valeur : id de l'article et total de coms associé,
+//                     console.log(8);
+//                     db.query(`SELECT * FROM posts WHERE postId = '${likesPostId}'`, (err, row) => { // ... on cherche dans la table articles tous les articles avec les id obtenus
+//                         if (err || row.length === 0) { // si pas de résultats : erreur
+//                             console.log('carotte');
+//                         } else { // si résultats
+//                             const totalLikes = row[0].likes;
+//                             console.log(9);
+//                             const newTotal = totalLikes - 1;
+//                             console.log(10);
+//                             db.query(`UPDATE posts SET posts.likes = '${newTotal}' WHERE postId = '${likesPostId}'`); // on met à jour le total des coms pour chacun de ces articles.
+//                             console.log(11);
+//                         }
+//                     })
+//                 }
+//             }
+//         })
+//
+//         db.query(`SELECT * FROM dislikes WHERE userId = '${req.query.userId}' GROUP BY postId`, (err, row) => { //on cherche le nombre de commentaires laissés par l'utilisateur, et sur quels articles
+//             if (err || row.length === 0) { // si pas de résultats : erreur
+//                 console.log('pas de dislikes publiés');
+//             } else { // si résultats
+//                 console.log(12);
+//                 for (let i of row) { // pour chaque paire clé/valeur obtenue...
+//                     const dislikesPostId = i.postId; // ... on crée une constante pour chaque valeur : id de l'article et total de coms associé,
+//                     console.log(13);
+//                     db.query(`SELECT * FROM posts WHERE postId = '${dislikesPostId}'`, (err, row) => { // ... on cherche dans la table articles tous les articles avec les id obtenus
+//                         if (err || row.length === 0) { // si pas de résultats : erreur
+//                             console.log('navet');
+//                         } else { // si résultats
+//                             const totalDislikes = row[0].dislikes;
+//                             console.log(14);
+//                             const newTotal = totalDislikes - 1;
+//                             console.log(15);
+//                             db.query(`UPDATE posts SET posts.dislikes = '${newTotal}' WHERE postId = '${dislikesPostId}'`); // on met à jour le total des coms pour chacun de ces articles.
+//                         }
+//                     })
+//                 }
+//             }
+//         })
+//         db.query(`DELETE FROM users WHERE userId = '${req.query.userId}'`)
+//         console.log(16);
+//         res.status(204).json();
+//     }
+// })
+exports.deleteUser = (req, res) => {
+    try {
+        db.query(`SELECT * FROM users WHERE userId = '${req.query.userId}'`, (err, row) => { // on cherche l'utilisateur en question dans la bdd
+            if (err || row.length === 0) {
+                res.status(401).json({message: 'Impossible de supprimer le compte !'}); // si on le trouve pas : message d'impossibilité de suppression
+            } else { // si on le trouve
+                db.query(`SELECT postId, COUNT(*) AS totalComs FROM coms WHERE userId = '${req.query.userId}' GROUP BY postId`, (err, row) => { //on cherche le nombre de commentaires laissés par l'utilisateur, et sur quels articles
+                        if (err || row.length === 0) { // si pas de résultats : erreur
+                            console.log('pas de commentaires publiés');
+                        } else { // si résultats
+                            console.log(1);
+                            for (let i of row) { // pour chaque paire clé/valeur obtenue...
+                                const comsPostId = i.postId; // ... on crée une constante pour chaque valeur : id de l'article et total de coms associé,
+                                console.log(2);
+                                const comsTotalComs = i.totalComs;
+                                console.log(3);
+                                db.query(`SELECT * FROM posts WHERE postId = '${comsPostId}'`, (err, row) => { // ... on cherche dans la table articles tous les articles avec les id obtenus
+                                        if (err || row.length === 0) {
+                                            console.log('chou');
+                                        } else {
+                                            const totalComs = row[0].totalComs;
+                                            console.log(4);
+                                            const newTotal = totalComs - comsTotalComs;
+                                            console.log(5);
+                                            db.query(`UPDATE posts SET posts.totalComs = '${newTotal}' WHERE postId = '${comsPostId}'`); // on met à jour le total des coms pour chacun de ces articles.
+                                            console.log(6);
+                                        }
+                                    }
+                                )
+                            }
+                        }
+                    }
+                )
+
+                db.query(`SELECT * FROM likes WHERE userId = '${req.query.userId}' GROUP BY postId`, (err, row) => { //on cherche le nombre de commentaires laissés par l'utilisateur, et sur quels articles
+                    if (err || row.length === 0) { // si pas de résultats : erreur
+                        console.log('pas de likes publiés');
+                    } else { // si résultats
+                        console.log(7);
+                        for (let i of row) { // pour chaque paire clé/valeur obtenue...
+                            const likesPostId = i.postId; // ... on crée une constante pour chaque valeur : id de l'article et total de coms associé,
+                            console.log(8);
+                            db.query(`SELECT * FROM posts WHERE postId = '${likesPostId}'`, (err, row) => { // ... on cherche dans la table articles tous les articles avec les id obtenus
+                                if (err || row.length === 0) { // si pas de résultats : erreur
+                                    console.log('carotte');
+                                } else { // si résultats
+                                    const totalLikes = row[0].likes;
+                                    console.log(9);
+                                    const newTotal = totalLikes - 1;
+                                    console.log(10);
+                                    db.query(`UPDATE posts SET posts.likes = '${newTotal}' WHERE postId = '${likesPostId}'`); // on met à jour le total des coms pour chacun de ces articles.
+                                    console.log(11);
+                                }
+                            })
+                        }
+                    }
+                })
+
+                db.query(`SELECT * FROM dislikes WHERE userId = '${req.query.userId}' GROUP BY postId`, (err, row) => { //on cherche le nombre de commentaires laissés par l'utilisateur, et sur quels articles
+                    if (err || row.length === 0) { // si pas de résultats : erreur
+                        console.log('pas de dislikes publiés');
+                    } else { // si résultats
+                        console.log(12);
+                        for (let i of row) { // pour chaque paire clé/valeur obtenue...
+                            const dislikesPostId = i.postId; // ... on crée une constante pour chaque valeur : id de l'article et total de coms associé,
+                            console.log(13);
+                            db.query(`SELECT * FROM posts WHERE postId = '${dislikesPostId}'`, (err, row) => { // ... on cherche dans la table articles tous les articles avec les id obtenus
+                                if (err || row.length === 0) { // si pas de résultats : erreur
+                                    console.log('navet');
+                                } else { // si résultats
+                                    const totalDislikes = row[0].dislikes;
+                                    console.log(14);
+                                    const newTotal = totalDislikes - 1;
+                                    console.log(15);
+                                    db.query(`UPDATE posts SET posts.dislikes = '${newTotal}' WHERE postId = '${dislikesPostId}'`); // on met à jour le total des coms pour chacun de ces articles.
+                                }
+                            })
+                        }
+                    }
+                })
+                db.query(`DELETE FROM users WHERE userId = '${req.query.userId}'`)
+                console.log(16);
+                res.status(204).json();
+            }
+        })
+    } catch (error) {
+        res.status(500).json({error})
+    }
+};
