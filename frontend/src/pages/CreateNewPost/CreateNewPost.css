@@ -1,0 +1,49 @@
+/******************** CREATE POST ********************/
+
+/********** Extra Small Devices **********/
+
+.newPostSection {
+    background-color: #F1FCFC;
+    display: flex;
+    flex-direction: column;
+    height: 88vh;
+}
+
+.newPostBloc {
+    display: flex;
+    flex-direction: column;
+}
+
+.newPostBox {
+    width: 96vw;
+    padding: 0 2vw;
+}
+
+.newPostTitle, .newPostContent {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.newPostTitleLabel {
+    margin-bottom: 5px;
+}
+
+.newPostTitleInput {
+    height: 30px;
+    font-size: 1.5em;
+    color: #181E56;
+    padding: 5px;
+}
+
+.newPostValidationButton {
+    display: none;
+}
+
+.newPostValidationButtonSmallDevices {
+    height: 30px;
+    width: 200px;
+    font-size: 1em;
+    margin: 35px;
+    align-self: center;
+}
