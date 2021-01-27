@@ -14,6 +14,7 @@ import {
 import {faComments, faThumbsDown, faThumbsUp} from "@fortawesome/fontawesome-free-regular";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
 
 
 class DisplayOnePost extends React.Component {
@@ -540,6 +541,8 @@ class DisplayOnePost extends React.Component {
                         </section>
                     </div>
                 </main>
+
+                <Footer/>
             </Fragment>
 
         )

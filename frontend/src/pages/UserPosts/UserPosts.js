@@ -10,6 +10,7 @@ import {
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faComments, faThumbsDown, faThumbsUp} from "@fortawesome/fontawesome-free-regular";
 import {faEye, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import Footer from "../../components/Footer/Footer";
 
 class UserPosts extends React.Component {
     constructor(props) {
@@ -163,6 +164,8 @@ class UserPosts extends React.Component {
                         </div>
                     </aside>
                 </main>
+
+                <Footer/>
             </Fragment>
         )
     }

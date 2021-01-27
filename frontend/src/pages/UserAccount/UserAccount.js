@@ -3,6 +3,7 @@ import React, {Fragment} from 'react';
 import './UserAccount.css';
 import {deleteUserRequest, updateUserRequest} from "../../utils/Api";
 import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
 
 class UserAccount extends React.Component {
     constructor(props) {
@@ -157,6 +158,8 @@ class UserAccount extends React.Component {
                         </div>
                     </aside>
                 </main>
+
+                <Footer/>
             </Fragment>
 
         )

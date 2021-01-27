@@ -2,6 +2,7 @@
 import React, {Fragment} from "react";
 import './Terms.css';
 import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
 
 function Terms() {
     return (
@@ -137,6 +138,8 @@ function Terms() {
                     diam. Pellentesque nec metus egestas, egestas ipsum sit amet, lacinia nibh.
                 </p>
             </main>
+
+            <Footer/>
         </Fragment>
     )
 }

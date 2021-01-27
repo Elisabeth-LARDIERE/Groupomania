@@ -4,6 +4,7 @@ import Header from '../../components/Header/Header';
 import './CreateNewPost.css'
 import {createPostRequest} from "../../utils/Api";
 import {Editor} from "@tinymce/tinymce-react";
+import Footer from "../../components/Footer/Footer";
 
 class CreateNewPost extends React.Component {
     constructor(props) {
@@ -125,6 +126,8 @@ class CreateNewPost extends React.Component {
                         </div>
                     </aside>
                 </main>
+
+                <Footer/>
 
             </Fragment>
         )

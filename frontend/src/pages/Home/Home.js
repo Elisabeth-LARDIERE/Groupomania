@@ -5,6 +5,7 @@ import './Home.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faComments, faThumbsDown, faThumbsUp} from "@fortawesome/free-regular-svg-icons";
 import Header from '../../components/Header/Header';
+import Footer from "../../components/Footer/Footer";
 
 class Home extends React.Component {
     constructor(props) {
@@ -248,6 +249,8 @@ class Home extends React.Component {
                         </div>
                     </aside>
                 </main>
+
+                <Footer/>
             </Fragment>
         )
     }
