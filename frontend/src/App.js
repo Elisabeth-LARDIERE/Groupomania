@@ -8,6 +8,7 @@ import DisplayOnePost from "./pages/DisplayOnePost/DisplayOnePost";
 import Terms from "./pages/Terms/Terms";
 import CreateNewPost from "./pages/CreateNewPost/CreateNewPost";
 import UserAccount from "./pages/UserAccount/UserAccount";
+import UserPosts from "./pages/UserPosts/UserPosts";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/terms" component={Terms}/>
             <Route path="/createNewPost" component={CreateNewPost}/>
             <Route path="/userAccount" component={UserAccount}/>
+            <Route path="/userPosts" component={UserPosts}/>
         </Switch>
       </Router>
   );

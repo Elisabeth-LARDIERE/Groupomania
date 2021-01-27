@@ -195,9 +195,40 @@ const deleteUserRequest = () => {
     );
 }
 
+const deletePostRequest = () => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    const postId = JSON.parse(localStorage.getItem('postId'));
+    return axios.delete(
+        'http://localhost:3001/api/v1/posts/delete/?postId=' + postId,
+        {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        }
+    );
+}
+
+const getAllUserPostsRequest = () => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    const userId = JSON.parse(localStorage.getItem('userId'));
+    return axios.get(
+        'http://localhost:3001/api/v1/auth/:userId/posts',
+        {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            params: {
+                'userId': userId
+            }
+        }
+    )
+}
+
 export { signupRequest, loginRequest, getOneUserRequest, getAllPostsRequest, getOnePostRequest, getOldPostsRequest,
         getPopularPostsRequest, likePostRequest, dislikePostRequest, createComRequest, getAllComsRequest, createPostRequest,
-        updateUserRequest, deleteUserRequest
+        updateUserRequest, deleteUserRequest, deletePostRequest, getAllUserPostsRequest
 };
 
 
