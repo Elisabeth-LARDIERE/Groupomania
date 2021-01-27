@@ -1,6 +1,6 @@
 //importations
 import React, {Fragment} from 'react';
-import {getAllPostsRequest, getOnePostRequest} from '../../utils/Api';
+import {getAllPostsRequest, getOldPostsRequest, getOnePostRequest, getPopularPostsRequest} from '../../utils/Api';
 import './Home.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faComments, faThumbsDown, faThumbsUp} from "@fortawesome/free-regular-svg-icons";
@@ -10,16 +10,84 @@ class Home extends React.Component {
         super(props)
         this.state = {
             showPosts: true,
+            showPopularPosts: false,
+            showOldPosts: false,
             postsList: [],
         }
         this.handleClickOnePost = this.handleClickOnePost.bind(this);
+        this.handleChangeFilter = this.handleChangeFilter.bind(this);
+
         this.Posts = this.Posts.bind(this);
+        this.PopularPosts = this.PopularPosts.bind(this);
+        this.OldPosts = this.OldPosts.bind(this);
     }
 
     Posts() {
         return (
             <h1 className="postsBoxTitle">À la Une</h1>
         )
+    }
+
+    PopularPosts() {
+        return (
+            <h1 className="postsBoxTitle">Les plus populaires</h1>
+        )
+    }
+
+    OldPosts() {
+        return (
+            <h1 className="postsBoxTitle">Les plus anciennes</h1>
+        )
+    }
+
+    handleChangeFilter(event) {
+        event.preventDefault();
+        if (event.target.value === 'Les plus récentes') {
+            getAllPostsRequest()
+                .then(res => {
+                    const postsList = res.data;
+                    this.setState({postsList});
+                })
+                .catch(error => {
+                    this.setState({error});
+                })
+            this.setState({
+                value: event.target.value,
+                showPopularPosts: false,
+                showOldPosts: false,
+                showPosts: true
+            });
+        } else if (event.target.value === 'Les plus populaires') {
+            getPopularPostsRequest()
+                .then(res => {
+                    const postsList = res.data;
+                    this.setState({postsList});
+                })
+                .catch(error => {
+                    this.setState({error});
+                })
+            this.setState({
+                value: event.target.value,
+                showPopularPosts: true,
+                showOldPosts: false,
+                showPosts: false
+            });
+        } else if (event.target.value === 'Les plus anciennes') {
+            getOldPostsRequest()
+                .then(res => {
+                    const postsList = res.data;
+                    this.setState({postsList});
+                })
+                .catch(error => {
+                    this.setState({error});
+                })
+            this.setState({
+                value: event.target.value,
+                showOldPosts: true,
+                showPopularPosts: false,
+                showPosts: false
+            });
+        }
     }
 
     handleClickOnePost(post) {
@@ -54,6 +122,27 @@ class Home extends React.Component {
                 <main className="mainHome">
                     <section className="postsBox">
                         {this.state.showPosts ? <this.Posts/> : null}
+                        {this.state.showPopularPosts ? <this.PopularPosts/> : null}
+                        {this.state.showOldPosts ? <this.OldPosts/> : null}
+
+                        <div className="filter filterSmallDevices">
+                            <p className="filterTitleSmallDevices">Trier les publications</p>
+                            <select className="filterOptionsSmallDevices" value={this.state.value}
+                                    onChange={this.handleChangeFilter}>
+
+                                <option className="filterNewsSmallDevices">
+                                    Les plus récentes
+                                </option>
+
+                                <option className="filterLikesSmallDevices">
+                                    Les plus populaires
+                                </option>
+
+                                <option className="filterDateOldSmallDevices">
+                                    Les plus anciennes
+                                </option>
+                            </select>
+                        </div>
 
                         <ul className="postsList">
                             {this.state.postsList.map(post => {

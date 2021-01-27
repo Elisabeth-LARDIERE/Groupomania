@@ -62,6 +62,32 @@ const getOnePostRequest = () => {
     )
 }
 
-export { signupRequest, loginRequest, getOneUserRequest, getAllPostsRequest, getOnePostRequest};
+const getOldPostsRequest = () => {
+    const token = JSON.parse(localStorage.getItem('token'))
+    return axios.get(
+        'http://localhost:3001/api/v1/posts/old',
+        {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        }
+    );
+}
+
+const getPopularPostsRequest = () => {
+    const token = JSON.parse(localStorage.getItem('token'))
+    return axios.get(
+        'http://localhost:3001/api/v1/posts/popular',
+        {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        }
+    );
+}
+
+export { signupRequest, loginRequest, getOneUserRequest, getAllPostsRequest, getOnePostRequest, getOldPostsRequest, getPopularPostsRequest};
 
 
