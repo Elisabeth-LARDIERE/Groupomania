@@ -86,3 +86,90 @@ exports.deletePost = (req, res) => {
         res.status(500).json({error})
     }
 };
+
+//exportation de la fonction de like d'un article
+exports.likePost = (req, res) => {
+    try {
+        const token = req.headers.authorization.split(' ')[1]; // récupération du token dans le header authorization
+        const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); // vérification du token
+        const userId = decodedToken.userId;
+        db.query(`SELECT * FROM posts WHERE postId = '${req.query.postId}'`,  (err, row) => {
+            const postLikes = row[0].likes;
+            const postDislikes = row[0].dislikes;
+            const likes = postLikes + 1;
+            const unlikes = postLikes - 1;
+            const undislikes = postDislikes - 1;
+            if (err || row.length === 0) {
+                res.status(401).json({err})
+            } else {
+                db.query(`SELECT * FROM likes WHERE userId = '${userId}' AND postId = '${req.query.postId}'`,  (err, row) => {
+                    if (err || row.length === 0) {
+                        db.query(`SELECT * FROM dislikes WHERE userId = '${userId}' AND postId = '${req.query.postId}'`,  (err, row) => {
+                            if (err || row.length === 0) {
+                                db.query(`INSERT INTO likes(userId, postId) VALUES ('${userId}', '${req.query.postId}')`);
+                                db.query(`UPDATE posts SET posts.likes = '${likes}' WHERE postId = '${req.query.postId}'`);
+                                res.status(200).json({message: 'L utilisateur aime cet article !'});
+                            } else {
+                                db.query(`DELETE FROM dislikes WHERE postId = '${req.query.postId}' AND userId = '${userId}'`);
+                                db.query(`UPDATE posts SET posts.dislikes = '${undislikes}' WHERE postId = '${req.query.postId}'`);
+                                db.query(`INSERT INTO likes(userId, postId) VALUES ('${userId}', '${req.query.postId}')`);
+                                db.query(`UPDATE posts SET posts.likes = '${likes}' WHERE postId = '${req.query.postId}'`);
+                                res.status(200).json({message: 'L utilisateur aime cet article !'});
+                            }
+                        })
+                    } else {
+                        db.query(`DELETE FROM likes WHERE postId = '${req.query.postId}' AND userId = '${userId}'`);
+                        db.query(`UPDATE posts SET posts.likes = '${unlikes}' WHERE postId = '${req.query.postId}'`);
+                        res.status(200).json({message: 'like supprimé !'})
+                    }
+                })
+            }
+        })
+    } catch (error) {
+        res.status(500).json({error})
+    }
+};
+
+//exportation de la fonction de like d'un article
+exports.dislikePost = (req, res) => {
+    try {
+        const token = req.headers.authorization.split(' ')[1]; // récupération du token dans le header authorization
+        const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); // vérification du token
+        const userId = decodedToken.userId;
+        db.query(`SELECT * FROM posts WHERE postId = '${req.query.postId}'`,  (err, row) => {
+            const postLikes = row[0].likes;
+            const postDislikes = row[0].dislikes;
+            const unlikes = postLikes - 1;
+            const dislikes = postDislikes + 1;
+            const undislikes = postDislikes - 1;
+            if (err || row.length === 0) {
+                return res.status(401).json({err})
+            } else {
+                db.query(`SELECT * FROM dislikes WHERE userId = '${userId}' AND postId = '${req.query.postId}'`,  (err, row) => {
+                    if (row.length === 0) {
+                        db.query(`SELECT * FROM likes WHERE userId = '${userId}' AND postId = '${req.query.postId}'`,  (err, row) => {
+                            if (row.length === 0) {
+                                db.query(`INSERT INTO dislikes(userId, postId) VALUES ('${userId}', '${req.query.postId}')`);
+                                db.query(`UPDATE posts SET posts.dislikes = '${dislikes}' WHERE postId = '${req.query.postId}'`);
+                                return res.status(200).json({message: 'L utilisateur n aime pas cet article !'});
+                            } else {
+                                db.query(`DELETE FROM likes WHERE postId = '${req.query.postId}' AND userId = '${userId}'`);
+                                db.query(`UPDATE posts SET posts.likes = '${unlikes}' WHERE postId = '${req.query.postId}'`);
+                                db.query(`INSERT INTO dislikes(userId, postId) VALUES ('${userId}', '${req.query.postId}')`);
+                                db.query(`UPDATE posts SET posts.dislikes = '${dislikes}' WHERE postId = '${req.query.postId}'`);
+                                return res.status(200).json({message: 'L utilisateur n aime pas cet article !'});
+                            }
+                        })
+                    } else {
+                        db.query(`DELETE FROM dislikes WHERE postId = '${req.query.postId}' AND userId = '${userId}'`);
+                        db.query(`UPDATE posts SET posts.dislikes = '${undislikes}' WHERE postId = '${req.query.postId}'`);
+                        return res.status(200).json({message: 'dislike supprimé !'})
+                    }
+                })
+            }
+        })
+    } catch (error) {
+        res.status(500).json({error})
+    }
+};
+
