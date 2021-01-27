@@ -8,6 +8,7 @@ const passwordValidator = require('password-validator');
 const User = require('../models/User');
 const db = require('../db');
 const escapeString = require('../escape-string');
+const jwt = require('jsonwebtoken');
 
 // création d'un modèle de mot de passe
 const passwordSchema = new passwordValidator();
@@ -53,6 +54,41 @@ exports.signup = async (req, res) => {
             db.query(`INSERT INTO users(firstname, lastname, email, password) VALUES('${escapeString(user.firstname)}', '${escapeString(user.lastname)}', '${user.email}', '${user.password}')`)
             res.status(201).json(user)
         }
+    } catch (error) {
+        res.status(500).json({error})
+    }
+};
+
+// exportation de la fonction de connexion d'un utilisateur
+exports.login = (req, res) => {
+    try {
+
+        // vérification de la présence de l'utilisateur dans la bdd
+        db.query(`SELECT * FROM users WHERE email = '${req.body.email}'`, (err, row) => {
+            if (err || row.length === 0) {
+                res.status(401).json({message: 'Utilisateur non trouvé !'})
+            } else {
+                const user = row[0];
+                bcrypt.compare((req.body.password), user.password, (err, data) => {
+                        // si utilisateur trouvé, comparaison mdp et hash
+                        if (!data) {
+                            res.status(401).json({message: 'Mot de passe incorrect !'})
+                        } else {
+                            const newToken = jwt.sign(
+                                {userId: user.userId},
+                                'RANDOM_TOKEN_SECRET',
+                                {expiresIn: '24h'}
+                            )
+                            res.status(200).json({ // si mdp ok, encodage d'un nouveau token
+                                userId: user.userId,
+                                token: newToken,
+                                message: 'Utilisateur connecté'
+                            });
+                        }
+                    }
+                )
+            }
+        })
     } catch (error) {
         res.status(500).json({error})
     }
