@@ -32,3 +32,108 @@
 .formRegisterLink {
     margin: 0;
 }
+
+/******************** MEDIA QUERIES ********************/
+
+/********** Small Devices **********/
+
+@media screen and (min-width: 480px) {
+
+    .formLoginBox {
+        height: 76vh;
+    }
+
+    .formLoginBox {
+        padding: 20px;
+    }
+
+}
+
+/********** Medium Devices **********/
+
+@media screen and (min-width: 768px) {
+    .formLoginBox {
+        margin-top: 38px;
+        align-items: center;
+        padding: 25px 0;
+        height: 75vh;
+    }
+
+    .formTitleLogin {
+        font-size: 3em;
+    }
+
+}
+
+
+/********** Large Devices **********/
+
+@media screen and (min-width: 1024px) {
+
+    .formButtonLogin {
+        height: 50px;
+        font-size: 2em;
+    }
+}
+
+/********** Extra Large Devices **********/
+
+@media screen and (min-width: 1280px) {
+
+    .mainLogin {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .sectionLogin {
+        width: 45vw;
+        height: 100vh;
+    }
+
+    .formLogin {
+        margin: 0 auto;
+    }
+
+    .formLoginBox {
+        padding: 0 20px;
+    }
+
+    .formTitleLogin {
+        margin: 0 0 20px 10px;
+        font-size: 2.5em;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+
+    .formTitleLogin {
+        margin-left: 40px;
+        margin-top: 60px;
+        margin-bottom: 40px;
+    }
+
+    .formButtonLogin {
+        margin-top: 40px;
+    }
+
+}
+
+@media screen and (min-width: 1600px) {
+
+    .formTitleLogin {
+        margin-left: 50px;
+    }
+}
+
+@media screen and (min-width: 1920px) {
+
+    .formButtonLogin {
+        height: 70px;
+    }
+
+    .formTitleLogin {
+        margin-left: 70px;
+        font-size: 3em;
+    }
+
+}

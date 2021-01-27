@@ -11,3 +11,52 @@
     transform: translate(-50%, -50%);
     animation: none;
 }
+
+/******************** MEDIA QUERIES ********************/
+
+/********** Small Devices **********/
+
+@media screen and (min-width: 480px) {
+
+    .logoSphere {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+/********** Medium Devices **********/
+
+@media screen and (min-width: 768px) {
+
+    .logoSphere {
+        position: initial;
+        animation: spin 4s linear infinite;
+        transform: none;
+    }
+
+    @keyframes spin {
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+}
+
+/********** Large Devices **********/
+
+@media screen and (min-width: 1024px) {
+
+    .logoSphere {
+        width: 65px;
+        height: 65px;
+    }
+}
+
+/********** Extra Large Devices **********/
+
+@media screen and (min-width: 1280px) {
+
+    .logoSphere {
+        width: 80px;
+        height: 80px;
+    }
+}

@@ -119,3 +119,63 @@ input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
 .menuMail:hover, .menuMail:focus {
     color: #D72C6C;
 }
+
+
+/******************** MEDIA QUERIES ********************/
+
+/********** Small Devices **********/
+
+@media screen and (min-width: 480px) {
+
+    .spinner {
+        width: 120%;
+    }
+
+    .horizontal {
+        margin-top: 5px;
+    }
+
+    .diagonal.part-2 {
+        margin-top: 5px;
+    }
+
+    input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-1 {
+        transition: all 0.3s;
+        box-sizing: border-box;
+        transform: rotate(130deg);
+        margin-top: 8px;
+    }
+
+    input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
+        transition: all 0.3s;
+        box-sizing: border-box;
+        transform: rotate(-130deg);
+        margin-top: -11px;
+    }
+
+    #sidebarMenu {
+        margin-top: 93px;
+    }
+
+    .sidebarIconToggle {
+        top: 33%;
+    }
+
+    .sidebarMenuInner li {
+        padding: 20px;
+    }
+
+    .menuSupport {
+        font-size: 0.9em;
+        padding-left: 20px;
+    }
+}
+
+/********** Medium Devices **********/
+
+@media screen and (min-width: 768px) {
+
+    .burgerMenu {
+        display: none;
+    }
+}

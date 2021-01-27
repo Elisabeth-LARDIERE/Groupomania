@@ -11,3 +11,43 @@
     transform: translate(-50%, -50%);
 
 }
+
+/******************** MEDIA QUERIES ********************/
+
+/********** Medium Devices **********/
+
+@media screen and (min-width: 768px) {
+
+    .logoName {
+        position: initial;
+        margin-left: 10px;
+        margin-top: 5px;
+        width: 75%;
+        transform: none;
+    }
+}
+
+/********** Large Devices **********/
+
+@media screen and (min-width: 1024px) {
+
+    .logoName {
+        width: 70%;
+    }
+}
+
+/********** Extra Large Devices **********/
+
+@media screen and (min-width: 1280px) {
+
+    .logoName {
+        margin-left: 20px;
+        width: 70%;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    .logoName {
+        margin-top: 15px;
+    }
+}

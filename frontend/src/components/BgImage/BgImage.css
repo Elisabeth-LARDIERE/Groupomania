@@ -1,0 +1,12 @@
+/******************** BACKGROUND IMAGE ********************/
+
+/********** Large Devices **********/
+
+@media screen and (min-width: 1024px) {
+
+    .sectionWallpaper {
+        height: 1080px;
+        box-shadow: 5px 4px 15px rgba(24, 30, 86, 0.25), 0 5px 5px rgba(24, 30, 86, 0.22);
+    }
+
+}
