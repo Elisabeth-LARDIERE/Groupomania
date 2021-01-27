@@ -120,3 +120,176 @@
 .postLikes {
     padding-right: 20px;
 }
+
+
+/******************** MEDIA QUERIES ********************/
+
+/********** Small Devices **********/
+
+@media screen and (min-width: 480px) {
+
+    .filterSmallDevices {
+        margin: 20px 0 30px;
+        width: 70%;
+    }
+
+    .post {
+        width: 375px;
+        height: 250px;
+        margin: 10px auto 20px;
+    }
+
+    .postAuthorName {
+        font-size: 0.8em;
+    }
+
+    .avatarHome {
+        width: 30px;
+        height: 30px;
+    }
+
+    .postDate {
+        font-family: 'Libre Baskerville', 'serif';
+        font-size: 0.7em;
+    }
+
+    .postPreview {
+        font-size: 1.3em;
+    }
+}
+
+/********** Medium Devices **********/
+
+@media screen and (min-width: 768px) {
+
+    .mainHome {
+        display: flex;
+    }
+
+    .filterSmallDevices {
+        width: 40%;
+    }
+
+    .postsList {
+        justify-content: center;
+    }
+
+    .post {
+        width: 320px;
+        height: 250px;
+        margin: 20px;
+    }
+
+    .avatarHome {
+        width: 40px;
+        height: 40px;
+    }
+
+    .postAuthorId {
+        font-size: 1.2em;
+    }
+
+    .postDate {
+        font-size: 0.8em;
+    }
+
+    .postPreviewTitle {
+        font-size: 0.7em;
+    }
+
+    .postPreviewContent {
+        font-size: 0.6em;
+    }
+}
+
+/********** Large Devices **********/
+
+@media screen and (min-width: 1024px) {
+
+    .post {
+        width: 270px;
+        height: 200px;
+        margin: 25px 20px;
+
+    }
+
+    .avatarHome {
+        width: 30px;
+        height: 30px;
+    }
+
+    .postDate {
+        font-size: 0.7em;
+    }
+}
+
+/********** Extra Large Devices **********/
+
+@media screen and (min-width: 1280px) {
+
+    .postsBox {
+        width: 75vw;
+        margin-right: 25vw;
+    }
+
+    .postsList {
+        justify-content: flex-start;
+    }
+
+    .post {
+        width: 370px;
+        height: 260px;
+        margin: 25px 40px;
+    }
+
+    .postAuthorName {
+        font-size: 0.9em;
+    }
+
+    .avatarHome {
+        width: 40px;
+        height: 40px;
+    }
+
+    .postAuthorId {
+        font-size: 1.2em;
+        padding-left: 7px;
+    }
+
+    .postDate {
+        font-size: 0.9em;
+    }
+
+    .postPreviewTitle {
+        font-size: 0.8em;
+    }
+
+    .postPreviewContent {
+        font-size: 0.7em;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+
+    .post {
+        width: 400px;
+        height: 260px;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+
+    .postsBox {
+        padding-left: 10px;
+    }
+
+}
+
+@media screen and (min-width: 1920px) {
+
+    .postsBox {
+        width: 80vw;
+        margin-right: 20vw;
+    }
+}
+

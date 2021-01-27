@@ -199,6 +199,29 @@ class Home extends React.Component {
                     </section>
 
                     <aside>
+                        <div className="filter">
+                            <p className="filterTitle">Trier les publications</p>
+
+                            <hr className="separator"/>
+
+                            <select className="filterOptions" value={this.state.value}
+                                    onChange={this.handleChangeFilter}>
+
+                                <option className="filterNews">
+                                    Les plus récentes
+                                </option>
+
+                                <option className="filterLikes">
+                                    Les plus populaires
+                                </option>
+
+                                <option className="filterDateOld">
+                                    Les plus anciennes
+                                </option>
+
+                            </select>
+
+                        </div>
 
                         <div className="support">
                             <div className="contact">

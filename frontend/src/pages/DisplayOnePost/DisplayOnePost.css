@@ -170,3 +170,257 @@
     font-size: 0.9em;
     line-height: 1.5em;
 }
+
+
+/******************** MEDIA QUERIES ********************/
+
+/********** Small Devices **********/
+
+@media screen and (min-width: 480px) {
+
+}
+
+/********** Medium Devices **********/
+
+@media screen and (min-width: 768px) {
+
+    .fullPostTotalComsBox, .fullPostLikesBox {
+        height: 25px;
+        padding-right: 20px;
+    }
+
+    .comsIconPost, .likesIconPost, .dislikesIconPost, .iconStylePost {
+        font-size: 0.9em;
+    }
+}
+
+/********** Large Devices **********/
+
+@media screen and (min-width: 1024px) {
+
+    .fullPostBox {
+        padding: 10px 10px 0;
+    }
+
+    .fullPostBoxContent {
+        padding-bottom: 10px;
+    }
+
+    .fullPostContent {
+        font-size: 1.2em;
+    }
+
+    .fullPostAuthorId {
+        font-size: 1.1em;
+    }
+
+    .fullPostAuthorAvatar {
+        width: 40px;
+        height: 40px;
+    }
+
+    .comAvatar {
+        width: 30px;
+        height: 30px;
+    }
+
+    .comContent {
+        font-size: 1em;
+    }
+}
+
+/********** Extra Large Devices **********/
+
+@media screen and (min-width: 1280px) {
+
+    /*************** Aside ***************/
+    .asideFullPost {
+        display: flex;
+        align-items: inherit;
+        background-image: radial-gradient(#2FC4D5, #07ADC1);
+        box-shadow: 5px 4px 15px rgba(24, 30, 86, 0.25), 0 5px 5px rgba(24, 30, 86, 0.22);
+        width: 18vw;
+        padding: 1vw;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        border: none;
+    }
+
+    /********** current user **********/
+    .fullPostCurrentUser {
+        display: flex;
+        padding: 10px;
+        margin-bottom: 80px;
+        align-items: center;
+        box-shadow: 0 14px 28px rgba(24, 30, 86, 0.25), 0 10px 10px rgba(24, 30, 86, 0.22);
+    }
+
+    .fullPostCurrentUserAvatar {
+        border-radius: 50%;
+        width: 70px;
+        height: 70px;
+        margin-right: 20px;
+    }
+
+    .fullPostCurrentUserId {
+        font-family: 'Libre Baskerville', 'serif';
+        font-size: 1.3em;
+    }
+
+    /********** navigation menu **********/
+    .fullPostMenu {
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        box-shadow: 0 14px 28px rgba(24, 30, 86, 0.25), 0 10px 10px rgba(24, 30, 86, 0.22);
+        margin-bottom: 30px;
+    }
+
+    .fullPostMenuTitle {
+        font-size: 1.2em;
+    }
+
+    .fullPostMenuTitle:hover, .fullPostMenuTitle:focus {
+        font-weight: bold;
+    }
+
+    .fullPostMenuChoice {
+        display: flex;
+        flex-direction: column;
+        width: fit-content;
+        margin-bottom: 30px;
+    }
+
+    .fullPostMenuChoiceTerms {
+        margin-bottom: 0;
+    }
+
+    .fullPostMenuChoiceLink {
+        font-size: 1.1em;
+        padding: 5px 0;
+    }
+
+    .fullPostMenuChoiceLink:hover, .fullPostMenuChoiceLink:focus {
+        font-weight: bold;
+    }
+
+    /********** logo **********/
+    aside .logoSphere {
+        width: 80px;
+        height: 80px;
+        align-self: center;
+        margin: 90px 0;
+    }
+
+    /********** support **********/
+    .fullPostAsideSeparator {
+        width: 40%;
+        background-color: #FFCAD4;
+        border: none;
+        height: 1px;
+    }
+
+    .fullPostMail:hover, .fullPostMail:focus {
+        color: #D72C6C;
+    }
+
+    /*************** Post ***************/
+    .fullPostBox {
+        width: 80%;
+        padding: 0;
+        margin-left: 20%;
+        height: 100vh;
+    }
+
+    .fullPostBoxContent {
+        box-shadow: none;
+        padding: 10px 20px;
+    }
+
+    .fullPostIntro {
+        margin: 0;
+    }
+
+    .fullPostAuthor {
+        align-items: center;
+    }
+
+    .fullPostAuthorAvatar {
+        height: 40px;
+        margin-right: 15px;
+    }
+
+    .fullPostBoxComs {
+        background-color: #F1FCFC;
+        padding: 20px;
+    }
+
+    .com {
+        border-radius: 10px;
+        box-shadow: 5px 4px 15px rgba(24, 30, 86, 0.25), 0 5px 5px rgba(24, 30, 86, 0.22);
+        margin: 10px 0;
+        padding: 5px;
+        background-color: white;
+    }
+
+    .comAuthor {
+        display: flex;
+        align-items: center;
+        font-family: 'Libre Baskerville', serif;
+        margin-bottom: 10px;
+    }
+
+    .comAvatar {
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+    }
+
+    .comAuthorId {
+        padding: 0 10px;
+        margin: 0;
+    }
+
+    .comContent {
+        line-height: 1.5em;
+        margin-left: 45px;
+    }
+
+    .tox-tbtn:hover, .tox-tbtn:focus {
+        animation: none;
+    }
+
+    .fullPostCommentButton {
+        height: 35px;
+        font-size: 1em;
+        width: 150px;
+    }
+
+    .com {
+        border-radius: 10px;
+        box-shadow: 0 1px 3px rgba(24, 30, 86, 0.12), 0 1px 2px rgba(24, 30, 86, 0.24);
+        padding: 10px;
+        background-color: white;
+        margin: 20px 0 0;
+    }
+
+    .comAuthor {
+        display: flex;
+        align-items: center;
+        font-family: 'Libre Baskerville', serif;
+    }
+
+
+    @media screen and (min-width: 1440px) {
+
+    }
+
+    @media screen and (min-width: 1600px) {
+
+    }
+
+    @media screen and (min-width: 1920px) {
+
+    }
+}

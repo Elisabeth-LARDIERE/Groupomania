@@ -36,7 +36,10 @@ class DisplayOnePost extends React.Component {
             PostChoices: false,
             AccountChoices: false,
             redirect: false,
+            width: window.innerWidth
         }
+
+        this.handleResize = this.handleResize.bind(this);
 
         this.handleClickHome = this.handleClickHome.bind(this);
         this.handlePressEnterHome = this.handlePressEnterHome.bind(this);
@@ -330,6 +333,11 @@ class DisplayOnePost extends React.Component {
             })
     }
 
+    handleResize() {
+        this.setState( {
+            width: window.innerWidth
+        })
+    }
 
     async componentDidMount() {
         await getAllComsRequest()
@@ -347,10 +355,21 @@ class DisplayOnePost extends React.Component {
         const user = JSON.parse(localStorage.getItem('user'));
         const renderHTML = (rawHTML: string) => React.createElement("div", {dangerouslySetInnerHTML: {__html: rawHTML}});
         const post = JSON.parse(localStorage.getItem('post'));
+        window.addEventListener('resize', this.handleResize);
+        const renderHeader = () => {
+            console.log(this.state.width);
+            if(this.state.width < 1280) {
+                return(
+                    <Header/>
+                )
+            } else {
+                return null;
+            }
+        }
         return (
             <Fragment>
+                {renderHeader()}
                 <main className="mainPost">
-                    <Header/>
                     <aside className="asideFullPost">
 
                         <div className="fullPostCurrentUser currentUser">
