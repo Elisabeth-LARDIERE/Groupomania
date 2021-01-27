@@ -3,6 +3,7 @@
 // importations
 const express = require('express');
 const userCtrl = require('../controllers/user');
+const multer = require('../middleware/multer-config');
 
 // création d'un routeur express
 const router = express.Router();
@@ -15,7 +16,7 @@ router.post('/login', userCtrl.login);
 router.get('/', userCtrl.getOneUser);
 router.get('/users', userCtrl.getAllUsers);
 router.get('/:userId/posts', userCtrl.getAllUserPosts);
-router.put('/update', userCtrl.updateUser);
+router.put('/update', multer, userCtrl.updateUser);
 router.delete('/delete', userCtrl.deleteUser);
 
 
