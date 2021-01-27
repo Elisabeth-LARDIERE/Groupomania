@@ -102,6 +102,28 @@ class CreateNewPost extends React.Component {
                             </button>
                         </div>
                     </section>
+
+                    <aside className="asideNoFilter">
+                        <div className="support">
+                            <div className="contactNoFilter contact">
+                                <p className="contactTitle supportTitle">Contact</p>
+
+                                <p>1 rue du réseau<br/>
+                                    44000 NANTES</p>
+                                <p>02 23 23 23 23</p>
+
+                                <p>
+                                    <a className="mail" href="mailto:social@groupomania.com">social@groupomania.com</a>
+                                </p>
+                            </div>
+
+                            <div className="termsLink">
+                                <a href="http://localhost:3000/terms">
+                                    <button className="termsButton button">Mentions légales</button>
+                                </a>
+                            </div>
+                        </div>
+                    </aside>
                 </main>
 
             </Fragment>
