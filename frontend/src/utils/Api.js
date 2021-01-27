@@ -147,8 +147,22 @@ const getAllComsRequest = () => {
     );
 }
 
+const createPostRequest = (title, content) => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    return axios.post(
+        'http://localhost:3001/api/v1/posts/create',
+        {title, content},
+        {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        }
+    );
+}
+
 export { signupRequest, loginRequest, getOneUserRequest, getAllPostsRequest, getOnePostRequest, getOldPostsRequest,
-        getPopularPostsRequest, likePostRequest, dislikePostRequest, createComRequest, getAllComsRequest
+        getPopularPostsRequest, likePostRequest, dislikePostRequest, createComRequest, getAllComsRequest, createPostRequest
 };
 
 

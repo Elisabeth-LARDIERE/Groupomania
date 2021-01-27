@@ -6,6 +6,7 @@ import Login from './pages/Login/Login';
 import Home from "./pages/Home/Home";
 import DisplayOnePost from "./pages/DisplayOnePost/DisplayOnePost";
 import Terms from "./pages/Terms/Terms";
+import CreateNewPost from "./pages/CreateNewPost/CreateNewPost";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path="/home" component={Home}/>
             <Route path="/displayOnePost" component={DisplayOnePost}/>
             <Route path="/terms" component={Terms}/>
+            <Route path="/createNewPost" component={CreateNewPost}/>
         </Switch>
       </Router>
   );
