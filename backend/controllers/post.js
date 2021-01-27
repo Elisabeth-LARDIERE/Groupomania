@@ -36,3 +36,37 @@ exports.createPost = (req, res) => {
         res.status(500).json({error})
     }
 };
+
+// exportation de la fonction de récupération d'un article
+exports.getOnePost = (req, res) => {
+    try {
+        const postId = req.params;
+        db.query(`SELECT * FROM posts WHERE postId = '${postId}'`, (err, row) => {
+            if (err || row.length === 0) {
+                res.status(401).json({message: 'Article non trouvé !'})
+            } else {
+                const post = row;
+                res.status(200).json(post);
+            }
+        })
+    } catch (error) {
+        res.status(500).json({error})
+    }
+};
+
+
+// exportation de la fonction de récupération de tous les articles
+exports.getAllPosts = (req, res) => {
+    try {
+        db.query(`SELECT *, DATE_FORMAT(date, "%d-%m-%Y") AS date FROM posts ORDER BY date DESC`, (err, row) => {
+            if (err || row.length === 0) {
+                res.status(401).json({message: 'Articles non trouvés !'})
+            } else {
+                const post = row;
+                res.status(200).json(post);
+            }
+        })
+    } catch (error) {
+        res.status(500).json({error})
+    }
+};
