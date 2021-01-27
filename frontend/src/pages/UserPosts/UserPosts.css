@@ -1,0 +1,112 @@
+/******************** USER POSTS ********************/
+
+/********** Extra Small Devices **********/
+
+.userPostsSection {
+    background-color: #F1FCFC;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 5px 4px 15px rgba(24, 30, 86, 0.25), 0 5px 5px rgba(24, 30, 86, 0.22);
+    height: 88vh;
+}
+
+.userPostsList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.userPost {
+    border-radius: 5px;
+    width: 90%;
+    height: 50px;
+    margin-bottom: 15px;
+    padding: 5px 10px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 1px 6px rgba(24, 30, 86, 0.12), 0 1px 2px rgba(24, 30, 86, 0.24);
+    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+    background-color: white;
+}
+
+.userPost:hover {
+    box-shadow: 0 4px 15px rgba(24, 30, 86, 0.25), 0 5px 5px rgba(24, 30, 86, 0.22);
+}
+
+.userPostTitle {
+    font-size: 0.8em;
+}
+
+.userPostChoices {
+    display: none;
+}
+
+.userPostChoicesSmallDevices {
+    display: flex;
+    color: #181E56;
+}
+
+.userPostChoicesAndInfos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.userPostComsAndLikes {
+    display: flex;
+}
+
+.userPostLikesBox {
+    display: flex;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(24, 30, 86, 0.12), 0 1px 2px rgba(24, 30, 86, 0.24);
+    border-radius: 15px;
+    padding: 0 25px 0 5px;
+    height: 20px;
+    margin-left: 10px;
+}
+
+.userPostComsBox {
+    display: flex;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(24, 30, 86, 0.12), 0 1px 2px rgba(24, 30, 86, 0.24);
+    border-radius: 15px;
+    padding: 0 25px 0 5px;
+    height: 20px;
+}
+
+.comsIconUserPost, .likesIconUserPost, .dislikesIconUserPost {
+    padding-right: 5px;
+    font-size: 0.7em;
+    color: #FFCAD4;
+}
+
+.iconStyleUserPost {
+    font-family: 'Libre Baskerville', 'serif';
+    font-size: 0.7em;
+    color: #FFCAD4;
+    margin: 0;
+}
+
+.dislikesIconUserPost {
+    margin-left: 5px;
+}
+
+.seeUserPostIconSmallDevices {
+    margin-right: 30px;
+}
+
+.deleteUserPostIconSmallDevices {
+    margin-right: 10px;
+}
+
+.userPostsCreateNewPostButton {
+    width: 190px;
+    height: 40px;
+    font-size: 0.8em;
+    padding: 10px 15px;
+    margin: 20px 40px;
+}
