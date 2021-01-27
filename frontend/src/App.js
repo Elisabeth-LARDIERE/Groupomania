@@ -1,22 +1,17 @@
-
+//importations
+import React from 'react';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import Signup from './pages/Signup/Signup';
+import Login from './pages/Login/Login';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Router>
+        <Switch>
+            <Route path="/" exact component={Login}/>
+            <Route path="/signup" component={Signup}/>
+        </Switch>
+      </Router>
   );
 }
 
