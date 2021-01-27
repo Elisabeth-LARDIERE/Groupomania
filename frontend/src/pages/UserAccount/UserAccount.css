@@ -1,0 +1,82 @@
+/******************** USER ACCOUNT ********************/
+
+/********** Extra Small Devices **********/
+
+.accountBloc {
+    background-color: #F1FCFC;
+    display: flex;
+    flex-direction: column;
+    height: 88vh;
+}
+
+.accountBoxInfos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 80vh;
+    margin-top: 10px;
+}
+
+.accountInfosList {
+    box-shadow: 0 14px 28px rgba(24, 30, 86, 0.25), 0 10px 10px rgba(24, 30, 86, 0.22);
+    border-radius: 5px;
+    width: 95vw;
+    background-color: white;
+}
+
+.accountField {
+    display: flex;
+    margin: 10px 10px 20px 10px;
+}
+
+.accountLabel {
+    margin-bottom: 15px;
+    font-size: 1em;
+    font-family: 'Libre Baskerville', 'serif';
+}
+
+.accountInput {
+    padding: 5px;
+    font-size: 1em;
+    color: #181E56;
+}
+
+.bigAvatar {
+    display: none;
+}
+
+.accountAvatarField {
+    display: flex;
+    justify-content: space-between;
+}
+
+.accountSeparator {
+    margin-bottom: 10px;
+    margin-top: 0;
+    width: 100%;
+}
+
+.accountAvatarInput {
+    padding: 0;
+    box-shadow: none;
+}
+
+.accountAvatar {
+    width: 23vw;
+    height: 23vw;
+    margin-bottom: 10px;
+}
+
+.accountButtons {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.accountUpdateButton, .accountDeleteButton {
+    height: 30px;
+    width: 150px;
+    padding: 5px;
+    margin-top: 15px;
+    font-size: 0.9em;
+}
