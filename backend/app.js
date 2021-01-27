@@ -12,7 +12,6 @@ const cors = require('cors');
 // création de l'application express
 const app = express();
 
-
 // ajout de headers pour toutes les requêtes afin d'autoriser n'importe quel utilisateur à accéder à l'application
 app.use(cors());
 

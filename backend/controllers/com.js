@@ -83,3 +83,21 @@ exports.getAllComs = (req, res) => {
     }
 };
 
+// exportation de la fonction de suppression d'un commentaire
+exports.deleteCom = (req, res) => {
+    try {
+        const {comId} = req.params;
+        db.query(`SELECT * FROM com WHERE comId = '${comId}'`, (err, row) => {
+            if (err || row.length === 0) {
+                res.status(401).json({message: 'Impossible de supprimer le commentaire !'})
+            } else {
+                db.query(`DELETE FROM coms WHERE comId = '${comId}'`);
+                res.status(200).json({message: 'Commentaire supprimé !'})
+            }
+        })
+    } catch (error) {
+        res.status(500).json({error})
+    }
+};
+
+
