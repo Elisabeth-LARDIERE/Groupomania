@@ -4,6 +4,7 @@ import {getAllPostsRequest, getOldPostsRequest, getOnePostRequest, getPopularPos
 import './Home.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faComments, faThumbsDown, faThumbsUp} from "@fortawesome/free-regular-svg-icons";
+import Header from '../../components/Header/Header';
 
 class Home extends React.Component {
     constructor(props) {
@@ -119,6 +120,8 @@ class Home extends React.Component {
         const renderHTML = (rawHTML: string) => React.createElement("div", {dangerouslySetInnerHTML: {__html: rawHTML}});
         return (
             <Fragment>
+                <Header/>
+
                 <main className="mainHome">
                     <section className="postsBox">
                         {this.state.showPosts ? <this.Posts/> : null}
