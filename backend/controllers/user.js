@@ -323,6 +323,7 @@ promise.then(() => {
 //         res.status(204).json();
 //     }
 // })
+
 exports.deleteUser = (req, res) => {
     try {
         db.query(`SELECT * FROM users WHERE userId = '${req.query.userId}'`, (err, row) => { // on cherche l'utilisateur en question dans la bdd
@@ -406,6 +407,25 @@ exports.deleteUser = (req, res) => {
                 db.query(`DELETE FROM users WHERE userId = '${req.query.userId}'`)
                 console.log(16);
                 res.status(204).json();
+            }
+        })
+    } catch (error) {
+        res.status(500).json({error})
+    }
+};
+
+// exportation de la fonction de récupération de tous les articles d'un utilisateur
+exports.getAllUserPosts = (req, res) => {
+    try {
+        const token = req.headers.authorization.split(' ')[1]; // récupération du token dans le header authorization
+        const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); // vérification du token
+        const userId = decodedToken.userId;
+        db.query(`SELECT * FROM posts WHERE userId = '${userId}'`, (err, row) => {
+            if (err || row.length === 0) {
+                res.status(401).json({message: 'Articles non trouvés !'})
+            } else {
+                const post = row;
+                res.status(200).json(post);
             }
         })
     } catch (error) {
