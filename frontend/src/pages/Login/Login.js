@@ -2,8 +2,8 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import BgImage from '../../components/BgImage/BgImage';
-import LogoSphere from '../../components/LogoSphere/LogoSphere';
-import LogoTitle from '../../components/LogoTitle/LogoTitle';
+import LogoSphere, {LogoSphereSignupAndCo} from '../../components/LogoSphere/LogoSphere';
+import LogoTitle, {LogoTitleSignupAndCo} from '../../components/LogoTitle/LogoTitle';
 import FormLogin from '../../components/FormLogin/FormLogin';
 
 import './Login.css';
@@ -18,7 +18,9 @@ function Login() {
             <section className="sectionLogin">
                 <div className="logoBox">
                     <LogoSphere/>
+                    <LogoSphereSignupAndCo/>
                     <LogoTitle/>
+                    <LogoTitleSignupAndCo/>
                 </div>
 
                 <div className="formLoginBox formBox">

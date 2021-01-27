@@ -1,0 +1,34 @@
+/******************** LOGIN ********************/
+
+/********** Extra Small Devices **********/
+
+.formLoginBox {
+    display: flex;
+    flex-direction: column;
+    height: 82vh;
+    margin-top: 40px;
+    padding: 10px;
+}
+
+.formTitleLogin {
+    margin-bottom: 40px;
+}
+
+.formButtonLogin {
+    margin-top: 20px;
+    height: 40px;
+}
+
+.formRegisterChoiceBox {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+}
+
+.formRegisterQuestion {
+    margin: 0 0 15px;
+}
+
+.formRegisterLink {
+    margin: 0;
+}

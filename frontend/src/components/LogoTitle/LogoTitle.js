@@ -9,4 +9,12 @@ function LogoTitle() {
     )
 }
 
+function LogoTitleSignupAndCo() {
+    return (
+        <img className="logoNameSignupAndCo" src={logoName} alt="logo nom Groupomania">
+        </img>
+    )
+}
+
 export default LogoTitle;
+export {LogoTitleSignupAndCo};

@@ -9,4 +9,12 @@ function LogoSphere() {
     )
 }
 
+function LogoSphereSignupAndCo() {
+    return (
+        <img className="logoSphereSignupAndCo" src={logo} alt="logo sphérique de Groupomania">
+        </img>
+    )
+}
+
 export default LogoSphere;
+export {LogoSphereSignupAndCo};

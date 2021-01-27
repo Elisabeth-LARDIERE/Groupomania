@@ -1,0 +1,13 @@
+/******************** LOGO SPHERE ********************/
+
+/********** Extra Small Devices **********/
+
+.logoSphere {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: none;
+}
