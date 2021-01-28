@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/Groupomania/static/css/main.77eb2f95.chunk.css",
-    "main.js": "/Groupomania/static/js/main.f94b5ecc.chunk.js",
-    "main.js.map": "/Groupomania/static/js/main.f94b5ecc.chunk.js.map",
-    "runtime-main.js": "/Groupomania/static/js/runtime-main.5c6b9f17.js",
-    "runtime-main.js.map": "/Groupomania/static/js/runtime-main.5c6b9f17.js.map",
-    "static/js/2.c4d53cfa.chunk.js": "/Groupomania/static/js/2.c4d53cfa.chunk.js",
-    "static/js/2.c4d53cfa.chunk.js.map": "/Groupomania/static/js/2.c4d53cfa.chunk.js.map",
-    "static/js/3.e950b35a.chunk.js": "/Groupomania/static/js/3.e950b35a.chunk.js",
-    "static/js/3.e950b35a.chunk.js.map": "/Groupomania/static/js/3.e950b35a.chunk.js.map",
-    "index.html": "/Groupomania/index.html",
-    "static/css/main.77eb2f95.chunk.css.map": "/Groupomania/static/css/main.77eb2f95.chunk.css.map",
-    "static/js/2.c4d53cfa.chunk.js.LICENSE.txt": "/Groupomania/static/js/2.c4d53cfa.chunk.js.LICENSE.txt",
-    "static/media/logoSphere.58322bce.png": "/Groupomania/static/media/logoSphere.58322bce.png",
-    "static/media/social-media.44415123.png": "/Groupomania/static/media/social-media.44415123.png"
+    "main.css": "/static/css/main.77eb2f95.chunk.css",
+    "main.js": "/static/js/main.f94b5ecc.chunk.js",
+    "main.js.map": "/static/js/main.f94b5ecc.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.9fc24f8f.js",
+    "runtime-main.js.map": "/static/js/runtime-main.9fc24f8f.js.map",
+    "static/js/2.bfed0aa6.chunk.js": "/static/js/2.bfed0aa6.chunk.js",
+    "static/js/2.bfed0aa6.chunk.js.map": "/static/js/2.bfed0aa6.chunk.js.map",
+    "static/js/3.e950b35a.chunk.js": "/static/js/3.e950b35a.chunk.js",
+    "static/js/3.e950b35a.chunk.js.map": "/static/js/3.e950b35a.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.77eb2f95.chunk.css.map": "/static/css/main.77eb2f95.chunk.css.map",
+    "static/js/2.bfed0aa6.chunk.js.LICENSE.txt": "/static/js/2.bfed0aa6.chunk.js.LICENSE.txt",
+    "static/media/logoSphere.58322bce.png": "/static/media/logoSphere.58322bce.png",
+    "static/media/social-media.44415123.png": "/static/media/social-media.44415123.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.5c6b9f17.js",
-    "static/js/2.c4d53cfa.chunk.js",
+    "static/js/runtime-main.9fc24f8f.js",
+    "static/js/2.bfed0aa6.chunk.js",
     "static/css/main.77eb2f95.chunk.css",
     "static/js/main.f94b5ecc.chunk.js"
   ]
