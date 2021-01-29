@@ -51,6 +51,7 @@ button {
 button:hover, .button:focus {
     animation: hoverButton 1s linear infinite alternate;
     outline: none;
+    cursor: pointer;
 }
 
 @keyframes hoverButton {
@@ -114,7 +115,7 @@ a:hover, a:focus {
 
 .formInput::placeholder {
     color: #E5E5E5;
-    font-size: 0.6em;
+    font-size: 0.7em;
     font-style: italic;
 }
 

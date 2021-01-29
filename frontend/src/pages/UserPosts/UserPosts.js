@@ -96,16 +96,6 @@ class UserPosts extends React.Component {
                                         <li className="userPost" key={postId}>
                                             <h2 className="userPostTitle">{post.title}</h2>
                                             <div className="userPostChoicesAndInfos">
-                                                <div className="userPostChoices">
-                                                    <button className="seeUserPostButton userPostButton button"
-                                                            onClick={() => this.handleClickOnePost(post)}>Voir
-                                                    </button>
-
-                                                    <button className="deleteUserPostButton userPostButton button"
-                                                            onClick={() => this.handleDeletePost(post)}>Supprimer
-                                                    </button>
-                                                </div>
-
                                                 <div className="userPostComsAndLikes">
                                                     <div className="userPostComsBox">
                                                         <FontAwesomeIcon className="comsIconUserPost" icon={faComments}/>
@@ -123,14 +113,14 @@ class UserPosts extends React.Component {
                                                     </div>
                                                 </div>
 
-                                                <div className="userPostChoicesSmallDevices">
+                                                <div className="userPostChoices">
                                                     <FontAwesomeIcon
-                                                        className="seeUserPostIconSmallDevices userPostIcon button"
+                                                        className="seeUserPostIcon userPostIcon button"
                                                         icon={faEye}
                                                         onClick={() => this.handleClickOnePost(post)}/>
 
                                                     <FontAwesomeIcon
-                                                        className="deleteUserPostIconSmallDevices userPostIcon button"
+                                                        className="deleteUserPostIcon userPostIcon button"
                                                         icon={faTrashAlt}
                                                         onClick={() => this.handleDeletePost(post)}/>
                                                 </div>

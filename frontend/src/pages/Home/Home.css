@@ -35,6 +35,7 @@
 
 .post:hover {
     box-shadow: 0 14px 28px rgba(24, 30, 86, 0.25), 0 10px 10px rgba(24, 30, 86, 0.22);
+    cursor: pointer;
 }
 
 .postHeader {

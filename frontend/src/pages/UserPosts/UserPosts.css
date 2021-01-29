@@ -44,7 +44,7 @@
     display: none;
 }
 
-.userPostChoicesSmallDevices {
+.userPostChoices {
     display: flex;
     color: #181E56;
 }
@@ -95,11 +95,15 @@
     margin-left: 5px;
 }
 
-.seeUserPostIconSmallDevices {
+.userPostIcon:hover {
+    cursor: pointer;
+}
+
+.seeUserPostIcon {
     margin-right: 30px;
 }
 
-.deleteUserPostIconSmallDevices {
+.deleteUserPostIcon {
     margin-right: 10px;
 }
 
@@ -183,11 +187,11 @@
         font-size: 0.9em;
     }
 
-    .userPostChoicesSmallDevices {
+    .userPostChoices {
         font-size: 1.2em;
     }
 
-    .seeUserPostIconSmallDevices {
+    .seeUserPostIcon {
         margin-right: 50px;
     }
 
@@ -270,11 +274,11 @@
         margin-left: 60px;
     }
 
-    .userPostChoicesSmallDevices {
+    .userPostChoices {
         font-size: 1.4em;
     }
 
-    .seeUserPostIconSmallDevices {
+    .seeUserPostIcon {
         margin-right: 70px;
     }
 }
