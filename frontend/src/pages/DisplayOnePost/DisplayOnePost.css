@@ -13,6 +13,10 @@
     justify-content: space-between;
 }
 
+.fullPostTitle {
+    font-size: 1.1em;
+}
+
 .fullPostBoxContent {
     padding: 10px;
     min-height: 60%;
@@ -33,7 +37,7 @@
 
 .fullPostAuthorId {
     font-family: 'Libre Baskerville', 'serif';
-    font-size: 0.9em;
+    font-size: 1.1em;
     margin: 0;
 }
 
@@ -110,6 +114,10 @@
     height: 20px;
 }
 
+.postLikes {
+    padding-right: 25px;
+}
+
 .fullPostContent {
     line-height: 2em;
 }
@@ -162,13 +170,14 @@
 }
 
 .comAuthorId {
-    padding: 0 8px;
+    padding: 0 9px;
     margin: 0;
 }
 
 .comContent {
     font-size: 0.9em;
     line-height: 1.5em;
+    margin-left: 35px;
 }
 
 
@@ -178,6 +187,13 @@
 
 @media screen and (min-width: 480px) {
 
+    .fullPostAuthorId {
+        font-size: 1.2em;
+    }
+
+    .fullPostTitle {
+        font-size: 1.3em;
+    }
 }
 
 /********** Medium Devices **********/
@@ -191,6 +207,10 @@
 
     .comsIconPost, .likesIconPost, .dislikesIconPost, .iconStylePost {
         font-size: 0.9em;
+    }
+
+    .comAuthorId {
+        font-size: 1.1em;
     }
 }
 
@@ -211,7 +231,7 @@
     }
 
     .fullPostAuthorId {
-        font-size: 1.1em;
+        font-size: 1.3em;
     }
 
     .fullPostAuthorAvatar {
@@ -219,13 +239,22 @@
         height: 40px;
     }
 
+    .fullPostTitle {
+        font-size: 1.4em;
+    }
+
     .comAvatar {
         width: 30px;
         height: 30px;
     }
 
+    .comAuthorId {
+        font-size: 1.2em;
+    }
+
     .comContent {
         font-size: 1em;
+        margin-left: 40px;
     }
 }
 
@@ -279,6 +308,7 @@
 
     .fullPostMenuTitle {
         font-size: 1.2em;
+        cursor: pointer;
     }
 
     .fullPostMenuTitle:hover, .fullPostMenuTitle:focus {
@@ -290,6 +320,7 @@
         flex-direction: column;
         width: fit-content;
         margin-bottom: 30px;
+        cursor: pointer;
     }
 
     .fullPostMenuChoiceTerms {

@@ -14,7 +14,7 @@ class Home extends React.Component {
             showPosts: true,
             showPopularPosts: false,
             showOldPosts: false,
-            postsList: [],
+            postsList: []
         }
         this.handleClickOnePost = this.handleClickOnePost.bind(this);
         this.handleChangeFilter = this.handleChangeFilter.bind(this);
@@ -22,6 +22,7 @@ class Home extends React.Component {
         this.Posts = this.Posts.bind(this);
         this.PopularPosts = this.PopularPosts.bind(this);
         this.OldPosts = this.OldPosts.bind(this);
+        this.OnePostLink = this.OnePostLink.bind(this);
     }
 
     Posts() {
@@ -39,6 +40,12 @@ class Home extends React.Component {
     OldPosts() {
         return (
             <h1 className="postsBoxTitle">Les plus anciennes</h1>
+        )
+    }
+
+    OnePostLink() {
+        return (
+            <p className="onePostLink">Voir plus</p>
         )
     }
 
@@ -152,8 +159,8 @@ class Home extends React.Component {
                             {this.state.postsList.map(post => {
                                     const {postId} = post;
                                     return (
-                                        <li className="post" key={postId} tabIndex="0"
-                                            onClick={() => this.handleClickOnePost(post)}>
+                                        <li className="post" key={postId} tabIndex="0">
+
                                             <div className="postHeader">
                                                 <div className="postAuthorHome postAuthor">
                                                     <img className="avatarHome avatar"
@@ -176,6 +183,9 @@ class Home extends React.Component {
 
                                                 <div className="postPreviewContent">{renderHTML(post.content)}</div>
                                             </div>
+
+                                            <button className="seeMoreButton button" onClick={() => this.handleClickOnePost(post)}>Voir plus</button>
+
 
                                             <div className="postFooter">
 

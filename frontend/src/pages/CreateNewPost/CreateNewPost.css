@@ -9,6 +9,10 @@
     height: 88vh;
 }
 
+.newPostSectionTitle {
+    margin-bottom: 35px;
+}
+
 .newPostBloc {
     display: flex;
     flex-direction: column;
@@ -89,6 +93,7 @@
         width: 200px;
         font-size: 1em;
         margin-top: 20px;
+        margin-bottom: 35px;
     }
 
     .newPostValidationButtonSmallDevices {

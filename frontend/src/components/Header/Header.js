@@ -211,7 +211,7 @@ class Header extends React.Component {
 
                 <nav className="navBar">
                     <ul className="menuChoiceHome menuChoice">
-                        <li className="menuTitle" tabIndex="0" onMouseEnter={this.handleHoverHome}
+                        <li className="menuTitle" tabIndex="0" onClick={this.handleHoverHome}
                             onKeyDown={this.handlePressEnterHome}>Accueil
                         </li>
                     </ul>

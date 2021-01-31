@@ -6,9 +6,14 @@
     background-color: #F1FCFC;
     display: flex;
     flex-direction: column;
-    align-items: center;
     box-shadow: 5px 4px 15px rgba(24, 30, 86, 0.25), 0 5px 5px rgba(24, 30, 86, 0.22);
     height: 88vh;
+}
+
+.userPostsSectionTitleAndCreate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .userPostsList {
@@ -100,7 +105,7 @@
 }
 
 .seeUserPostIcon {
-    margin-right: 30px;
+    margin-right: 40px;
 }
 
 .deleteUserPostIcon {
@@ -151,7 +156,6 @@
     .userPostsCreateNewPostButton {
         width: 210px;
         font-size: 0.9em;
-        margin-top: 10px;
     }
 
 }
@@ -212,11 +216,12 @@
     .userPostsSection {
         width: 75vw;
         margin-right: 25vw;
-        height: 84%;
+        height: 84vh;
     }
 
-    .userPostsSectionTitle {
-        padding: 0;
+    .userPostsList {
+        justify-content: flex-start;
+        margin-left: 50px;
     }
 
     .userPost {
@@ -243,6 +248,8 @@
         width: 270px;
         height: 50px;
         font-size: 1.2em;
+        align-self: flex-start;
+        margin: 20px 0 20px 50px;
     }
 }
 
@@ -254,6 +261,7 @@
 
     .userPostsSection {
         width: 75vw;
+        height: 81vh;
         margin-right: 25vw;
     }
 }
@@ -261,7 +269,6 @@
 @media screen and (min-width: 1920px) {
 
     .userPostsSection {
-        height: 81%;
         width: 80vw;
         margin-right: 20vw;
     }

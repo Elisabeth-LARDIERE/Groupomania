@@ -1,5 +1,6 @@
 //importations
 import React, {Fragment} from 'react';
+import ReactTooltip from "react-tooltip";
 import Header from "../../components/Header/Header";
 import './UserPosts.css';
 import {
@@ -17,11 +18,15 @@ class UserPosts extends React.Component {
         super(props);
         this.state = {
             userPostsList: [],
-            redirect: false
+            redirect: false,
+            seePost: false
         }
         this.handleCreateNewPost = this.handleCreateNewPost.bind(this);
         this.handleClickOnePost = this.handleClickOnePost.bind(this);
+        //this.handleHoverSeePost = this.handleHoverSeePost.bind(this);
         this.handleDeletePost = this.handleDeletePost.bind(this);
+
+        //this.SeePost = this.SeePost.bind(this);
     }
 
     handleCreateNewPost() {
@@ -50,6 +55,12 @@ class UserPosts extends React.Component {
             })
     }
 
+    /* handleHoverSeePost() {
+         this.setState( {
+             seePost: true
+         })
+     }*/
+
     handleDeletePost(post) {
         const postId = post.postId;
         localStorage.setItem('postId', JSON.stringify(postId));
@@ -62,6 +73,12 @@ class UserPosts extends React.Component {
                 this.setState({error})
             })
     }
+
+    /*SeePost() {
+        return (
+            <span className="seePostTooltip">Voir l'article</span>
+        )
+}*/
 
     async componentDidMount() {
         await getAllUserPostsRequest()
@@ -116,13 +133,19 @@ class UserPosts extends React.Component {
                                                 <div className="userPostChoices">
                                                     <FontAwesomeIcon
                                                         className="seeUserPostIcon userPostIcon button"
-                                                        icon={faEye}
+                                                        icon={faEye} data-tip data-for="seePostTip"
                                                         onClick={() => this.handleClickOnePost(post)}/>
+                                                    <ReactTooltip id="seePostTip" place="top" effect="solid">
+                                                        Voir l'article
+                                                    </ReactTooltip>
 
                                                     <FontAwesomeIcon
                                                         className="deleteUserPostIcon userPostIcon button"
-                                                        icon={faTrashAlt}
+                                                        icon={faTrashAlt} data-tip data-for="deletePostTip"
                                                         onClick={() => this.handleDeletePost(post)}/>
+                                                    <ReactTooltip id="deletePostTip" place="top" effect="solid">
+                                                        Supprimer l'article
+                                                    </ReactTooltip>
                                                 </div>
                                             </div>
                                         </li>

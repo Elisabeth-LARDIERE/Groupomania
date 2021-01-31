@@ -4,6 +4,7 @@ import './UserAccount.css';
 import {deleteUserRequest, updateUserRequest} from "../../utils/Api";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
+import {validateForm, validEmailRegex} from "../../utils/Validations";
 
 class UserAccount extends React.Component {
     constructor(props) {
@@ -15,7 +16,11 @@ class UserAccount extends React.Component {
             email: user.email,
             avatar: 'http://localhost:3001/' + user.avatar,
             previewAvatar: null,
-            password: user.password
+            errors: {
+                firstname: '',
+                lastname: '',
+                email: ''
+            }
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleChangeAvatar = this.handleChangeAvatar.bind(this);
@@ -23,8 +28,34 @@ class UserAccount extends React.Component {
     }
 
     handleChange(event) {
-        this.setState({
-            [event.target.name]: event.target.value
+        event.preventDefault();
+        const {name, value} = event.target;
+        const errors = this.state.errors;
+
+        switch (name) {
+            case 'firstname':
+                errors.firstname =
+                    value.length < 2
+                        ? 'Votre prénom doit contenir au moins 2 caractères.'
+                        : ''
+                break;
+            case 'lastname':
+                errors.lastname =
+                    value.length < 2
+                        ? 'Votre nom de famille doit contenir au moins 2 caractères.'
+                        : ''
+                break;
+            case 'email':
+                errors.email =
+                    validEmailRegex.test(value)
+                        ? ''
+                        : 'Adresse mail non valide.'
+                break;
+            default:
+                break;
+        }
+        this.setState({errors, [name]: value}, () => {
+            console.log(errors)
         })
     }
 
@@ -37,21 +68,33 @@ class UserAccount extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        updateUserRequest(this.state.lastname, this.state.firstname, this.state.email, this.state.avatar)
-            .then(res => {
-                const newUser = {
-                    lastname: this.state.lastname,
-                    firstname: this.state.firstname,
-                    email: this.state.email,
-                    password: this.state.password,
-                    avatar: this.state.previewAvatar
-                }
-                localStorage.setItem('user', JSON.stringify(newUser));
-                return (res.data);
-            })
-            .catch(error => {
-                this.setState({error});
-            })
+        const user = JSON.parse(localStorage.getItem('user'));
+        console.log(this.state.avatar);
+        console.log("http://localhost:3001/" + user.avatar);
+        if (validateForm(this.state.errors)) {
+            if (this.state.lastname === user.lastname && this.state.firstname === user.firstname && this.state.email === user.email && this.state.avatar === "http://localhost:3001/" + user.avatar) {
+                alert("Vous n'avez modifié aucune information !")
+            } else if (this.state.lastname !== user.lastname || this.state.firstname !== user.firstname || this.state.email !== user.email || this.state.avatar !== user.avatar) {
+                updateUserRequest(this.state.lastname, this.state.firstname, this.state.email, this.state.avatar)
+                    .then(() => {
+                            const newUser = {
+                                lastname: this.state.lastname,
+                                firstname: this.state.firstname,
+                                email: this.state.email,
+                                password: this.state.password,
+                                avatar: this.state.previewAvatar
+                            }
+                            localStorage.setItem('user', JSON.stringify(newUser));
+                            alert("Votre profil a bien été modifié !");
+                        }
+                    )
+                    .catch(error => {
+                        this.setState({error});
+                    })
+            }
+        } else {
+            console.error('La modification a échoué !')
+        }
     }
 
     handleDelete(event) {
@@ -67,7 +110,7 @@ class UserAccount extends React.Component {
     }
 
     render() {
-
+        const {errors} = this.state;
         return (
             <Fragment>
                 <Header/>
@@ -82,6 +125,8 @@ class UserAccount extends React.Component {
                                     <label className="accountLabel" htmlFor="nom">Nom</label>
                                     <input className="accountInput" id="nom" name="lastname" value={this.state.lastname}
                                            onChange={this.handleChange}/>
+                                    {errors.lastname.length > 0 &&
+                                    <span className="error">{errors.lastname}</span>}
                                 </li>
 
                                 <li className="accountField field">
@@ -89,12 +134,16 @@ class UserAccount extends React.Component {
                                     <input className="accountInput" id="prénom" name="firstname"
                                            value={this.state.firstname}
                                            onChange={this.handleChange}/>
+                                    {errors.firstname.length > 0 &&
+                                    <span className="error">{errors.firstname}</span>}
                                 </li>
 
                                 <li className="accountField field">
                                     <label className="accountLabel" htmlFor="email">Adresse mail</label>
                                     <input className="accountInput" id="email" name="email" value={this.state.email}
                                            onChange={this.handleChange}/>
+                                    {errors.email.length > 0 &&
+                                    <span className="error">{errors.email}</span>}
                                 </li>
 
                                 <li className="accountField field">

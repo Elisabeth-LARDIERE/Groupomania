@@ -14,7 +14,7 @@
     flex-direction: column;
     align-items: center;
     height: 80vh;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .accountInfosList {
@@ -22,6 +22,7 @@
     border-radius: 5px;
     width: 95vw;
     background-color: white;
+    margin-bottom: 15px;
 }
 
 .accountField {
@@ -77,7 +78,7 @@
     height: 30px;
     width: 150px;
     padding: 5px;
-    margin-top: 15px;
+    margin-top: 25px;
     font-size: 0.9em;
 }
 
@@ -174,7 +175,12 @@
 
     .accountInfosList {
         width: 60vh;
-        height: 60vh;
+        height: 55vh;
+        margin-bottom: 0;
+    }
+
+    .accountField {
+        margin-bottom: 30px;
     }
 
     .accountAvatar {
@@ -193,7 +199,7 @@
         width: 40vh;
         height: 40vh;
         align-self: center;
-        margin: auto 0;
+        margin: 50px 0;
         border-radius: 10px;
     }
 
@@ -221,10 +227,6 @@
         box-shadow: 5px 4px 15px rgba(24, 30, 86, 0.25), 0 5px 5px rgba(24, 30, 86, 0.22);
     }
 
-    .accountInfosList {
-        height: 60vh;
-    }
-
     .accountBoxInfos {
         margin: 20px 0 0;
         padding-left: 50px;
@@ -239,15 +241,19 @@
 @media screen and (min-width: 1440px) {
 
     .accountInfosList {
-        height: 65vh;
+        height: 55vh;
     }
 
     .accountLabel {
-        font-size: 1.1em;
+        font-size: 1.3em;
     }
 
     .accountInput {
-        font-size: 1.1em;
+        font-size: 1.3em;
+    }
+
+    .accountField {
+        margin-bottom: 40px;
     }
 
     .accountButtons {
@@ -257,10 +263,6 @@
     .accountUpdateButton, .accountDeleteButton {
         font-size: 1em;
         width: 200px;
-    }
-
-    .accountSeparator {
-        margin-bottom: 20px;
     }
 }
 
@@ -278,12 +280,7 @@
     }
 
     .accountSeparator {
-        margin-bottom: 10px;
-    }
-
-    .accountAvatar {
-        width: 5vw;
-        height: 5vw;
+        margin-bottom: 20px;
     }
 
     .accountButtons {
@@ -317,12 +314,12 @@
 
     .accountLabel {
         margin-bottom: 15px;
-        font-size: 1.2em;
+        font-size: 1.5em;
     }
 
     .accountInput {
         padding: 10px;
-        font-size: 1.2em;
+        font-size: 1.5em;
     }
 
     .accountUpdateButton, .accountDeleteButton {
@@ -331,7 +328,8 @@
         margin: 0 25px;
     }
 
-    .accountSeparator {
-        margin-bottom: 20px;
+    .accountAvatar {
+        width: 5vw;
+        height: 5vw;
     }
 }

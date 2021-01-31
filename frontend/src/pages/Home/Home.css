@@ -7,8 +7,8 @@
     flex-direction: column;
     align-items: center;
     margin: 0;
-    height: 100%;
-    width: 100%;
+    height: 88vh;
+    width: 100vw;
     background-color: #F1FCFC;
     box-shadow: 5px 4px 15px rgba(24, 30, 86, 0.25), 0 5px 5px rgba(24, 30, 86, 0.22);
 }
@@ -35,7 +35,17 @@
 
 .post:hover {
     box-shadow: 0 14px 28px rgba(24, 30, 86, 0.25), 0 10px 10px rgba(24, 30, 86, 0.22);
-    cursor: pointer;
+}
+
+.post:hover .seeMoreButton {
+    display: block;
+    width: 30vw;
+    height: 20px;
+    margin: 10px auto;
+}
+
+.seeMoreButton {
+    display: none;
 }
 
 .postHeader {
@@ -62,7 +72,7 @@
 
 .postAuthorId {
     display: flex;
-    font-size: 1.1em;
+    font-size: 1.2em;
     padding-left: 3px;
 }
 
@@ -82,19 +92,22 @@
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
-    font-size: 0.6em;
+    font-size: 0.7em;
 }
 
 .postPreviewTitle {
     font-family: 'Libre Baskerville', serif;
-    font-size: 0.8em;
+    font-size: 0.9em;
 }
+
 
 .postFooter {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     height: 20px;
     justify-self: flex-end;
+    align-content: center;
 }
 
 .postComsBox, .postLikesBox {
@@ -112,6 +125,7 @@
     font-family: 'Libre Baskerville', 'serif';
     font-size: 0.8em;
     color: darkgrey;
+    margin: 0;
 }
 
 .postLikesBox {
@@ -129,9 +143,8 @@
 
 @media screen and (min-width: 480px) {
 
-    .filterSmallDevices {
-        margin: 20px 0 30px;
-        width: 70%;
+    .postsBox {
+        height: 86vh;
     }
 
     .post {
@@ -157,6 +170,11 @@
     .postPreview {
         font-size: 1.3em;
     }
+
+    .post:hover .seeMoreButton {
+        width: 20vw;
+        height: 20px;
+    }
 }
 
 /********** Medium Devices **********/
@@ -165,6 +183,10 @@
 
     .mainHome {
         display: flex;
+    }
+
+    .postsBox {
+        height: 79vh;
     }
 
     .filterSmallDevices {
@@ -179,6 +201,10 @@
         width: 320px;
         height: 250px;
         margin: 20px;
+    }
+
+    .post:hover .seeMoreButton {
+        width: 13vw;
     }
 
     .avatarHome {
@@ -214,6 +240,10 @@
 
     }
 
+    .post:hover .seeMoreButton {
+        width: 10vw;
+    }
+
     .avatarHome {
         width: 30px;
         height: 30px;
@@ -229,6 +259,7 @@
 @media screen and (min-width: 1280px) {
 
     .postsBox {
+        height: 84vh;
         width: 75vw;
         margin-right: 25vw;
     }
@@ -241,6 +272,11 @@
         width: 370px;
         height: 260px;
         margin: 25px 40px;
+    }
+
+    .post:hover .seeMoreButton {
+        width: 8vw;
+        height: 25px;
     }
 
     .postAuthorName {
@@ -276,12 +312,17 @@
         width: 400px;
         height: 260px;
     }
+
+    .postPreviewTitle {
+        font-size: 1em;
+    }
 }
 
 @media screen and (min-width: 1600px) {
 
     .postsBox {
         padding-left: 10px;
+        height: 81vh;
     }
 
 }
@@ -291,6 +332,12 @@
     .postsBox {
         width: 80vw;
         margin-right: 20vw;
+    }
+
+    .post:hover .seeMoreButton {
+        width: 6vw;
+        height: 30px;
+        font-size: 1em;
     }
 }
 
