@@ -1,13 +1,14 @@
-//importations
+// FORMULAIRE D'INSCRIPTION D'UN UTILISATEUR
+
+// imports
 import React, {Fragment} from 'react';
 import {signupRequest} from '../../utils/Api';
-
 import {validateForm, validEmailRegex, validPasswordRegex} from "../../utils/Validations";
 
 class FormSignup extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
+        this.state = { // initialisation de l'état du composant : champs vides / erreurs vides
             firstname: '',
             lastname: '',
             email: '',
@@ -24,31 +25,31 @@ class FormSignup extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(event) {
+    handleChange(event) { // à la saisie de caractères dans les champs ciblés du formulaire
         event.preventDefault();
         const {name, value} = event.target;
         const errors = this.state.errors;
 
-        switch (name) {
-            case 'firstname':
+        switch (name) { // vérification de la conformité des saisies
+            case 'firstname': // condition de validité pour le prénom
                 errors.firstname =
                     value.length < 2
                         ? 'Votre prénom doit contenir au moins 2 caractères.'
                         : ''
                 break;
-            case 'lastname':
+            case 'lastname': // condition de validité pour le nom de famille
                 errors.lastname =
                     value.length < 2
                         ? 'Votre nom de famille doit contenir au moins 2 caractères.'
                         : ''
                 break;
-            case 'email':
+            case 'email': // condition de validité pour l'email (test regex)
                 errors.email =
                     validEmailRegex.test(value)
                         ? ''
                         : 'Adresse mail non valide.'
                 break;
-            case 'password':
+            case 'password': // condition de validité pour le mot de passe
                 errors.password =
                     validPasswordRegex.test(value)
                         ? ''
@@ -57,23 +58,24 @@ class FormSignup extends React.Component {
             default:
                 break;
         }
-        this.setState({errors, [name]: value}, () => {
+        this.setState({errors, [name]: value}, () => { /* nouvel état : les champs ciblés prennent la valeur des caractères saisis quand la saisie est conforme aux attentes
+                                                                      ou renvoi de l'erreur correspondante quand non conforme */
             console.log(errors)
         })
     }
 
-    handleSubmit(event) {
+    handleSubmit(event) { // à la soumission du formulaire
         event.preventDefault();
-        if (validateForm(this.state.errors)) {
-            signupRequest(this.state.firstname, this.state.lastname, this.state.email, this.state.password)
-                .then(() => {
+        if (validateForm(this.state.errors)) { // si les conditions de validité sont respectées
+            signupRequest(this.state.firstname, this.state.lastname, this.state.email, this.state.password)// appel de la requête d'inscription d'un utilisateur
+                .then(() => { // si requête ok : redirection "connexion"
                     window.location.href = "/";
                 })
-                .catch(error => {
+                .catch(error => { // si échec requête
                     this.setState({error});
                     alert('Veuillez renseigner tous les champs du formulaire');
                 })
-        } else {
+        } else { // si les conditions de validité ne sont pas respectées
             console.error('L\'inscription a échoué !')
         }
     }
@@ -88,7 +90,7 @@ class FormSignup extends React.Component {
                         <input className="formInput" id="prénom" name="firstname" placeholder="Veuillez saisir votre prénom"
                                value={this.state.firstname}
                                onChange={this.handleChange}/>
-                        {errors.firstname.length > 0 &&
+                        {errors.firstname.length > 0 && // affichage du message correspondant si prénom non conforme
                         <span className="error">{errors.firstname}</span>}
                     </li>
 
@@ -97,7 +99,7 @@ class FormSignup extends React.Component {
                         <input className="formInput" id="nom" name="lastname" placeholder="Veuillez saisir votre nom"
                                value={this.state.lastname}
                                onChange={this.handleChange}/>
-                        {errors.lastname.length > 0 &&
+                        {errors.lastname.length > 0 && // affichage du message correspondant si nom de famille non conforme
                         <span className="error">{errors.lastname}</span>}
                     </li>
 
@@ -106,7 +108,7 @@ class FormSignup extends React.Component {
                         <input className="formInput" id="email" name="email" placeholder="Veuillez saisir votre adresse mail"
                                value={this.state.email}
                                onChange={this.handleChange}/>
-                        {errors.email.length > 0 &&
+                        {errors.email.length > 0 && // affichage du message correspondant si email non conforme
                         <span className="error">{errors.email}</span>}
                     </li>
 
@@ -115,7 +117,7 @@ class FormSignup extends React.Component {
                         <input className="formInput" id="mot de passe" name="password" type="password" placeholder="Veuillez saisir votre mot de passe"
                                value={this.state.password}
                                onChange={this.handleChange}/>
-                        {errors.password.length > 0 &&
+                        {errors.password.length > 0 && // affichage du message correspondant si mot de passe non conforme
                         <span className="error">{errors.password}</span>}
                     </li>
                 </ul>

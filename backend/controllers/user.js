@@ -1,7 +1,6 @@
 // CONTROLLER UTILISATEUR
 
-// importations
-
+// imports
 const bcrypt = require('bcrypt');
 const emailValidator = require('email-validator');
 const passwordValidator = require('password-validator');
@@ -9,6 +8,7 @@ const User = require('../models/User');
 const db = require('../db');
 const escapeString = require('../escape-string');
 const jwt = require('jsonwebtoken');
+
 
 // création d'un modèle de mot de passe
 const passwordSchema = new passwordValidator();
@@ -23,35 +23,24 @@ passwordSchema
     .has().not().spaces() // ne contient pas d'espace
 
 
-// exportation de la fonction d'inscription d'un nouvel utilisateur
+// fonction d'inscription d'un nouvel utilisateur
 exports.signup = async (req, res) => {
     try {
-
-        // si l'adresse mail ou le mot de passe est invalide
-        if (!emailValidator.validate(req.body.email) || !passwordSchema.validate(req.body.password)) {
+        if (!emailValidator.validate(req.body.email) || !passwordSchema.validate(req.body.password)) { // si l'adresse mail ou le mot de passe est invalide
             res.status(401).json({
                 message: 'Veuillez vérifier l adresse mail et le mot de passe. Le mot de passe doit contenir entre ' +
                     '8 et 60 caractères sans espace, et inclure au moins une majuscule, une minuscule et un chiffre'
             })
-
-            // si l'adresse mail et le mot de passe sont valides
-        } else if (emailValidator.validate(req.body.email) && passwordSchema.validate(req.body.password)) {
-
-            //********** si l'adresse mail existe déjà dans la bdd et/ou que la combinaison nom/prénom est déjà utilisée **********//
-
-
-            //********** si tout est ok **********//
+        } else if (emailValidator.validate(req.body.email) && passwordSchema.validate(req.body.password)) { // si l'adresse mail et le mot de passe sont valides
             const hash = await bcrypt.hash(req.body.password, 10) // hachage du mot de passe
-
-            // création et enregistrement d'un nouvel utilisateur dans la bdd avec mot de passe crypté
-            const user = new User({
+            const user = new User({ // création d'un nouvel utilisateur avec mot de passe crypté
                 firstname: req.body.firstname,
                 lastname: req.body.lastname,
                 email: req.body.email,
                 password: hash
             });
-
-            db.query(`INSERT INTO users(firstname, lastname, email, password) VALUES('${escapeString(user.firstname)}', '${escapeString(user.lastname)}', '${user.email}', '${user.password}')`)
+            db.query(`INSERT INTO users(firstname, lastname, email, password) VALUES('${escapeString(user.firstname)}', '${escapeString(user.lastname)}', 
+            '${user.email}', '${user.password}')`) // sauvegarde du nouvel utilisateur
             res.status(201).json(user)
         }
     } catch (error) {
@@ -59,27 +48,24 @@ exports.signup = async (req, res) => {
     }
 };
 
-// exportation de la fonction de connexion d'un utilisateur
+// fonction de connexion d'un utilisateur
 exports.login = (req, res) => {
     try {
-
-        // vérification de la présence de l'utilisateur dans la bdd
-        db.query(`SELECT * FROM users WHERE email = '${req.body.email}'`, (err, row) => {
-            if (err || row.length === 0) {
+        db.query(`SELECT * FROM users WHERE email = '${req.body.email}'`, (err, row) => { // vérification de la présence de l'utilisateur dans la bdd
+            if (err || row.length === 0) { // si aucun résultat ou erreur
                 res.status(401).json({message: 'Utilisateur non trouvé !'})
-            } else {
+            } else { // si utlisateur trouvé
                 const user = row[0];
-                bcrypt.compare((req.body.password), user.password, (err, data) => {
-                        // si utilisateur trouvé, comparaison mdp et hash
-                        if (!data) {
+                bcrypt.compare((req.body.password), user.password, (err, data) => { // comparaison du mdp et du hash
+                        if (!data) { // s'ils ne correspondent pas
                             res.status(401).json({message: 'Mot de passe incorrect !'})
-                        } else {
-                            const newToken = jwt.sign(
+                        } else { // s'ils correspondent
+                            const newToken = jwt.sign( // encodage d'un nouveau token
                                 {userId: user.userId},
                                 'RANDOM_TOKEN_SECRET',
                                 {expiresIn: '24h'}
                             )
-                            res.status(200).json({ // si mdp ok, encodage d'un nouveau token
+                            res.status(200).json({ // connexion de l'utilisateur
                                 userId: user.userId,
                                 token: newToken,
                                 message: 'Utilisateur connecté'
@@ -94,16 +80,16 @@ exports.login = (req, res) => {
     }
 };
 
-// exportation de la fonction de récupération d'un utilisateur
+// fonction de récupération d'un utilisateur
 
 exports.getOneUser = (req, res) => {
     try {
-        db.query(`SELECT * FROM users WHERE userId = '${req.query.userId}'`, (err, row) => {
-            if (err || row.length === 0) {
+        db.query(`SELECT * FROM users WHERE userId = '${req.query.userId}'`, (err, row) => { // vérification de la présence de l'utilisateur dans la bdd
+            if (err || row.length === 0) { // si aucun résultat ou erreur
                 res.status(401).json({message: 'Utilisateur non trouvé !'})
-            } else {
+            } else { // si utilisataur trouvé
                 const user = row[0];
-                res.status(200).json(user);
+                res.status(200).json(user); // récupération de l'utilisateur
             }
         })
     } catch (error) {
@@ -111,9 +97,9 @@ exports.getOneUser = (req, res) => {
     }
 };
 
-// exportation de la fonction de récupération de tous les utilisateurs
+// fonction de récupération de tous les utilisateurs
 
-exports.getAllUsers = (req, res) => {
+/*exports.getAllUsers = (req, res) => {
     try {
         db.query(`SELECT * FROM users ORDER BY lastname`, (err, row) => {
             if (err || row.length === 0) {
@@ -126,23 +112,23 @@ exports.getAllUsers = (req, res) => {
     } catch (error) {
         res.status(500).json({error})
     }
-};
+};*/
 
-// exportation de la fonction de modification d'un utilisateur
+// fonction de modification d'un utilisateur
 
 exports.updateUser = (req, res) => {
     try {
-        db.query(`SELECT * FROM users WHERE userId = '${req.query.userId}'`, (err, row) => {
-            if (err || row.length === 0) {
+        db.query(`SELECT * FROM users WHERE userId = '${req.query.userId}'`, (err, row) => { // vérification de la présence de l'utilisateur dans la bdd
+            if (err || row.length === 0) { // si aucun résultat ou erreur
                 res.status(401).json({message: 'Impossible de modifier le profil !'})
-            } else {
+            } else { // si utilisateur trouvé
                 const user = row[0];
-                const userUpdated = req.file ? {
+                const userUpdated = req.file ? { // création du profil modifié, si modification de l'avatar
                     firstname: req.body.firstname,
                     lastname: req.body.lastname,
                     email: req.body.email,
                     avatar: `images/${req.file.filename}`
-                } : {
+                } : { // création du profil modifié, si pas de modification de l'avatar
                     firstname: req.body.firstname,
                     lastname: req.body.lastname,
                     email: req.body.email
@@ -150,47 +136,45 @@ exports.updateUser = (req, res) => {
 
                 let query = `UPDATE users SET `;
                 let updated = false;
-                if (userUpdated.email !== user.email) {
+                if (userUpdated.email !== user.email) { // si email modifié
                     query += `email = '${userUpdated.email}'`
                     updated = true;
                 }
-                if (userUpdated.firstname !== user.firstname) {
+                if (userUpdated.firstname !== user.firstname) { // si modification du prénom
                     if (updated) {
                         query += `, `;
                     }
                     query += `firstname = '${userUpdated.firstname}'`
                     updated = true;
                 }
-                if (userUpdated.lastname !== user.lastname) {
+                if (userUpdated.lastname !== user.lastname) { // si modification du nom de famille
                     if (updated) {
                         query += `, `;
                     }
                     query += `lastname = '${userUpdated.lastname}'`
                     updated = true;
                 }
-                if (userUpdated.avatar != null) {
+                if (userUpdated.avatar != null) { // si modification de l'avatar
                     if (updated) {
                         query += `, `;
                     }
                     query += `avatar = '${userUpdated.avatar}'`
                     updated = true;
                 }
-
-                if (updated) {
-                    db.query(query + `WHERE userId = '${req.query.userId}'`);
-                    res.status(200).json({avatar: userUpdated.avatar ? userUpdated.avatar : user.avatar});
-                } else {
-                    res.status(204).json();
+                if (updated) { // si au moins un paramètre modifié
+                    db.query(query + `WHERE userId = '${req.query.userId}'`); // mise à jour du profil utilisateur
+                    res.status(200).json({avatar: userUpdated.avatar ? userUpdated.avatar : user.avatar}); // avec avatar modifié ou non
+                } else { // si aucun paramètre modifié
+                    res.status(204).json(); // réponse de non-modification
                 }
             }
         })
-
     } catch (error) {
         res.status(500).json({error})
     }
 };
 
-// exportation de la fonction de suppression d'un utlisateur
+// fonction de suppression d'un utlisateur
 /*let queryPromise = async function (sql, values) {
     return new Promise((resolve, reject) => {
        setTimeout(() => {
@@ -324,31 +308,32 @@ promise.then(() => {
 //     }
 // })
 
+// fonction de suppression d'un utlisateur
 exports.deleteUser = (req, res) => {
     try {
-        db.query(`SELECT * FROM users WHERE userId = '${req.query.userId}'`, (err, row) => { // on cherche l'utilisateur en question dans la bdd
-            if (err || row.length === 0) {
-                res.status(401).json({message: 'Impossible de supprimer le compte !'}); // si on le trouve pas : message d'impossibilité de suppression
-            } else { // si on le trouve
-                db.query(`SELECT postId, COUNT(*) AS totalComs FROM coms WHERE userId = '${req.query.userId}' GROUP BY postId`, (err, row) => { //on cherche le nombre de commentaires laissés par l'utilisateur, et sur quels articles
-                        if (err || row.length === 0) { // si pas de résultats : erreur
+        db.query(`SELECT * FROM users WHERE userId = '${req.query.userId}'`, (err, row) => { // vérification de la présence de l'utilisateur dans la bdd
+            if (err || row.length === 0) { // si aucun résultat ou erreur
+                res.status(401).json({message: 'Impossible de supprimer le compte !'});
+            } else { // si utilisateur trouvé
+                db.query(`SELECT postId, COUNT(*) AS totalComs FROM coms WHERE userId = '${req.query.userId}' GROUP BY postId`, (err, row) => { // recherche du nombre de commentaires laissés par l'utilisateur, et sur quels articles
+                        if (err || row.length === 0) { // si pas de résultat ou erreur
                             console.log('pas de commentaires publiés');
-                        } else { // si résultats
+                        } else { // si résultat
                             console.log(1);
                             for (let i of row) { // pour chaque paire clé/valeur obtenue...
-                                const comsPostId = i.postId; // ... on crée une constante pour chaque valeur : id de l'article et total de coms associé,
+                                const comsPostId = i.postId; // ... création d'une constante pour chaque valeur : id de l'article et total de coms associé
                                 console.log(2);
                                 const comsTotalComs = i.totalComs;
                                 console.log(3);
-                                db.query(`SELECT * FROM posts WHERE postId = '${comsPostId}'`, (err, row) => { // ... on cherche dans la table articles tous les articles avec les id obtenus
-                                        if (err || row.length === 0) {
+                                db.query(`SELECT * FROM posts WHERE postId = '${comsPostId}'`, (err, row) => { // ... recherche de tous les articles avec les id obtenus
+                                        if (err || row.length === 0) { // si aucun résultat ou erreur
                                             console.log('chou');
-                                        } else {
+                                        } else { // si article(s) trouvé(s)
                                             const totalComs = row[0].totalComs;
                                             console.log(4);
                                             const newTotal = totalComs - comsTotalComs;
                                             console.log(5);
-                                            db.query(`UPDATE posts SET posts.totalComs = '${newTotal}' WHERE postId = '${comsPostId}'`); // on met à jour le total des coms pour chacun de ces articles.
+                                            db.query(`UPDATE posts SET posts.totalComs = '${newTotal}' WHERE postId = '${comsPostId}'`); // mise à jour du nombre total de commentaires pour chacun des articles sélectionnés
                                             console.log(6);
                                         }
                                     }
@@ -358,23 +343,23 @@ exports.deleteUser = (req, res) => {
                     }
                 )
 
-                db.query(`SELECT * FROM likes WHERE userId = '${req.query.userId}' GROUP BY postId`, (err, row) => { //on cherche le nombre de commentaires laissés par l'utilisateur, et sur quels articles
-                    if (err || row.length === 0) { // si pas de résultats : erreur
+                db.query(`SELECT * FROM likes WHERE userId = '${req.query.userId}' GROUP BY postId`, (err, row) => { // recherche des likes laissés par l'utilisateur, et sur quels articles
+                    if (err || row.length === 0) { // si aucun résultat ou erreur
                         console.log('pas de likes publiés');
-                    } else { // si résultats
+                    } else { // si like(s) trouvé(s)
                         console.log(7);
                         for (let i of row) { // pour chaque paire clé/valeur obtenue...
-                            const likesPostId = i.postId; // ... on crée une constante pour chaque valeur : id de l'article et total de coms associé,
+                            const likesPostId = i.postId; // ... création d'une constante pour chaque valeur : id de l'article et total de likes associé,
                             console.log(8);
-                            db.query(`SELECT * FROM posts WHERE postId = '${likesPostId}'`, (err, row) => { // ... on cherche dans la table articles tous les articles avec les id obtenus
-                                if (err || row.length === 0) { // si pas de résultats : erreur
+                            db.query(`SELECT * FROM posts WHERE postId = '${likesPostId}'`, (err, row) => { // ... recherche de tous les articles avec les id obtenus
+                                if (err || row.length === 0) { // si aucun résultat ou erreur
                                     console.log('carotte');
-                                } else { // si résultats
+                                } else { // si article(s) trouvé(s)
                                     const totalLikes = row[0].likes;
                                     console.log(9);
                                     const newTotal = totalLikes - 1;
                                     console.log(10);
-                                    db.query(`UPDATE posts SET posts.likes = '${newTotal}' WHERE postId = '${likesPostId}'`); // on met à jour le total des coms pour chacun de ces articles.
+                                    db.query(`UPDATE posts SET posts.likes = '${newTotal}' WHERE postId = '${likesPostId}'`); // mise à jour du nombre total de likes pour chacun des articles sélectionnés.
                                     console.log(11);
                                 }
                             })
@@ -382,29 +367,29 @@ exports.deleteUser = (req, res) => {
                     }
                 })
 
-                db.query(`SELECT * FROM dislikes WHERE userId = '${req.query.userId}' GROUP BY postId`, (err, row) => { //on cherche le nombre de commentaires laissés par l'utilisateur, et sur quels articles
-                    if (err || row.length === 0) { // si pas de résultats : erreur
+                db.query(`SELECT * FROM dislikes WHERE userId = '${req.query.userId}' GROUP BY postId`, (err, row) => { // recherche des dislikes laissés par l'utilisateur, et sur quels articles
+                    if (err || row.length === 0) { // si aucun résultat ou erreur
                         console.log('pas de dislikes publiés');
-                    } else { // si résultats
+                    } else { // si dislike(s) trouvé(s)
                         console.log(12);
                         for (let i of row) { // pour chaque paire clé/valeur obtenue...
-                            const dislikesPostId = i.postId; // ... on crée une constante pour chaque valeur : id de l'article et total de coms associé,
+                            const dislikesPostId = i.postId; // ... création d'une constante pour chaque valeur : id de l'article et total de dislikes associé,
                             console.log(13);
-                            db.query(`SELECT * FROM posts WHERE postId = '${dislikesPostId}'`, (err, row) => { // ... on cherche dans la table articles tous les articles avec les id obtenus
-                                if (err || row.length === 0) { // si pas de résultats : erreur
+                            db.query(`SELECT * FROM posts WHERE postId = '${dislikesPostId}'`, (err, row) => { // ... recherche de tous les articles avec les id obtenus
+                                if (err || row.length === 0) { // si aucun résultat ou erreur
                                     console.log('navet');
-                                } else { // si résultats
+                                } else { // si article(s) trouvé(s)
                                     const totalDislikes = row[0].dislikes;
                                     console.log(14);
                                     const newTotal = totalDislikes - 1;
                                     console.log(15);
-                                    db.query(`UPDATE posts SET posts.dislikes = '${newTotal}' WHERE postId = '${dislikesPostId}'`); // on met à jour le total des coms pour chacun de ces articles.
+                                    db.query(`UPDATE posts SET posts.dislikes = '${newTotal}' WHERE postId = '${dislikesPostId}'`); // mise à jour du nombre total de dislikes pour chacun des articles sélectionnés.
                                 }
                             })
                         }
                     }
                 })
-                db.query(`DELETE FROM users WHERE userId = '${req.query.userId}'`)
+                db.query(`DELETE FROM users WHERE userId = '${req.query.userId}'`) // suppression de l'utilisateur
                 console.log(16);
                 res.status(204).json();
             }
@@ -414,18 +399,18 @@ exports.deleteUser = (req, res) => {
     }
 };
 
-// exportation de la fonction de récupération de tous les articles d'un utilisateur
+// fonction de récupération de tous les articles d'un utilisateur
 exports.getAllUserPosts = (req, res) => {
     try {
         const token = req.headers.authorization.split(' ')[1]; // récupération du token dans le header authorization
-        const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); // vérification du token
+        const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); // vérification du token pour authentification utilisateur
         const userId = decodedToken.userId;
-        db.query(`SELECT * FROM posts WHERE userId = '${userId}'`, (err, row) => {
-            if (err || row.length === 0) {
+        db.query(`SELECT * FROM posts WHERE userId = '${userId}'`, (err, row) => { // recherche de tous les articles créés par l'utilsateur
+            if (err || row.length === 0) { // si aucun résultat ou erreur
                 res.status(401).json({message: 'Articles non trouvés !'})
-            } else {
+            } else { // si article(s) trouvé(s)
                 const post = row;
-                res.status(200).json(post);
+                res.status(200).json(post); // récupération de tous les articles
             }
         })
     } catch (error) {

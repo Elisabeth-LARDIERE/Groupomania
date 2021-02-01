@@ -1,4 +1,6 @@
-//importations
+// PUBLICATION D'UN NOUVEL ARTICLE
+
+// imports
 import React, {Fragment} from "react";
 import Header from '../../components/Header/Header';
 import './CreateNewPost.css'
@@ -9,33 +11,34 @@ import Footer from "../../components/Footer/Footer";
 class CreateNewPost extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
+        this.state = { // initialisation de l'état du composant : titre et contenu vides
             title: "",
             content: ""
         }
-        this.handleChange = this.handleChange.bind(this);
+        this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleEditorChange = this.handleEditorChange.bind(this);
         this.handleSubmitPost = this.handleSubmitPost.bind(this);
     }
 
-    handleChange(event) {
-        this.setState({
+    handleChangeTitle(event) { // à la saisie de caractères dans le champ titre
+        this.setState({ // nouvel état : le titre prend la valeur des caractères saisis
                 [event.target.name]: event.target.value
             }
         )
     }
 
-    handleEditorChange(content) {
-        this.setState({content})
+    handleEditorChange(content) { // à la saisie de caractères dans l'éditeur de texte
+        this.setState({content}) // nouvel état : le contenu prend la valeur des caractères saisis
     }
 
-    handleSubmitPost(event) {
+    handleSubmitPost(event) { // à la soumission de l'article
         event.preventDefault();
-        createPostRequest(this.state.title, this.state.content)
-            .then(() => {
+        createPostRequest(this.state.title, this.state.content) // appel de la requête de la création d'un nouvel article
+            .then(() => { // si requête ok : redirection "accueil"
                 window.location.href = "/home";
+                alert("Votre article a bien été publié !");
             })
-            .catch(error => {
+            .catch(error => { // si échec requête
                 this.setState({error});
             })
     }
@@ -61,14 +64,14 @@ class CreateNewPost extends React.Component {
                                     <label className="newPostTitleLabel" htmlFor="titre">Titre</label>
                                     <input className="newPostTitleInput" id="titre" name="title"
                                            value={this.state.title}
-                                           onChange={this.handleChange}/>
+                                           onChange={this.handleChangeTitle}/>
                                 </div>
 
                                 <form>
                                     <Editor className="editor" name="content" value={this.state.content}
                                             onEditorChange={this.handleEditorChange}
                                             apiKey="w70adzec8zmy4avbouw9g5rg2yzn162jccapis8uqdc1ln67"
-                                            init={{
+                                            init={{ // configuration de l'éditeur de texte
                                                 selector: 'textarea',
                                                 height: 400,
                                                 menubar: false,

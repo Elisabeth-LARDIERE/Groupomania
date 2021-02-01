@@ -1,4 +1,6 @@
-//importations
+// PUBLICATIONS DE L'UTILISATEUR
+
+//imports
 import React, {Fragment} from 'react';
 import ReactTooltip from "react-tooltip";
 import Header from "../../components/Header/Header";
@@ -16,77 +18,61 @@ import Footer from "../../components/Footer/Footer";
 class UserPosts extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            userPostsList: [],
-            redirect: false,
-            seePost: false
+        this.state = { // initialisation de l'état du composant
+            userPostsList: [], // tableau des articles vide
+            redirect: false, // pas de redirection
         }
-        this.handleCreateNewPost = this.handleCreateNewPost.bind(this);
+        this.handleClickCreateNewPost = this.handleClickCreateNewPost.bind(this);
         this.handleClickOnePost = this.handleClickOnePost.bind(this);
-        //this.handleHoverSeePost = this.handleHoverSeePost.bind(this);
-        this.handleDeletePost = this.handleDeletePost.bind(this);
-
-        //this.SeePost = this.SeePost.bind(this);
+        this.handleClickDeletePost = this.handleClickDeletePost.bind(this);
     }
 
-    handleCreateNewPost() {
-        this.setState({
+    handleClickCreateNewPost() { // au clic sur le bouton "publier un nouvel article"
+        this.setState({ // nouvel état : redirection
             redirect: true
         })
         const redirect = this.state.redirect;
-        if (redirect) {
+        if (redirect) { // si redirection : redirection "publier un nouvel article"
             return (
                 window.location = '/createNewPost'
             )
         }
     }
 
-    handleClickOnePost(post) {
+    handleClickOnePost(post) { // au clic sur l'icone oeil/"voir l'article"
         const postId = post.postId;
-        localStorage.setItem('postId', JSON.stringify(postId));
-        localStorage.setItem('post', JSON.stringify(post));
-        getOnePostRequest()
-            .then(() => {
-                window.location.href = "/displayOnePost"
-
+        localStorage.setItem('postId', JSON.stringify(postId)); // récupération de l'id de l'article dans le localstorage
+        localStorage.setItem('post', JSON.stringify(post)); // récupération de l'article dans le localstorage
+        getOnePostRequest() // appel de la requête de récupération d'un article spécifique
+            .then(() => { // si requête ok
+                window.location.href = "/displayOnePost" // redirection "article individuel"
             })
-            .catch(error => {
+            .catch(error => { // si échec requête
                 this.setState({error});
             })
     }
 
-    /* handleHoverSeePost() {
-         this.setState( {
-             seePost: true
-         })
-     }*/
-
-    handleDeletePost(post) {
+    handleClickDeletePost(post) { // au clic sur l'icone poubelle/"supprimer l'article"
         const postId = post.postId;
-        localStorage.setItem('postId', JSON.stringify(postId));
-        deletePostRequest()
-            .then(() => {
+        localStorage.setItem('postId', JSON.stringify(postId)); // récupération de l'id de l'article dans le localstorage
+        deletePostRequest() // appel de la requête de suppression d'un article
+            .then(() => { // si requête ok
                 alert('Article supprimé !');
-                window.location.href = "/userPosts";
+                window.location.href = "/userPosts"; // rechargement de la page actualisée
             })
-            .catch(error => {
+            .catch(error => { // si échec requête
                 this.setState({error})
             })
     }
 
-    /*SeePost() {
-        return (
-            <span className="seePostTooltip">Voir l'article</span>
-        )
-}*/
-
-    async componentDidMount() {
-        await getAllUserPostsRequest()
-            .then(res => {
+    async componentDidMount() { // quand le composant est monté
+        await getAllUserPostsRequest() // appel de la requête de récupération de tous les articles de l'utilsateur
+            .then(res => { // si requête ok
                 const userPostsList = res.data;
-                this.setState({userPostsList});
+                this.setState( // nouvel état : tableau d'articles => articles récupérés
+                    {userPostsList});
             })
-            .catch(error => {
+            .catch(error => { // si échec requête
                 this.setState({error});
             })
     }
@@ -102,14 +88,14 @@ class UserPosts extends React.Component {
                             <h1 className="userPostsSectionTitle">Mes publications</h1>
 
                             <button className="userPostsCreateNewPostButton button"
-                                    onClick={() => this.handleCreateNewPost()}>Publier un nouvel article
+                                    onClick={() => this.handleClickCreateNewPost()}>Publier un nouvel article
                             </button>
                         </div>
 
                         <ul className="userPostsList">
-                            {this.state.userPostsList.map(post => {
+                            {this.state.userPostsList.map(post => { // fonction de map sur les éléments de la liste des articles de l'utilisateur
                                     const {postId} = post;
-                                    return (
+                                    return ( // affichage de chaque article de l'utilisateur
                                         <li className="userPost" key={postId}>
                                             <h2 className="userPostTitle">{post.title}</h2>
                                             <div className="userPostChoicesAndInfos">
@@ -135,15 +121,15 @@ class UserPosts extends React.Component {
                                                         className="seeUserPostIcon userPostIcon button"
                                                         icon={faEye} data-tip data-for="seePostTip"
                                                         onClick={() => this.handleClickOnePost(post)}/>
-                                                    <ReactTooltip id="seePostTip" place="top" effect="solid">
+                                                    <ReactTooltip id="seePostTip" place="top" effect="solid"> {/* infobulle sur l'oeil */}
                                                         Voir l'article
                                                     </ReactTooltip>
 
                                                     <FontAwesomeIcon
                                                         className="deleteUserPostIcon userPostIcon button"
                                                         icon={faTrashAlt} data-tip data-for="deletePostTip"
-                                                        onClick={() => this.handleDeletePost(post)}/>
-                                                    <ReactTooltip id="deletePostTip" place="top" effect="solid">
+                                                        onClick={() => this.handleClickDeletePost(post)}/>
+                                                    <ReactTooltip id="deletePostTip" place="top" effect="solid"> {/* infobulle sur la poubelle */}
                                                         Supprimer l'article
                                                     </ReactTooltip>
                                                 </div>

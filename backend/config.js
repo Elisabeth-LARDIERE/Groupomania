@@ -1,3 +1,5 @@
+// CONFIGURATION DE LA BASE DE DONNEES
+
 const config = {
     "db": {
         "host": "localhost",

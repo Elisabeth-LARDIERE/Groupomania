@@ -1,4 +1,6 @@
-//importations
+// MENTIONS LEGALES
+
+// imports
 import React, {Fragment} from "react";
 import './Terms.css';
 import Header from "../../components/Header/Header";
@@ -144,4 +146,4 @@ function Terms() {
     )
 }
 
-export default Terms
+export default Terms;

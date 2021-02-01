@@ -1,6 +1,6 @@
 // APPLICATION EXPRESS
 
-// importations
+// imports
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -11,7 +11,6 @@ const cors = require('cors');
 
 // création de l'application express
 const app = express();
-
 
 // ajout de headers pour toutes les requêtes afin d'autoriser n'importe quel utilisateur à accéder à l'application
 app.use(cors());
@@ -29,7 +28,7 @@ app.use(bodyParser.json());
 // gestion de tinymce
 app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
 
-// gestion de la ressource images de manière statique
+// gestion de la ressource image de manière statique
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 // enregistrement des routeurs utilisateur, article et commentaire

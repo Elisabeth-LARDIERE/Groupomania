@@ -1,3 +1,5 @@
+// FONCTION DE PROTECTION AUX ATTAQUES PAR INJECTIONS SQL
+
 const escapeString = function(str) {
     return str.replace(/[\0\x08\x09\x1a\n\r"'\\\%]/g, function (char) {
         switch (char) {
@@ -17,8 +19,7 @@ const escapeString = function(str) {
             case "'":
             case "\\":
             case "%":
-                return "\\"+char; // prepends a backslash to backslash, percent,
-                                  // and double/single quotes
+                return "\\"+char;
             default:
                 return char;
         }

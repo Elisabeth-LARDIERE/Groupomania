@@ -1,4 +1,6 @@
-//importations
+// ARTICLE INDIVIDUEL
+
+//imports
 import React, {Fragment} from "react";
 import {Editor} from "@tinymce/tinymce-react";
 import './DisplayOnePost.css';
@@ -10,7 +12,6 @@ import {
     likePostRequest,
     dislikePostRequest
 } from "../../utils/Api";
-
 import {faComments, faThumbsDown, faThumbsUp} from "@fortawesome/fontawesome-free-regular";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Header from "../../components/Header/Header";
@@ -20,24 +21,24 @@ import Footer from "../../components/Footer/Footer";
 class DisplayOnePost extends React.Component {
     constructor(props) {
         super(props);
-        const postId = JSON.parse(localStorage.getItem('postId'));
-        const post = JSON.parse(localStorage.getItem('post'));
+        const postId = JSON.parse(localStorage.getItem('postId')); // récupération de l'id de l'article dans le localstorage
+        const post = JSON.parse(localStorage.getItem('post')); // récupération de l'article dans le localstorage
         const likes = post.likes;
         const dislikes = post.dislikes;
         const totalComs = post.totalComs;
-        this.state = {
-            comsList: [],
-            content: '',
-            postId: postId,
-            likes: likes,
-            dislikes: dislikes,
-            userLike: false,
-            userDislike: false,
-            totalComs: totalComs,
-            PostChoices: false,
-            AccountChoices: false,
-            redirect: false,
-            width: window.innerWidth
+        this.state = { // initialisation de l'état du composant
+            comsList: [], // tableau des commentaires vide
+            content: '', // champ de commentaire vide
+            postId: postId, // id de l'article
+            likes: likes, // nombre de likes de l'article
+            dislikes: dislikes, // nombre de dislikes de l'article
+            userLike: false, // pas de like de l'utilisateur
+            userDislike: false, // pas de dislike de l'utilisateur
+            totalComs: totalComs, // nombre total de commentaires de l'article
+            showPostChoices: false, // invisibilité du menu de l'onglet "mes articles"
+            showAccountChoices: false, // invisibilité du menu de l'onglet "mon compte"
+            redirect: false, // pas de redirection
+            width: window.innerWidth // largeur de l'écran = largeur actuelle
         }
 
         this.handleResize = this.handleResize.bind(this);
@@ -70,28 +71,31 @@ class DisplayOnePost extends React.Component {
 
         this.handleEditorChange = this.handleEditorChange.bind(this);
         this.handleSubmitCom = this.handleSubmitCom.bind(this);
+
+        this.handlePressEnterLikePost = this.handlePressEnterLikePost.bind(this);
+        this.handlePressEnterDislikePost = this.handlePressEnterDislikePost.bind(this);
     }
 
-    handleClickHome() {
-        this.setState({
+    handleClickHome() { // au clic sur l'onglet "accueil"
+        this.setState({ // nouvel état : redirection
             redirect: true
         })
         const redirect = this.state.redirect;
-        if (redirect) {
+        if (redirect) { // si redirection : redirection "accueil"
             return (
                 window.location = '/home'
             )
         }
     }
 
-    handlePressEnterHome(event) {// ne fonctionne pas
-        if (event.key === 'Enter') {
+    handlePressEnterHome(event) { // à la pression d'une touche sur l'onglet "accueil" /***** fonctionne quand ça veut *****/
+        if (event.key === 'Enter') { // si c'est la touche Entrée : exécution de la fonction handleClickHome
             event.preventDefault();
             this.handleClickHome();
         }
     }
 
-    PostsChoices() {
+    PostsChoices() { // affichage des choix si l'onglet "mes articles" est déplié (état : visibilité)
         return (
             <Fragment>
                 <a className="fullPostMenuChoicePostsLink fullPostMenuChoiceLink" tabIndex="0"
@@ -107,7 +111,7 @@ class DisplayOnePost extends React.Component {
         )
     }
 
-    AccountChoices() {
+    AccountChoices() { // affichage des choix si l'onglet "mon compte" est déplié (état : visibilité)
         return (
             <Fragment>
                 <a className="fullPostMenuChoiceAccountLink fullPostMenuChoiceLink" tabIndex="0"
@@ -121,246 +125,265 @@ class DisplayOnePost extends React.Component {
         )
     }
 
-    handleHoverPosts() {
-        if (this.state.PostChoices === false) {
-            if (this.state.AccountChoices === true) {
-                this.setState({
-                    PostChoices: true,
-                    AccountChoices: false
+    handleHoverPosts() { // au survol ou au focus de l'onglet "mes articles"
+        if (this.state.showPostChoices === false) { // si menu "mes articles" = invisible
+            if (this.state.showAccountChoices === true) { // si menu "mon compte" = visible
+                this.setState({ // nouvel état : menu "mes articles" => visible et menu "mon compte" => invisible
+                    showPostChoices: true,
+                    showAccountChoices: false
                 })
-            } else {
-                this.setState({
-                    PostChoices: true
+            } else { // si menu "mon compte = invisible
+                this.setState({ // nouvel état : menu "mon compte" => visible
+                    showPostChoices: true
                 })
             }
-        } else {
-            this.setState({
-                PostChoices: false
+        } else { // si menu "mes articles" = visible
+            this.setState({ // nouvel état : menu "mon compte" => invisible
+                showPostChoices: false
             })
         }
     }
 
-    handleHoverAccount() {
-        if (this.state.AccountChoices === false) {
-            if (this.state.PostChoices === true) {
-                this.setState({
-                    AccountChoices: true,
-                    PostChoices: false
+    handleHoverAccount() { // au survol ou au focus de l'onglet "mon compte"
+        if (this.state.showAccountChoices === false) { // si menu "mon compte" = invisible
+            if (this.state.showPostChoices === true) { // si menu "mes articles" = visible
+                this.setState({ // nouvel état : menu "mon compte" => visible et menu "mes articles" => invisible
+                    showAccountChoices: true,
+                    showPostChoices: false
                 })
-            } else {
-                this.setState({
-                    AccountChoices: true
+            } else { // si menu "mes articles"
+                this.setState({ // nouvel état : menu "mon compte" => visible
+                    showAccountChoices: true
                 })
             }
-        } else {
-            this.setState({
-                AccountChoices: false
+        } else { // si menu "mon compte" = visible
+            this.setState({ // nouvel état : menu "mon compte" => invisible
+               showAccountChoices: false
             })
         }
     }
 
-    handleClickUserPosts() {
-        this.setState({
+    handleClickUserPosts() { // au clic sur l'onglet "mes publications" (menu "mes articles")
+        this.setState({ // nouvel état : redirection
             redirect: true
         })
         const redirect = this.state.redirect;
-        if (redirect) {
+        if (redirect) { // si redirection : redirection "mes publications"
             return (
                 window.location = '/userPosts'
             )
         }
     }
 
-    handlePressEnterPosts(event) {// ne fonctionne pas
-        if (event.key === 'Enter') {
+    handlePressEnterPosts(event) { // à la pression d'une touche sur l'onglet "mes publications" (menu "mes articles) /***** fonctionne quand ça veut *****/
+        if (event.key === 'Enter') { // si c'est la touche Entrée : exécution de la fonction handleClickUserPosts
             event.preventDefault();
             this.handleClickUserPosts();
         }
     }
 
-    handleClickCreateNewPost() {
-        this.setState({
+    handleClickCreateNewPost() { // au clic sur l'onglet "publier un article" (menu "mes articles")
+        this.setState({ // nouvel état : redirection
             redirect: true
         })
         const redirect = this.state.redirect;
-        if (redirect) {
+        if (redirect) { // si redirection : redirection "publier un article"
             return (
                 window.location = '/createNewPost'
             )
         }
     }
 
-    handlePressEnterNewPost(event) { // fonctionne
-        if (event.key === 'Enter') {
+    handlePressEnterNewPost(event) { // à la pression d'une touche sur l'onglet "publier un article" (menu "mes articles") /***** fonctionne quand ça veut *****/
+        if (event.key === 'Enter') {// si c'est la touche Entrée : exécution de la fonction handleClickCreateNewPost
             event.preventDefault();
             this.handleClickCreateNewPost();
         }
     }
 
-    handleClickUserAccount() {
-        this.setState({
+    handleClickUserAccount() { // au clic sur l'onglet "mon profil" (menu "mon compte")
+        this.setState({ // nouvel état : redirection
             redirect: true
         })
         const redirect = this.state.redirect;
-        if (redirect) {
+        if (redirect) { // si redirection : redirection "mon profil"
             return (
                 window.location = '/userAccount'
             )
         }
     }
 
-    handlePressEnterAccount(event) {// ne fonctionne pas
-        if (event.key === 'Enter') {
+    handlePressEnterAccount(event) { // à la pression d'une touche sur l'onglet "mon profil" (menu "mon compte") /***** fonctionne quand ça veut *****/
+        if (event.key === 'Enter') { // si c'est la touche Entrée : exécution de la fonction handleCliCkUserAccount
             event.preventDefault();
             this.handleClickUserAccount();
         }
     }
 
-    handleClickLogout() {
-        this.setState({
+    handleClickLogout() { // au clic sur l'onglet "me déconnecter" (menu "mon compte")
+        this.setState({ // nouvel état : redirection
             redirect: true
         })
         const redirect = this.state.redirect;
-        if (redirect) {
+        if (redirect) { // si redirection : redirection "connexion"
             return (
                 window.location = '/'
             )
         }
     }
 
-    handlePressEnterLogout(event) { // fonctionne
-        if (event.key === 'Enter') {
+    handlePressEnterLogout(event) { // à la pression d'une touche sur l'onglet "me déconnecter" (menu "mon compte") /***** fonctionne quand ça veut *****/
+        if (event.key === 'Enter') { // si c'est la touche Entrée : exécution de la fonction handleClickLogout
             event.preventDefault();
             this.handleClickLogout();
         }
     }
 
-    handleClickTerms() {
-        this.setState({
+    handleClickTerms() { // au clic sur l'onglet "mentions légales"
+        this.setState({ // nouvel état : redirection
             redirect: true
         })
         const redirect = this.state.redirect;
-        if (redirect) {
+        if (redirect) { // si redirection : redirection "mentions légales"
             return (
                 window.location = '/terms'
             )
         }
     }
 
-    handlePressEnterTerms(event) {// ne fonctionne pas
-        if (event.key === 'Enter') {
+    handlePressEnterTerms(event) { // à la pression d'une touche sur l'onglet "mentions légales" /***** fonctionne quand ça veut *****/
+        if (event.key === 'Enter') { // si c'est la touche Entrée : exécution de la fonction handleClickTerms
             event.preventDefault();
             this.handleClickTerms();
         }
     }
 
-    handleClickLikePost(event) {
+    handleClickLikePost(event) { // au clic sur l'icon like de l'article
         event.preventDefault();
-        likePostRequest(this.state.likes)
-            .then(() => {
-                if (this.state.userLike === false) { // si pas de like
+        likePostRequest(this.state.likes)// appel de la requête de like d'un article
+            .then(() => { // si requête ok
+                if (this.state.userLike === false) { // si l'utilisateur n'a pas déjà liké l'article
 
-                    if (this.state.userDislike === false) { // si pas de like et pas de dislike
-                        this.setState({likes: this.state.likes + 1}); // ajout d'un like
-                        this.setState({userLike: !this.state.userLike}); // état passe à : déjà liké
+                    if (this.state.userDislike === false) { // si l'utilisateur n'a pas déjà disliké l'article
+                        this.setState({likes: this.state.likes + 1}); // nouvel état : ajout d'un like au total des likes de l'article
+                        this.setState({userLike: !this.state.userLike}); // nouvel état : l'utilisateur a déjà liké l'article
 
-                    } else { // si pas de like mais déjà un dislike
-                        this.setState({dislikes: this.state.dislikes - 1}); // suppression du dislike
-                        this.setState({userDislike: !this.state.userDislike}); // état passé à : pas disliké
-                        this.setState({likes: this.state.likes + 1}); // ajout d'un like
-                        this.setState({userLike: !this.state.userLike}) // état passe à : déjà liké
+                    } else { // si l'utilisateur a déjà disliké l'article
+                        this.setState({dislikes: this.state.dislikes - 1}); // nouvel état : déduction d'un dislike du total des dislikes de l'article
+                        this.setState({userDislike: !this.state.userDislike}); // nouvel état : l'utilisateur n'a pas déjà disliké l'article
+                        this.setState({likes: this.state.likes + 1}); // nouvel état : ajout d'un like au total des likes de l'article
+                        this.setState({userLike: !this.state.userLike}) // nouvel état : l'utilisateur a déjà liké l'article
                     }
-                } else { // si déjà un like
-                    this.setState({likes: this.state.likes - 1}); // suppression du like
-                    this.setState({userLike: !this.state.userLike}); // état passé à : pas liké
+                } else { // si l'utilisateur a déjà liké l'article
+                    this.setState({likes: this.state.likes - 1}); // nouvel état : déduction d'un like du total des likes de l'article
+                    this.setState({userLike: !this.state.userLike}); // nouvel état : l'utilisateur n'a pas déjà liké l'article
                 }
             })
-            .catch(error => {
+            .catch(error => { // si échec requête
                 this.setState({error});
             })
     }
 
-    handleClickDislikePost(event) {
+    handlePressEnterLikePost(event) { // à la pression d'une touche sur l'icon like
+        if (event.key === 'Enter') { // si c'est la touche Entrée : exécution de la fonction handleClickLikePost
+            event.preventDefault();
+            this.handleClickLikePost();
+        }
+
+    }
+
+    handleClickDislikePost(event) { // au clic sur l'icon dislike de l'article
         event.preventDefault();
-        dislikePostRequest(this.state.dislikes)
+        dislikePostRequest(this.state.dislikes) // appel de la requête de dislike d'un article
             .then(() => {
-                    if (this.state.userDislike === false) { // si pas de dislike
+                    if (this.state.userDislike === false) { // si l'utilisateur n'a pas déjà disliké l'article
 
-                        if (this.state.userLike === false) { // si pas de dislike et si pas de like
-                            this.setState({dislikes: this.state.dislikes + 1}); // ajout d'un dislike
-                            this.setState({userDislike: !this.state.userDislike}); // état passe à : déjà disliké
+                        if (this.state.userLike === false) { // si l'utilisateur n'a pas déjà liké l'article
+                            this.setState({dislikes: this.state.dislikes + 1}); // nouvel état : ajout d'un dislike au total des dislikes de l'article
+                            this.setState({userDislike: !this.state.userDislike}); // nouvel état : l'utilisateur a déjà disliké l'article
 
-                        } else { // si pas de dislike et déjà un like
-                            this.setState({likes: this.state.likes - 1}); // suppression du like
-                            this.setState({userLike: !this.state.userLike}); // état passe à : pas liké
-                            this.setState({dislikes: this.state.dislikes + 1}); // ajout d'un dislike
-                            this.setState({userDislike: !this.state.userDislike}) // état passe à : déjà disliké
+                        } else { // si l'utilisateur a déjà liké l'article
+                            this.setState({likes: this.state.likes - 1}); // nouvel état : déduction d'un like au total des likes de l'article
+                            this.setState({userLike: !this.state.userLike}); // nouvel état : l'utilisateur n'a pas déjà liké l'article
+                            this.setState({dislikes: this.state.dislikes + 1}); // nouvel état : ajout  d'un dislike au total des dislikes de l'article
+                            this.setState({userDislike: !this.state.userDislike}) // nouvel état : l'utilisateur a déjà disliké l'article
                         }
-                    } else { // si déjà un dislike
-                        this.setState({dislikes: this.state.dislikes - 1}); // suppression du dislike
-                        this.setState({userDislike: !this.state.userDislike}); // état passe à : pas disliké
+                    } else { // si l'utilisateur a déjà disliké l'article
+                        this.setState({dislikes: this.state.dislikes - 1}); // nouvel état : déduction d'un dislike au total des dislikes de l'article
+                        this.setState({userDislike: !this.state.userDislike}); // nouvel état : l'utilisateur n'a pas déjà disliké l'article
                     }
                 }
             )
-            .catch(error => {
+            .catch(error => { // si échec requête
                 this.setState({error});
             })
     }
 
-    handleEditorChange(content) {
-        this.setState({content})
+    handlePressEnterDislikePost(event) { // à la pression d'une touche sur l'icon dislike
+        if (event.key === 'Enter') { // si c'est la touche Entrée : exécution de la fonction handleClickDislikePost
+            event.preventDefault();
+            this.handlePressEnterDislikePost();
+        }
+
     }
 
-    async handleSubmitCom(event) {
+    handleEditorChange(content) { // à la saisie de caractères dans le champ de commentaire de l'éditeur de texte
+        this.setState({content}) // nouvel état : le contenu du champ commentaire prend la valeur des caractères saisis
+    }
+
+    async handleSubmitCom(event) { // à la soumission du commentaire
         event.preventDefault();
-        await createComRequest(this.state.content, this.state.postId)
-            .then(() => {
-                const totalComs = this.state.totalComs + 1;
-                this.setState({totalComs});
-            })
-            .catch(error => {
-                this.setState({error});
-            })
-        getAllComsRequest()
-            .then(res => {
-                const comsList = res.data;
-                this.setState({comsList});
-                this.setState({
-                    content: ''
+        if (this.state.content === "") { // si le contenu est vide
+            alert("Veuillez écrire un commentaire");
+        } else { // si un commentaire a été rédigé
+            await createComRequest(this.state.content, this.state.postId)// appel de la requête de création d'un commentaire
+                .then(() => { // si requête ok
+                    const totalComs = this.state.totalComs + 1;
+                    this.setState({totalComs}); // nouvel état : ajout du commentaire au nombre total de commentaires de l'article
                 })
-            })
-            .catch(error => {
-                this.setState({error});
-            })
+                .catch(error => { // si échec requête
+                    this.setState({error});
+                })
+            getAllComsRequest() // appel de la requête de récupération de tous les commentaires
+                .then(res => { // si requête ok
+                    const comsList = res.data;
+                    this.setState({comsList}); // nouvel état : ajout du commentaire au tableau de commentaires
+                    this.setState({ // nouvel état : suppression du contenu dans le champ commentaire
+                        content: ''
+                    })
+                })
+                .catch(error => { // si échec requête
+                    this.setState({error});
+                })
+        }
     }
 
-    handleResize() {
-        this.setState( {
+    handleResize() { // au changement de largeur de l'écran
+        this.setState({ // nouvel état : largeur => largeur actualisée
             width: window.innerWidth
         })
     }
 
-    async componentDidMount() {
-        await getAllComsRequest()
-            .then(res => {
+    async componentDidMount() { // quand le composant est monté
+        await getAllComsRequest() // appel de la requête de récupération de tous les commentaires
+            .then(res => { // si requête ok
                 const comsList = res.data;
-                this.setState({comsList});
+                this.setState({comsList}); // nouvel état : tableau de commentaires => commentaires récupérés
             })
-            .catch(error => {
+            .catch(error => { // si échec requête
                 this.setState({error});
             })
 
     }
 
     render() {
-        const user = JSON.parse(localStorage.getItem('user'));
-        const renderHTML = (rawHTML: string) => React.createElement("div", {dangerouslySetInnerHTML: {__html: rawHTML}});
-        const post = JSON.parse(localStorage.getItem('post'));
-        window.addEventListener('resize', this.handleResize);
-        const renderHeader = () => {
-            console.log(this.state.width);
-            if(this.state.width < 1280) {
-                return(
+        const user = JSON.parse(localStorage.getItem('user')); // récupération de l'utilisateur dans le localstorage
+        const renderHTML = (rawHTML: string) => React.createElement("div", {dangerouslySetInnerHTML: {__html: rawHTML}}); // fonction d'affichage du HTML dans son format original
+        const post = JSON.parse(localStorage.getItem('post')); // récupération de l'article dans le localstorage
+        window.addEventListener('resize', this.handleResize); // écoute du changement de largeur d'écran
+        const renderHeader = () => { // fonction d'affichage du header selon la largeur de l'écran
+            if (this.state.width < 1280) {
+                return (
                     <Header/>
                 )
             } else {
@@ -396,7 +419,7 @@ class DisplayOnePost extends React.Component {
                                        onPointerEnter={this.handleHoverPosts}
                                        onFocus={this.handleHoverPosts}>Mes articles</a>
 
-                                    {this.state.PostChoices ? <this.PostsChoices/> : null}
+                                    {this.state.showPostChoices ? <this.PostsChoices/> : null} {/* condition : si l'état showPostChoices = true => exécution de PostChoices */}
                                 </li>
 
                                 <li className="fullPostMenuChoiceAccount fullPostMenuChoice">
@@ -405,7 +428,7 @@ class DisplayOnePost extends React.Component {
                                        onFocus={this.handleHoverAccount}>
                                         Mon compte</a>
 
-                                    {this.state.AccountChoices ? <this.AccountChoices/> : null}
+                                    {this.state.showAccountChoices ? <this.AccountChoices/> : null} {/* condition : si l'état showAccountChoices = true => exécution de AccountChoices */}
                                 </li>
 
                                 <li className="fullPostMenuChoiceTerms fullPostMenuChoice">
@@ -463,7 +486,7 @@ class DisplayOnePost extends React.Component {
 
                                 </div>
 
-                                <div className="fullPostContent">{renderHTML(post.content)}</div>
+                                <div className="fullPostContent">{renderHTML(post.content)}</div> {/* affichage du contenu de l'article, nettoyé du html */}
                             </div>
 
                             <div className="fullPostComsLikesSmallDevices">
@@ -475,12 +498,12 @@ class DisplayOnePost extends React.Component {
 
                                 <div className="fullPostLikesBox likesBox">
                                     <FontAwesomeIcon className="likesIconPost" icon={faThumbsUp} tabIndex="0"
-                                                     onClick={this.handleClickLikePost}/>
+                                                     onClick={this.handleClickLikePost} onKeyDown={this.handlePressEnterLikePost}/>
 
                                     <p className="postLikes iconStylePost">{this.state.likes}</p>
 
                                     <FontAwesomeIcon className="dislikesIconPost" icon={faThumbsDown} tabIndex="0"
-                                                     onClick={this.handleClickDislikePost}/>
+                                                     onClick={this.handleClickDislikePost} onKeyDown={this.handlePressEnterDislikePost}/>
 
                                     <p className="postDislikes iconStylePost">{this.state.dislikes}</p>
                                 </div>
@@ -493,7 +516,7 @@ class DisplayOnePost extends React.Component {
                                 <form className="editorCom">
                                     <Editor value={this.state.content} onEditorChange={this.handleEditorChange}
                                             apiKey="qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc"
-                                            init={{
+                                            init={{ // configuration de l'éditeur de texte
                                                 placeholder: 'Votre commentaire',
                                                 plugins: [
                                                     'emoticons',
@@ -519,9 +542,9 @@ class DisplayOnePost extends React.Component {
 
                             <div className="fullPostComs">
                                 <ul className="comsList">
-                                    {this.state.comsList.map(com => {
+                                    {this.state.comsList.map(com => { // fonction de map sur les éléments de la liste de commentaires
                                         const {comId} = com;
-                                        return (
+                                        return ( // affichage de chaque commentaire
                                             <li className="com" key={comId}>
                                                 <div className="comAuthor">
                                                     <img className="comAvatar avatar"

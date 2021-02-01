@@ -1,6 +1,7 @@
-//importations
-import React from 'react';
+// FOOTER (pour largeurs d'écran de 768 à 1279px)
 
+//imports
+import React from 'react';
 import './Footer.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAngleDoubleLeft} from "@fortawesome/free-solid-svg-icons";
@@ -8,18 +9,18 @@ import {faAngleDoubleLeft} from "@fortawesome/free-solid-svg-icons";
 class Footer extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            redirect: false
+        this.state = { // initialisation de l'état du composant
+            redirect: false // pas de redirection
         }
         this.handleClickTerms = this.handleClickTerms.bind(this);
     }
 
-    handleClickTerms() {
-        this.setState({
+    handleClickTerms() { // au clic sur l'onglet "mentions légales"
+        this.setState({ // nouvel état : redirection
             redirect: true
         })
         const redirect = this.state.redirect;
-        if (redirect) {
+        if (redirect) { // si redirection : redirection "mentions légales"
             return (
                 window.location = '/terms'
             )

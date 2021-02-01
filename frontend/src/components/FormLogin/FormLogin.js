@@ -1,13 +1,14 @@
-//importations
+// FORMULAIRE DE CONNEXION UTILISATEUR
+
+// imports
 import React, {Fragment} from 'react';
 import {getOneUserRequest, loginRequest} from '../../utils/Api';
-
 const jwt = require('jsonwebtoken');
 
 class FormLogin extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
+        this.state = { // initialisation de l'état du composant : champs vides
             email: '',
             password: ''
         };
@@ -16,35 +17,34 @@ class FormLogin extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(event) {
+    handleChange(event) { // à la saisie de caractères dans les champs ciblés du formulaire
         event.preventDefault();
-
-        this.setState({
+        this.setState({ // nouvel état : les champs ciblés prennent la valeur des caractères saisis
             [event.target.name]: event.target.value,
         })
     }
 
-    async handleSubmit(event) {
+    async handleSubmit(event) { // à la soumission du formulaire
         event.preventDefault();
-        await loginRequest(this.state.email, this.state.password)
-            .then(res => {
+        await loginRequest(this.state.email, this.state.password) // appel de la requête de connexion avec email et mdp
+            .then(res => { // si requête ok
                 const token = res.data.token;
-                const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); // vérification du token
+                const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); // vérification du token d'authentification utilisateur
                 const userId = decodedToken.userId;
-                localStorage.setItem('token', JSON.stringify(res.data.token));
-                localStorage.setItem('userId', JSON.stringify(userId));
-                window.location.href = "/home";
+                localStorage.setItem('token', JSON.stringify(res.data.token)); // stockage du token dans le localstorage
+                localStorage.setItem('userId', JSON.stringify(userId)); // stockage de l'id utilisateur dans le localstorage
+                window.location.href = "/home"; // redirection "accueil"
             })
-            .catch(error => {
+            .catch(error => { // si échec requête
                 this.setState({error});
                 alert('Nous n\'avons pas pu vous connecter, veuillez vérifier vos informations !');
             })
-        getOneUserRequest()
-            .then(res => {
+        getOneUserRequest() // appel de la requête de récupération d'un utilisateur
+            .then(res => { // si resuête ok
                 const user = res.data;
-                localStorage.setItem('user', JSON.stringify(user));
+                localStorage.setItem('user', JSON.stringify(user)); // stockage de l'utilisateur dans le localstorage
             })
-            .catch(error => {
+            .catch(error => { // si échec requête
                 this.setState({error});
             })
     }

@@ -1,24 +1,24 @@
 // CONTROLLER COMMENTAIRE
 
-// importations
+// imports
 const jwt = require('jsonwebtoken');
 const Com = require('../models/Com');
 const db = require('../db');
 const escapeString = require('../escape-string');
 
 
-// exportation de la fonction de création d'un commentaire
+// fonction de création d'un commentaire
 exports.createCom = (req, res) => {
     try {
         const token = req.headers.authorization.split(' ')[1]; // récupération du token dans le header authorization
-        const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); // vérification du token
+        const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); // vérification du token pour authetification de l'utilisateur
         const userId = decodedToken.userId;
-        db.query(`SELECT firstname, lastname, avatar FROM users WHERE userId = '${userId}'`, (err, row) => {
-            if (err || row.length === 0) {
+        db.query(`SELECT firstname, lastname, avatar FROM users WHERE userId = '${userId}'`, (err, row) => { // recherche des infos de l'utilisateur connecté
+            if (err || row.length === 0) { // si aucun résultat ou erreur
                 res.status(401).json({message: 'Informations non trouvées !'})
-            } else {
+            } else { // si infos de l'utilisateur trouvées
                 const userInfos = row[0];
-                const com = new Com({
+                const com = new Com({ // création d'un nouveau commentaire
                     content: req.body.content,
                     userId: userId,
                     postId: req.body.postId,
@@ -26,20 +26,20 @@ exports.createCom = (req, res) => {
                     lastname: userInfos.lastname,
                     avatar: userInfos.avatar,
                 });
-                db.query(`INSERT INTO coms(content, userId, postId, firstname, lastname, avatar) VALUES ('${escapeString(com.content)}', '${com.userId}', '${com.postId}', '${com.firstname}', '${com.lastname}', '${com.avatar}')`);
-                db.query(`SELECT totalComs from posts WHERE postId = '${com.postId}'`, (err, row) => {
-                    if (err || row.length === 0) {
+                db.query(`INSERT INTO coms(content, userId, postId, firstname, lastname, avatar) VALUES ('${escapeString(com.content)}', '${com.userId}', '${com.postId}', 
+                '${com.firstname}', '${com.lastname}', '${com.avatar}')`); // sauvegarde du nouveau commentaire
+                db.query(`SELECT totalComs from posts WHERE postId = '${com.postId}'`, (err, row) => { // recherche du nombre de commentaires pour l'article sélectionné
+                    if (err || row.length === 0) { // si aucun résultat ou erreur
                         res.status(401).json({err})
-                    } else {
+                    } else { // si commentaire(s) trouvé(s)
                         const totalComs = row[0].totalComs;
-                        const newTotalComs = totalComs + 1;
-                        db.query(`UPDATE posts SET posts.totalComs = '${newTotalComs}' WHERE postId = '${com.postId}'`);
+                        const newTotalComs = totalComs + 1; // ajout du commentaire créé au nombre total de commentaires
+                        db.query(`UPDATE posts SET posts.totalComs = '${newTotalComs}' WHERE postId = '${com.postId}'`); // sauvegarde du nouveau total de commentaires
                         res.status(201).json({
                             message: 'Commentaire publié !'
                         });
                     }
                 })
-
             }
         })
     } catch (error) {
@@ -47,16 +47,16 @@ exports.createCom = (req, res) => {
     }
 };
 
-// exportation de la fonction de récupération d'un commentaire
+// fonction de récupération d'un commentaire
 exports.getOneCom = (req, res) => {
     try {
         const {comId} = req.params;
-        db.query(`SELECT * FROM posts WHERE comId = '${comId}'`, (err, row) => {
-            if (err || row.length === 0) {
+        db.query(`SELECT * FROM posts WHERE comId = '${comId}'`, (err, row) => { // recherche d'un commentaire avec son id
+            if (err || row.length === 0) { // si aucun résultat ou erreur
                 res.status(401).json({message: 'Commentaire non trouvé !'})
-            } else {
+            } else { // si commentaire trouvé
                 const com = row[0];
-                res.status(200).json(com);
+                res.status(200).json(com); // récupération du commentaire en question
             }
         })
     } catch (error) {
@@ -65,33 +65,32 @@ exports.getOneCom = (req, res) => {
 };
 
 
-// exportation de la fonction de récupération de tous les commentaires d'un article
+// fonction de récupération de tous les commentaires d'un article
 exports.getAllComs = (req, res) => {
     try {
         const postId = req.query.postId;
-        db.query(`SELECT * FROM coms WHERE postId = '${postId}'`, (err, row) => {
-            if (err) {
+        db.query(`SELECT * FROM coms WHERE postId = '${postId}'`, (err, row) => { // recherche des commentaires d'un article avec son id
+            if (err || row.length === 0) { // si aucun résultat ou erreur
                 res.status(401).json({message: 'Impossible de charger les commentaires !'})
-            } else {
+            } else { // si commentaire(s) trouvé(s)
                 const com = row;
-                res.status(200).json(com);
+                res.status(200).json(com); //récupération de tous les commentaires de l'article
             }
-
         })
     } catch (error) {
         res.status(500).json({error})
     }
 };
 
-// exportation de la fonction de suppression d'un commentaire
+// fonction de suppression d'un commentaire
 exports.deleteCom = (req, res) => {
     try {
         const {comId} = req.params;
-        db.query(`SELECT * FROM com WHERE comId = '${comId}'`, (err, row) => {
-            if (err || row.length === 0) {
+        db.query(`SELECT * FROM com WHERE comId = '${comId}'`, (err, row) => { // recherche d'un commentaire avec son id
+            if (err || row.length === 0) { // si aucun résultat ou erreur
                 res.status(401).json({message: 'Impossible de supprimer le commentaire !'})
-            } else {
-                db.query(`DELETE FROM coms WHERE comId = '${comId}'`);
+            } else { // si commentaire trouvé
+                db.query(`DELETE FROM coms WHERE comId = '${comId}'`); // suppression du commentaire
                 res.status(200).json({message: 'Commentaire supprimé !'})
             }
         })
@@ -99,5 +98,3 @@ exports.deleteCom = (req, res) => {
         res.status(500).json({error})
     }
 };
-
-

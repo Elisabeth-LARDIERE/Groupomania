@@ -1,20 +1,19 @@
 // MIDDLEWARE DE VERIFICATION DES TOKENS ENVOYES AVEC LES REQUETES - PROTECTION DES ROUTES
 
-// importations
+// imports
 const jwt = require('jsonwebtoken');
 
-
-// exportation de la fonction middleware qui va vérifier le token envoyé avant d'autoriser les requêtes
+// fonction de vérification du token envoyé avant d'autoriser les requêtes
 module.exports = (req, res, next) => {
     try {
         const token = req.headers.authorization.split(' ')[1]; // récupération du token dans le header authorization
-        const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); // vérification du token
+        const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); // vérification du token pour authentification utilisateur
         const userId = decodedToken.userId; // décodage du token
-        if (req.body.userId && req.body.userId !== userId) {
+        if (req.body.userId && req.body.userId !== userId) { // si id envoyé et id token ne correspondent pas
             throw 'User ID non valable !';
 
-        } else {
-            next();
+        } else { // s'ils correspondent
+            next(); // poursuite de l'exécution
         }
     } catch (error) {
         res.status(401).json({ error: error | 'Requête non authentifiée!'});

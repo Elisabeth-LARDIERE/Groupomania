@@ -1,4 +1,6 @@
-//importations
+// ACCUEIL
+
+//imports
 import React, {Fragment} from 'react';
 import {getAllPostsRequest, getOldPostsRequest, getOnePostRequest, getPopularPostsRequest} from '../../utils/Api';
 import './Home.css';
@@ -10,11 +12,11 @@ import Footer from "../../components/Footer/Footer";
 class Home extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            showPosts: true,
-            showPopularPosts: false,
-            showOldPosts: false,
-            postsList: []
+        this.state = { // initialisation du composant
+            showPosts: true, // visibilité de l'option "les plus récentes" dans la barre de tri des publications
+            showPopularPosts: false, // invisibilité de l'option "les plus populaires" dans la barre de tri des publications
+            showOldPosts: false, // invisibilité de l'option "les plus anciennes" dans la barre de tri des publications
+            postsList: [] // tableau des commentaires
         }
         this.handleClickOnePost = this.handleClickOnePost.bind(this);
         this.handleChangeFilter = this.handleChangeFilter.bind(this);
@@ -24,6 +26,8 @@ class Home extends React.Component {
         this.OldPosts = this.OldPosts.bind(this);
         this.OnePostLink = this.OnePostLink.bind(this);
     }
+
+    // affichage d'un titre différent en fonction du choix dans la barre de tri des publications
 
     Posts() {
         return (
@@ -43,98 +47,98 @@ class Home extends React.Component {
         )
     }
 
-    OnePostLink() {
+    OnePostLink() { // affichage du choix de voir l'article individuel
         return (
             <p className="onePostLink">Voir plus</p>
         )
     }
 
-    handleChangeFilter(event) {
+    handleChangeFilter(event) { // au changement d'option dans la barre de tri des publications
         event.preventDefault();
-        if (event.target.value === 'Les plus récentes') {
-            getAllPostsRequest()
-                .then(res => {
+        if (event.target.value === 'Les plus récentes') { // si option = "les plus récentes"
+            getAllPostsRequest() // appel de la requête de récupération de tous les articles
+                .then(res => { // si requête ok
                     const postsList = res.data;
-                    this.setState({postsList});
+                    this.setState({postsList}); // nouvel état : tableau d'articles => articles récupérés
                 })
-                .catch(error => {
+                .catch(error => { // si échec requête
                     this.setState({error});
                 })
-            this.setState({
-                value: event.target.value,
-                showPopularPosts: false,
-                showOldPosts: false,
-                showPosts: true
+            this.setState({ // nouvel état :
+                value: event.target.value, // la barre de tri affiche la valeur sélectionnée
+                showPopularPosts: false, // invisibilité de l'option "les plus populaires"
+                showOldPosts: false, // invisibilité de l'option "les plus anciennes"
+                showPosts: true // visibilité de l'option "les plus récentes"
             });
-        } else if (event.target.value === 'Les plus populaires') {
-            getPopularPostsRequest()
-                .then(res => {
+        } else if (event.target.value === 'Les plus populaires') { // si option = "les plus populaires"
+            getPopularPostsRequest() // appel de la requête de récupération des articles par ordre décroissant de popularité
+                .then(res => { // si requête ok
                     const postsList = res.data;
-                    this.setState({postsList});
+                    this.setState({postsList}); // nouvel état : tableau d'articles => articles récupérés
                 })
-                .catch(error => {
+                .catch(error => { // si échec requête
                     this.setState({error});
                 })
-            this.setState({
-                value: event.target.value,
-                showPopularPosts: true,
-                showOldPosts: false,
-                showPosts: false
+            this.setState({ // nouvel état :
+                value: event.target.value, // la barre de tri affiche la valeur sélectionnée
+                showPopularPosts: true, // visibilité de l'option "les plus populaires"
+                showOldPosts: false, // invisibilité de l'option "les plus anciennes"
+                showPosts: false // invisibilité de l'option "les plus récentes"
             });
-        } else if (event.target.value === 'Les plus anciennes') {
-            getOldPostsRequest()
-                .then(res => {
+        } else if (event.target.value === 'Les plus anciennes') { // si option = "les plus anciennes"
+            getOldPostsRequest() // appel de la requête de récupération des articles par ordre croissant de création
+                .then(res => { // si requête ok
                     const postsList = res.data;
-                    this.setState({postsList});
+                    this.setState({postsList}); // nouvel état : tableau d'articles => articles récupérés
                 })
-                .catch(error => {
+                .catch(error => { // si échec requête
                     this.setState({error});
                 })
-            this.setState({
-                value: event.target.value,
-                showOldPosts: true,
-                showPopularPosts: false,
-                showPosts: false
+            this.setState({ // nouvel état :
+                value: event.target.value, // la barre de tri affiche la valeur sélectionnée
+                showOldPosts: true, // visibilité de l'option "les plus anciennes"
+                showPopularPosts: false, // invisibilité de l'option "les plus populaires"
+                showPosts: false // invisibilité de l'option "les plus récentes"
             });
         }
     }
 
-    handleClickOnePost(post) {
+    handleClickOnePost(post) { // au clic sur le "voir plus" d'un article
         const postId = post.postId;
-        localStorage.setItem('postId', JSON.stringify(postId));
-        localStorage.setItem('post', JSON.stringify(post));
-        getOnePostRequest()
-            .then(() => {
+        localStorage.setItem('postId', JSON.stringify(postId)); // récupération de l'id du post dans le localstorage
+        localStorage.setItem('post', JSON.stringify(post)); // récupération du post dans le localstorage
+        getOnePostRequest() // appel de la requête de récupération d'un article spécifique
+            .then(() => { // si requête ok : redirection "afficher un article"
                 window.location.href = "/displayOnePost"
 
             })
-            .catch(error => {
+            .catch(error => { // si échec requête
                 this.setState({error});
             })
     }
 
-    async componentDidMount() {
-        await getAllPostsRequest()
-            .then(res => {
+    async componentDidMount() { // quand le composant est monté
+        await getAllPostsRequest() // récupération de tous les articles
+            .then(res => { // si requête ok
                 const postsList = res.data;
-                this.setState({postsList});
+                this.setState({postsList}); // tableau d'articles => articles récupérés
             })
-            .catch(error => {
+            .catch(error => { // si échec requête
                 this.setState({error});
             })
     }
 
     render() {
-        const renderHTML = (rawHTML: string) => React.createElement("div", {dangerouslySetInnerHTML: {__html: rawHTML}});
+        const renderHTML = (rawHTML: string) => React.createElement("div", {dangerouslySetInnerHTML: {__html: rawHTML}}); // fonction d'affichage du HTML dans son format original
         return (
             <Fragment>
                 <Header/>
 
                 <main className="mainHome">
                     <section className="postsBox">
-                        {this.state.showPosts ? <this.Posts/> : null}
-                        {this.state.showPopularPosts ? <this.PopularPosts/> : null}
-                        {this.state.showOldPosts ? <this.OldPosts/> : null}
+                        {this.state.showPosts ? <this.Posts/> : null} {/* condition : si l'état showPosts = true => exécution de Posts */}
+                        {this.state.showPopularPosts ? <this.PopularPosts/> : null} {/* condition : si l'état showPopularPosts = true => exécution de PopularPosts */}
+                        {this.state.showOldPosts ? <this.OldPosts/> : null} {/* condition : si l'état showOldPosts = true => exécution de OldPosts */}
 
                         <div className="filter filterSmallDevices">
                             <p className="filterTitleSmallDevices">Trier les publications</p>
@@ -156,9 +160,9 @@ class Home extends React.Component {
                         </div>
 
                         <ul className="postsList">
-                            {this.state.postsList.map(post => {
+                            {this.state.postsList.map(post => { // fonction de map sur les éléments de la liste des articles
                                     const {postId} = post;
-                                    return (
+                                    return ( // affichage de chaque article
                                         <li className="post" key={postId} tabIndex="0">
 
                                             <div className="postHeader">

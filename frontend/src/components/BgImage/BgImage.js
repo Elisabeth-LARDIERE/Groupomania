@@ -1,6 +1,10 @@
+// IMAGE DE FOND PAGES SIGNUP ET LOGIN
+
+// imports
 import React from "react";
 import socialImage from '../../images/social-media.png';
 import './BgImage.css';
+
 
 function BgImage() {
     return (

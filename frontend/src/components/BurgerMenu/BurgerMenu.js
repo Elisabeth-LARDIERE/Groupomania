@@ -1,12 +1,15 @@
+// BURGER MENU POUR HEADER DES PETITS ECRANS
+
+// imports
 import React from "react";
 import './BurgerMenu.css';
 
 class BurgerMenu extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            showContact: false,
-            redirect: false
+        this.state = { // initialisation de l'état du composant
+            showContact: false, // invisibilité  des infos "contact"
+            redirect: false // pas de redirection
         }
         this.handleClickContact = this.handleClickContact.bind(this);
         this.handleClickHome = this.handleClickHome.bind(this);
@@ -15,67 +18,67 @@ class BurgerMenu extends React.Component {
         this.handleClickTerms = this.handleClickTerms.bind(this);
     }
 
-    handleClickContact() {
-        if (this.state.showContact === false) {
-            this.setState( {
+    handleClickContact() { // au clic sur l'onglet "contact"
+        if (this.state.showContact === false) { // si l'onglet "contact" est plié
+            this.setState( { // nouvel état : visibilité infos "contact"
                 showContact: true
             })
-        } else {
-            this.setState( {
+        } else { // si l'onglet "contact" est déplié
+            this.setState( { // nouvel état : invisibilité infos "contact"
                 showContact: false
             })
         }
     }
 
-    handleClickHome() {
-        this.setState({
+    handleClickHome() { // au clic sur l'onglet "accueil"
+        this.setState({ // nouvel état: redirection
             redirect: true
         })
         const redirect = this.state.redirect;
-        if (redirect) {
+        if (redirect) { // si redirection : redirection "accueil"
             return (
                 window.location = '/home'
             )
         }
     }
 
-    handleClickPosts() {
-        this.setState({
+    handleClickPosts() { // au clic sur l'onglet "mes publications"
+        this.setState({ // nouvel état : redirection
             redirect: true
         })
         const redirect = this.state.redirect;
-        if (redirect) {
+        if (redirect) { // si redirection : redirection "mes publications"
             return (
                 window.location = '/userPosts'
             )
         }
     }
 
-    handleClickAccount() {
-        this.setState({
+    handleClickAccount() { // au clic sur l'onglet "mon profil"
+        this.setState({ // nouvel état : redirection
             redirect: true
         })
         const redirect = this.state.redirect;
-        if (redirect) {
+        if (redirect) { // si redirection : redirection "mon profil"
             return (
                 window.location = '/userAccount'
             )
         }
     }
 
-    handleClickTerms() {
-        this.setState({
+    handleClickTerms() { // au clic sur l'onglet "mentions légales"
+        this.setState({ // nouvel état : redirection
             redirect: true
         })
         const redirect = this.state.redirect;
-        if (redirect) {
+        if (redirect) { // si redirection : redirection "mentions légales"
             return (
                 window.location = '/terms'
             )
         }
     }
 
-    ShowContact() {
+    ShowContact() { // infos "contact" si l'onglet est déplié (état : visibilité)
         return (
             <div className="menuSupport">
                 <p className="contactAddress menuContactAddress">
@@ -113,7 +116,7 @@ class BurgerMenu extends React.Component {
                         <li onClick={this.handleClickTerms}>Mentions légales</li>
 
                         <li onClick={this.handleClickContact}>Contact</li>
-                        {this.state.showContact ? <this.ShowContact/> : null}
+                        {this.state.showContact ? <this.ShowContact/> : null} {/* condition : si l'état showContact = true => exécution de ShowContact */}
                     </ul>
                 </div>
             </div>

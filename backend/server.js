@@ -1,10 +1,10 @@
 // SERVEUR DE L'APPLICATION
 
-// importations
+// imports
 const http = require('http');
 const app = require('./app');
 
-// renvoie un port valide, qu'il soit fourni sous la forme d'un numéro ou d'une chaîne
+// renvoi d'un port valide, qu'il soit fourni sous la forme d'un numéro ou d'une chaîne
 const normalizePort = val => {
     const port = parseInt(val, 10);
 
@@ -19,7 +19,7 @@ const normalizePort = val => {
 const port = normalizePort(process.env.PORT || '3001');
 app.set('port', port);
 
-// recherche les différentes erreurs et les gère de manière appropriée. Elle est ensuite enregistrée dans le serveur
+// recherche et gestion des différentes erreurs de manière appropriée
 const errorHandler = error => {
     if (error.syscall !== 'listen') {
         throw error;
@@ -40,12 +40,10 @@ const errorHandler = error => {
     }
 };
 
-
 // création du serveur
 const server = http.createServer(app);
 
-
-//enregistrement d'un écouteur d'évènements, consignant le port ou le canal nommé sur lequel le serveur s'exécute dans la console
+//e nregistrement d'un écouteur d'évènements, consignant le port ou le canal nommé sur lequel le serveur s'exécute dans la console
 server.on('error', errorHandler);
 server.on('listening', () => {
     const address = server.address();

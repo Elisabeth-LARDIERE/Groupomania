@@ -1,6 +1,6 @@
 // ROUTER ARTICLE
 
-// importations
+// imports
 const express = require('express');
 const postCtrl = require('../controllers/post');
 const auth = require('../middleware/auth');
@@ -20,5 +20,5 @@ router.put('/updateLike', auth, postCtrl.likePost);
 router.put('/updateDislike', auth, postCtrl.dislikePost);
 
 
-// exportation du router article
+// exportdu router article
 module.exports = router;

@@ -1,6 +1,6 @@
 // CONNEXION DE L'APPLICATION A LA BASE DE DONNEES
 
-// importation de mysql et du fichier config
+// imports
 const mysql = require('mysql');
 const config = require('./config');
 
@@ -19,6 +19,5 @@ db.connect((err) => {
     console.log("Connected!");
 });
 
-
-// exportation de l'instance de connexion
+// export de l'instance de connexion
 module.exports = db;
