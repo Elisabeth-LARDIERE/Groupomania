@@ -13,16 +13,15 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 80vh;
-    margin-top: 20px;
+    margin-top: 10px;
+    height: 79vh;
 }
 
 .accountInfosList {
     box-shadow: 0 14px 28px rgba(24, 30, 86, 0.25), 0 10px 10px rgba(24, 30, 86, 0.22);
     border-radius: 5px;
-    width: 95vw;
     background-color: white;
-    margin-bottom: 15px;
+    width: 90%;
 }
 
 .accountField {
@@ -68,18 +67,24 @@
     margin-bottom: 10px;
 }
 
+.accountButtonsAndBigAvatar {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .accountButtons {
     display: flex;
     flex-direction: column;
-    margin-top: 10px;
 }
 
 .accountUpdateButton, .accountDeleteButton {
-    height: 30px;
-    width: 150px;
+    height: 35px;
+    width: 170px;
     padding: 5px;
-    margin-top: 25px;
     font-size: 0.9em;
+    margin: 20px;
 }
 
 
@@ -93,10 +98,13 @@
         height: 86vh;
     }
 
+    .accountBoxInfos {
+        height: 76vh;
+    }
+
     .accountInfosList {
         width: 90vw;
     }
-
     .accountAvatarField {
         flex-direction: row;
         align-items: center;
@@ -110,17 +118,6 @@
         width: 20vw;
         height: 20vw;
         margin-bottom: 0;
-    }
-
-    .accountButtonsAndBigAvatar {
-        width: 100%;
-    }
-
-    .accountButtons {
-        flex-direction: row;
-        width: 100%;
-        justify-content: space-around;
-        margin-top: 20px;
     }
 
     .accountUpdateButton, .accountDeleteButton {
@@ -152,8 +149,19 @@
         margin-right: 20px;
     }
 
+    .accountButtonsAndBigAvatar {
+        align-items: center;
+        height: 25%;
+        margin-top: 10px;
+    }
+
     .accountButtons {
-        margin-top: 20px;
+        flex-direction: row;
+    }
+
+    .accountUpdateButton, .accountDeleteButton {
+       margin-left: 40px;
+       margin-right: 40px;
     }
 }
 
@@ -168,14 +176,13 @@
     .accountBoxInfos {
         flex-direction: row;
         align-items: inherit;
-        justify-content: center;
-        height: 65vh;
+        justify-content: space-around;
+        height: 100%;
         margin: 30px 15px 0;
     }
 
     .accountInfosList {
-        width: 60vh;
-        height: 55vh;
+        height: 60vh;
         margin-bottom: 0;
     }
 
@@ -192,6 +199,7 @@
         display: flex;
         flex-direction: column;
         height: 60vh;
+        margin: 0;
     }
 
     .bigAvatar {
@@ -209,6 +217,8 @@
 
     .accountUpdateButton, .accountDeleteButton {
         margin: 0 15px;
+        width: 180px;
+        font-size: 1em;
     }
 }
 
@@ -230,18 +240,28 @@
     .accountBoxInfos {
         margin: 20px 0 0;
         padding-left: 50px;
+        justify-content: normal;
     }
 
     .accountAvatar {
         width: 7vw;
         height: 7vw;
     }
+
+    .bigAvatar {
+        margin-top: 60px;
+    }
 }
 
 @media screen and (min-width: 1440px) {
 
+    .accountBoxInfos {
+        height: 100vh;
+        justify-content: space-between ;
+    }
+
     .accountInfosList {
-        height: 55vh;
+        height: 68vh;
     }
 
     .accountLabel {
@@ -269,8 +289,8 @@
 @media screen and (min-width: 1600px) {
 
     .accountInfosList {
-        height: 60vh;
-        width: 80vw;
+        height: 65vh;
+        width: 60%;
     }
 
     .accountBloc {
@@ -279,12 +299,21 @@
         height: 81vh;
     }
 
+    .accountField {
+        margin-bottom: 30px;
+    }
+
     .accountSeparator {
         margin-bottom: 20px;
     }
 
+    .accountButtonsAndBigAvatar {
+        width: 40%;
+    }
+
     .accountButtons {
         justify-content: space-around;
+        width: 100%;
     }
 
     .accountUpdateButton, .accountDeleteButton {
@@ -304,7 +333,6 @@
     }
 
     .accountInfosList {
-        width: 60vw;
         height: 60vh;
     }
 
