@@ -9,7 +9,7 @@
 .fullPostBox {
     display: flex;
     flex-direction: column;
-    height: 93vh;
+    height: 88vh;
     justify-content: space-between;
 }
 
@@ -19,10 +19,10 @@
 
 .fullPostBoxContent {
     padding: 10px;
-    min-height: 60%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    height: 100%;
 }
 
 .fullPostIntro {
@@ -145,7 +145,6 @@
     font-size: 0.8em;
     width: 100px;
     align-self: flex-end;
-    margin-bottom: 10px;
 }
 
 .com {
@@ -187,6 +186,10 @@
 
 @media screen and (min-width: 480px) {
 
+    .fullPostBox {
+        height: 86vh;
+    }
+
     .fullPostAuthorId {
         font-size: 1.2em;
     }
@@ -199,6 +202,10 @@
 /********** Medium Devices **********/
 
 @media screen and (min-width: 768px) {
+
+    .fullPostBox {
+        height: 79vh;
+    }
 
     .fullPostTotalComsBox, .fullPostLikesBox {
         height: 25px;
@@ -218,12 +225,8 @@
 
 @media screen and (min-width: 1024px) {
 
-    .fullPostBox {
-        padding: 10px 10px 0;
-    }
-
     .fullPostBoxContent {
-        padding-bottom: 10px;
+        padding: 10px 15px;
     }
 
     .fullPostContent {
@@ -366,7 +369,7 @@
 
     .fullPostBoxContent {
         box-shadow: none;
-        padding: 10px 20px;
+        padding: 20px;
     }
 
     .fullPostIntro {
