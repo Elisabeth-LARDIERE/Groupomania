@@ -10,13 +10,16 @@ import {
     createComRequest,
     getAllComsRequest,
     likePostRequest,
-    dislikePostRequest
+    dislikePostRequest,
+    getPostUserLikeRequest, getPostUserDislikeRequest
+
 } from "../../utils/Api";
 import {faComments, faThumbsDown, faThumbsUp} from "@fortawesome/fontawesome-free-regular";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 
+const userId = JSON.parse(localStorage.getItem('userId'));
 
 class DisplayOnePost extends React.Component {
     constructor(props) {
@@ -28,12 +31,12 @@ class DisplayOnePost extends React.Component {
         const totalComs = post.totalComs;
         this.state = { // initialisation de l'état du composant
             comsList: [], // tableau des commentaires vide
+            postUserLike: null,
+            postUserDislike: null,
             content: '', // champ de commentaire vide
             postId: postId, // id de l'article
             likes: likes, // nombre de likes de l'article
             dislikes: dislikes, // nombre de dislikes de l'article
-            userLike: false, // pas de like de l'utilisateur
-            userDislike: false, // pas de dislike de l'utilisateur
             totalComs: totalComs, // nombre total de commentaires de l'article
             showPostChoices: false, // invisibilité du menu de l'onglet "mes articles"
             showAccountChoices: false, // invisibilité du menu de l'onglet "mon compte"
@@ -158,7 +161,7 @@ class DisplayOnePost extends React.Component {
             }
         } else { // si menu "mon compte" = visible
             this.setState({ // nouvel état : menu "mon compte" => invisible
-               showAccountChoices: false
+                showAccountChoices: false
             })
         }
     }
@@ -262,21 +265,21 @@ class DisplayOnePost extends React.Component {
         event.preventDefault();
         likePostRequest(this.state.likes)// appel de la requête de like d'un article
             .then(() => { // si requête ok
-                if (this.state.userLike === false) { // si l'utilisateur n'a pas déjà liké l'article
+                if (this.state.postUserLike === null) { // si l'utilisateur n'a pas déjà liké l'article
 
-                    if (this.state.userDislike === false) { // si l'utilisateur n'a pas déjà disliké l'article
+                    if (this.state.postUserDislike === null) { // si l'utilisateur n'a pas déjà disliké l'article
                         this.setState({likes: this.state.likes + 1}); // nouvel état : ajout d'un like au total des likes de l'article
-                        this.setState({userLike: !this.state.userLike}); // nouvel état : l'utilisateur a déjà liké l'article
+                        this.setState({postUserLike: userId}); // nouvel état : l'utilisateur a déjà liké l'article
 
                     } else { // si l'utilisateur a déjà disliké l'article
                         this.setState({dislikes: this.state.dislikes - 1}); // nouvel état : déduction d'un dislike du total des dislikes de l'article
-                        this.setState({userDislike: !this.state.userDislike}); // nouvel état : l'utilisateur n'a pas déjà disliké l'article
+                        this.setState({postUserDislike: null}); // nouvel état : l'utilisateur n'a pas déjà disliké l'article
                         this.setState({likes: this.state.likes + 1}); // nouvel état : ajout d'un like au total des likes de l'article
-                        this.setState({userLike: !this.state.userLike}) // nouvel état : l'utilisateur a déjà liké l'article
+                        this.setState({postUserLike: userId}) // nouvel état : l'utilisateur a déjà liké l'article
                     }
                 } else { // si l'utilisateur a déjà liké l'article
                     this.setState({likes: this.state.likes - 1}); // nouvel état : déduction d'un like du total des likes de l'article
-                    this.setState({userLike: !this.state.userLike}); // nouvel état : l'utilisateur n'a pas déjà liké l'article
+                    this.setState({postUserLike: null}); // nouvel état : l'utilisateur n'a pas déjà liké l'article
                 }
             })
             .catch(error => { // si échec requête
@@ -296,21 +299,21 @@ class DisplayOnePost extends React.Component {
         event.preventDefault();
         dislikePostRequest(this.state.dislikes) // appel de la requête de dislike d'un article
             .then(() => {
-                    if (this.state.userDislike === false) { // si l'utilisateur n'a pas déjà disliké l'article
+                    if (this.state.postUserDislike === null) { // si l'utilisateur n'a pas déjà disliké l'article
 
-                        if (this.state.userLike === false) { // si l'utilisateur n'a pas déjà liké l'article
+                        if (this.state.postUserLike === null) { // si l'utilisateur n'a pas déjà liké l'article
                             this.setState({dislikes: this.state.dislikes + 1}); // nouvel état : ajout d'un dislike au total des dislikes de l'article
-                            this.setState({userDislike: !this.state.userDislike}); // nouvel état : l'utilisateur a déjà disliké l'article
+                            this.setState({postUserDislike: userId}); // nouvel état : l'utilisateur a déjà disliké l'article
 
                         } else { // si l'utilisateur a déjà liké l'article
                             this.setState({likes: this.state.likes - 1}); // nouvel état : déduction d'un like au total des likes de l'article
-                            this.setState({userLike: !this.state.userLike}); // nouvel état : l'utilisateur n'a pas déjà liké l'article
+                            this.setState({postUserLike: null}); // nouvel état : l'utilisateur n'a pas déjà liké l'article
                             this.setState({dislikes: this.state.dislikes + 1}); // nouvel état : ajout  d'un dislike au total des dislikes de l'article
-                            this.setState({userDislike: !this.state.userDislike}) // nouvel état : l'utilisateur a déjà disliké l'article
+                            this.setState({postUserDislike: userId}) // nouvel état : l'utilisateur a déjà disliké l'article
                         }
                     } else { // si l'utilisateur a déjà disliké l'article
                         this.setState({dislikes: this.state.dislikes - 1}); // nouvel état : déduction d'un dislike au total des dislikes de l'article
-                        this.setState({userDislike: !this.state.userDislike}); // nouvel état : l'utilisateur n'a pas déjà disliké l'article
+                        this.setState({postUserDislike: null}); // nouvel état : l'utilisateur n'a pas déjà disliké l'article
                     }
                 }
             )
@@ -364,8 +367,8 @@ class DisplayOnePost extends React.Component {
         })
     }
 
-    async componentDidMount() { // quand le composant est monté
-        await getAllComsRequest() // appel de la requête de récupération de tous les commentaires
+    componentDidMount() { // quand le composant est monté
+        getAllComsRequest() // appel de la requête de récupération de tous les commentaires
             .then(res => { // si requête ok
                 const comsList = res.data;
                 this.setState({comsList}); // nouvel état : tableau de commentaires => commentaires récupérés
@@ -373,7 +376,22 @@ class DisplayOnePost extends React.Component {
             .catch(error => { // si échec requête
                 this.setState({error});
             })
-
+        getPostUserLikeRequest() // appel de la requête de récupération du like de l'utilisateur connecté pour cet article
+            .then(res => { // si requête ok
+                const postUserLike = res.data;
+                this.setState({postUserLike}); // nouvel état : identifiant de l'utilisateur
+            })
+            .catch(error => { // si échec requête
+                this.setState({error});
+            })
+        getPostUserDislikeRequest() // appel de la requête de récupération du dislike de l'utilsateur connecté pour cet article
+            .then(res => { // si requête ok
+                const postUserDislike = res.data;
+                this.setState({postUserDislike}); // nouvel état : identifiant de l'utilisateur
+            })
+            .catch(error => { // si échec requête
+                this.setState({error});
+            })
     }
 
     render() {
@@ -419,7 +437,8 @@ class DisplayOnePost extends React.Component {
                                        onPointerEnter={this.handleHoverPosts}
                                        onFocus={this.handleHoverPosts}>Mes articles</a>
 
-                                    {this.state.showPostChoices ? <this.PostsChoices/> : null} {/* condition : si l'état showPostChoices = true => exécution de PostChoices */}
+                                    {this.state.showPostChoices ?
+                                        <this.PostsChoices/> : null} {/* condition : si l'état showPostChoices = true => exécution de PostChoices */}
                                 </li>
 
                                 <li className="fullPostMenuChoiceAccount fullPostMenuChoice">
@@ -428,7 +447,8 @@ class DisplayOnePost extends React.Component {
                                        onFocus={this.handleHoverAccount}>
                                         Mon compte</a>
 
-                                    {this.state.showAccountChoices ? <this.AccountChoices/> : null} {/* condition : si l'état showAccountChoices = true => exécution de AccountChoices */}
+                                    {this.state.showAccountChoices ?
+                                        <this.AccountChoices/> : null} {/* condition : si l'état showAccountChoices = true => exécution de AccountChoices */}
                                 </li>
 
                                 <li className="fullPostMenuChoiceTerms fullPostMenuChoice">
@@ -486,7 +506,8 @@ class DisplayOnePost extends React.Component {
 
                                 </div>
 
-                                <div className="fullPostContent">{renderHTML(post.content)}</div> {/* affichage du contenu de l'article, nettoyé du html */}
+                                <div className="fullPostContent">{renderHTML(post.content)}</div>
+                                {/* affichage du contenu de l'article, nettoyé du html */}
                             </div>
 
                             <div className="fullPostComsLikesSmallDevices">
@@ -498,12 +519,14 @@ class DisplayOnePost extends React.Component {
 
                                 <div className="fullPostLikesBox likesBox">
                                     <FontAwesomeIcon className="likesIconPost" icon={faThumbsUp} tabIndex="0"
-                                                     onClick={this.handleClickLikePost} onKeyDown={this.handlePressEnterLikePost}/>
+                                                     onClick={this.handleClickLikePost}
+                                                     onKeyDown={this.handlePressEnterLikePost}/>
 
                                     <p className="postLikes iconStylePost">{this.state.likes}</p>
 
                                     <FontAwesomeIcon className="dislikesIconPost" icon={faThumbsDown} tabIndex="0"
-                                                     onClick={this.handleClickDislikePost} onKeyDown={this.handlePressEnterDislikePost}/>
+                                                     onClick={this.handleClickDislikePost}
+                                                     onKeyDown={this.handlePressEnterDislikePost}/>
 
                                     <p className="postDislikes iconStylePost">{this.state.dislikes}</p>
                                 </div>

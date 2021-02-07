@@ -115,6 +115,25 @@ const likePostRequest = (likes) => {
     );
 }
 
+// fonction de récupération d'un utilisateur qui a liké article spécifique
+const getPostUserLikeRequest = () => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    const postId = JSON.parse(localStorage.getItem('postId'));
+
+    return axios.get(
+        'http://localhost:3001/api/v1/posts/:postId/userLike',
+        {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            params: {
+                'postId': postId
+            }
+        }
+    )
+}
+
 // fonction de dislike d'un article
 const dislikePostRequest = (dislikes) => {
     const token = JSON.parse(localStorage.getItem('token'));
@@ -129,6 +148,25 @@ const dislikePostRequest = (dislikes) => {
             }
         }
     );
+}
+
+// fonction de récupération d'un utilisateur qui a disliké un article spécifique
+const getPostUserDislikeRequest = () => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    const postId = JSON.parse(localStorage.getItem('postId'));
+
+    return axios.get(
+        'http://localhost:3001/api/v1/posts/:postId/userDislike',
+        {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            params: {
+                'postId': postId
+            }
+        }
+    )
 }
 
 // fonction de création d'un commentaire
@@ -248,7 +286,5 @@ const getAllUserPostsRequest = () => {
 
 export { signupRequest, loginRequest, getOneUserRequest, getAllPostsRequest, getOnePostRequest, getOldPostsRequest,
         getPopularPostsRequest, likePostRequest, dislikePostRequest, createComRequest, getAllComsRequest, createPostRequest,
-        updateUserRequest, deleteUserRequest, deletePostRequest, getAllUserPostsRequest
+        updateUserRequest, deleteUserRequest, deletePostRequest, getAllUserPostsRequest, getPostUserLikeRequest, getPostUserDislikeRequest
 };
-
-

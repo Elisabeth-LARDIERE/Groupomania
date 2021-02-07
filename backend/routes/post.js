@@ -18,7 +18,8 @@ router.get('/:postId', auth, postCtrl.getOnePost);
 router.delete('/delete', auth, postCtrl.deletePost);
 router.put('/updateLike', auth, postCtrl.likePost);
 router.put('/updateDislike', auth, postCtrl.dislikePost);
+router.get('/:postId/userLike', auth, postCtrl.getPostUserLike);
+router.get('/:postId/userDislike', auth, postCtrl.getPostUserDislike);
 
-
-// exportdu router article
+// export du router article
 module.exports = router;
