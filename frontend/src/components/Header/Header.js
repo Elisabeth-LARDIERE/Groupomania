@@ -216,7 +216,7 @@ class Header extends React.Component {
                         </li>
                     </ul>
 
-                    <ul className="menuChoicePosts menuChoice">
+                    <ul className="menuChoicePosts menuChoice" onMouseLeave={this.handleHoverShowPostsChoices}>
                         <li className="menuTitle" tabIndex="0" onMouseEnter={this.handleHoverShowPostsChoices}
                             onFocus={this.handleHoverShowPostsChoices}>Mes articles
                         </li>
@@ -224,7 +224,7 @@ class Header extends React.Component {
                         {this.state.showPostChoices ? <this.PostsChoices/> : null} {/* condition : si l'état showPostChoices = true => exécution de PostChoices */}
                     </ul>
 
-                    <ul className="menuChoiceAccount menuChoice">
+                    <ul className="menuChoiceAccount menuChoice" onMouseLeave={this.handleHoverShowAccountChoices}>
                         <li className="menuTitle" tabIndex="0" onMouseEnter={this.handleHoverShowAccountChoices}
                             onFocus={this.handleHoverShowAccountChoices}>Mon compte
                         </li>
@@ -232,11 +232,11 @@ class Header extends React.Component {
                         {this.state.showAccountChoices ? <this.AccountChoices/> : null} {/* condition : si l'état showAccountChoices = true => exécution de AccountChoices */}
                     </ul>
 
-                    <li className="menuAvatar">
+                    <ul className="menuAvatar">
                         <img className="headerAvatar" src={'http://localhost:3001/' + user.avatar} // avatar
                              alt="avatar par défaut">
                         </img>
-                    </li>
+                    </ul>
                 </nav>
 
                 <img className="headerAvatarSmallDevices" src={'http://localhost:3001/' + user.avatar} // avatar pour petits écrans

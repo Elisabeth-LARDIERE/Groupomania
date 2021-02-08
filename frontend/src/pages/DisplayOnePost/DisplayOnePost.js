@@ -432,18 +432,18 @@ class DisplayOnePost extends React.Component {
                                         Une</li>
                                 </ul>
 
-                                <ul className="fullPostMenuChoicePosts fullPostMenuChoice">
+                                <ul className="fullPostMenuChoicePosts fullPostMenuChoice" onMouseLeave={this.handleHoverPosts}>
                                     <li className="fullPostMenuTitle" tabIndex="0"
-                                       onPointerEnter={this.handleHoverPosts}
+                                       onMouseEnter={this.handleHoverPosts}
                                        onFocus={this.handleHoverPosts}>Mes articles</li>
 
                                     {this.state.showPostChoices ?
                                         <this.PostsChoices/> : null} {/* condition : si l'état showPostChoices = true => exécution de PostChoices */}
                                 </ul>
 
-                                <ul className="fullPostMenuChoiceAccount fullPostMenuChoice">
+                                <ul className="fullPostMenuChoiceAccount fullPostMenuChoice" onMouseLeave={this.handleHoverAccount}>
                                     <li className="fullPostMenuTitle" tabIndex="0"
-                                       onPointerEnter={this.handleHoverAccount}
+                                       onMouseEnter={this.handleHoverAccount}
                                        onFocus={this.handleHoverAccount}>
                                         Mon compte</li>
 

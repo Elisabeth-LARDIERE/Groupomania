@@ -14,8 +14,10 @@ class BurgerMenu extends React.Component {
         this.handleClickContact = this.handleClickContact.bind(this);
         this.handleClickHome = this.handleClickHome.bind(this);
         this.handleClickPosts = this.handleClickPosts.bind(this);
+        this.handleClickCreatePost = this.handleClickCreatePost.bind(this);
         this.handleClickAccount = this.handleClickAccount.bind(this);
         this.handleClickTerms = this.handleClickTerms.bind(this);
+        this.handleClickLogout = this.handleClickLogout.bind(this);
     }
 
     handleClickContact() { // au clic sur l'onglet "contact"
@@ -42,14 +44,26 @@ class BurgerMenu extends React.Component {
         }
     }
 
-    handleClickPosts() { // au clic sur l'onglet "mes publications"
+    handleClickPosts() { // au clic sur l'onglet "mes articles"
         this.setState({ // nouvel état : redirection
             redirect: true
         })
         const redirect = this.state.redirect;
-        if (redirect) { // si redirection : redirection "mes publications"
+        if (redirect) { // si redirection : redirection "mes articles"
             return (
                 window.location = '/userPosts'
+            )
+        }
+    }
+
+    handleClickCreatePost() { // au clic sur l'onglet "publier un article"
+        this.setState({ // nouvel état : redirection
+            redirect: true
+        })
+        const redirect = this.state.redirect;
+        if (redirect) { // si redirection : redirection "publier un article"
+            return (
+                window.location = '/createNewPost'
             )
         }
     }
@@ -74,6 +88,18 @@ class BurgerMenu extends React.Component {
         if (redirect) { // si redirection : redirection "mentions légales"
             return (
                 window.location = '/terms'
+            )
+        }
+    }
+
+    handleClickLogout() { // au clic sur l'onglet "déconnexion"
+        this.setState({ // nouvel état : redirection
+            redirect: true
+        })
+        const redirect = this.state.redirect;
+        if (redirect) { // si redirection : redirection "connexion"
+            return (
+                window.location = '/'
             )
         }
     }
@@ -111,12 +137,16 @@ class BurgerMenu extends React.Component {
 
                         <li onClick={this.handleClickPosts}>Mes articles</li>
 
-                        <li onClick={this.handleClickAccount}>Mon compte</li>
+                        <li onClick={this.handleClickCreatePost}>Publier un article</li>
+
+                        <li onClick={this.handleClickAccount}>Mon profil</li>
 
                         <li onClick={this.handleClickTerms}>Mentions légales</li>
 
                         <li onClick={this.handleClickContact}>Contact</li>
                         {this.state.showContact ? <this.ShowContact/> : null} {/* condition : si l'état showContact = true => exécution de ShowContact */}
+
+                        <li onClick={this.handleClickLogout}>Déconnexion</li>
                     </ul>
                 </div>
             </div>
