@@ -102,12 +102,12 @@ class DisplayOnePost extends React.Component {
         return (
             <Fragment>
                 <li className="fullPostMenuChoicePostsLink fullPostMenuChoiceLink" tabIndex="0"
-                   onClick={this.handleClickUserPosts} onKeyDown={this.handlePressEnterPosts}>Mes
+                    onClick={this.handleClickUserPosts} onKeyDown={this.handlePressEnterPosts}>Mes
                     publications
                 </li>
 
                 <li className="fullPostMenuChoicePostsLink fullPostMenuChoiceLink" tabIndex="0"
-                   onClick={this.handleClickCreateNewPost} onKeyDown={this.handlePressEnterNewPost}>Publier un
+                    onClick={this.handleClickCreateNewPost} onKeyDown={this.handlePressEnterNewPost}>Publier un
                     article
                 </li>
             </Fragment>
@@ -118,11 +118,11 @@ class DisplayOnePost extends React.Component {
         return (
             <Fragment>
                 <li className="fullPostMenuChoiceAccountLink fullPostMenuChoiceLink" tabIndex="0"
-                   onClick={this.handleClickUserAccount} onKeyDown={this.handlePressEnterAccount}>Mon profil
+                    onClick={this.handleClickUserAccount} onKeyDown={this.handlePressEnterAccount}>Mon profil
                 </li>
 
                 <li className="fullPostMenuChoiceAccountLink fullPostMenuChoiceLink" tabIndex="0"
-                   onClick={this.handleClickLogout} onKeyDown={this.handlePressEnterLogout}>Me déconnecter
+                    onClick={this.handleClickLogout} onKeyDown={this.handlePressEnterLogout}>Me déconnecter
                 </li>
             </Fragment>
         )
@@ -130,16 +130,9 @@ class DisplayOnePost extends React.Component {
 
     handleHoverPosts() { // au survol ou au focus de l'onglet "mes articles"
         if (this.state.showPostChoices === false) { // si menu "mes articles" = invisible
-            if (this.state.showAccountChoices === true) { // si menu "mon compte" = visible
-                this.setState({ // nouvel état : menu "mes articles" => visible et menu "mon compte" => invisible
-                    showPostChoices: true,
-                    showAccountChoices: false
-                })
-            } else { // si menu "mon compte = invisible
-                this.setState({ // nouvel état : menu "mon compte" => visible
-                    showPostChoices: true
-                })
-            }
+            this.setState({ // nouvel état : menu "mes articles" => visible et menu "mon compte" => invisible
+                showPostChoices: true,
+            })
         } else { // si menu "mes articles" = visible
             this.setState({ // nouvel état : menu "mon compte" => invisible
                 showPostChoices: false
@@ -149,16 +142,9 @@ class DisplayOnePost extends React.Component {
 
     handleHoverAccount() { // au survol ou au focus de l'onglet "mon compte"
         if (this.state.showAccountChoices === false) { // si menu "mon compte" = invisible
-            if (this.state.showPostChoices === true) { // si menu "mes articles" = visible
-                this.setState({ // nouvel état : menu "mon compte" => visible et menu "mes articles" => invisible
-                    showAccountChoices: true,
-                    showPostChoices: false
-                })
-            } else { // si menu "mes articles"
-                this.setState({ // nouvel état : menu "mon compte" => visible
-                    showAccountChoices: true
-                })
-            }
+            this.setState({ // nouvel état : menu "mon compte" => visible et menu "mes articles" => invisible
+                showAccountChoices: true
+            })
         } else { // si menu "mon compte" = visible
             this.setState({ // nouvel état : menu "mon compte" => invisible
                 showAccountChoices: false
@@ -427,25 +413,30 @@ class DisplayOnePost extends React.Component {
                             <ul className="fullPostMenu">
                                 <ul className="fullPostMenuChoiceHome fullPostMenuChoice">
                                     <li className="fullPostMenuTitle" tabIndex="0"
-                                       onClick={this.handleClickHome} onKeyDown={this.handlePressEnterHome}>Retour à
+                                        onClick={this.handleClickHome} onKeyDown={this.handlePressEnterHome}>Retour à
                                         la
-                                        Une</li>
+                                        Une
+                                    </li>
                                 </ul>
 
-                                <ul className="fullPostMenuChoicePosts fullPostMenuChoice" onMouseLeave={this.handleHoverPosts}>
+                                <ul className="fullPostMenuChoicePosts fullPostMenuChoice"
+                                    onMouseLeave={this.handleHoverPosts}>
                                     <li className="fullPostMenuTitle" tabIndex="0"
-                                       onMouseEnter={this.handleHoverPosts}
-                                       onFocus={this.handleHoverPosts}>Mes articles</li>
+                                        onMouseEnter={this.handleHoverPosts}
+                                        onFocus={this.handleHoverPosts}>Mes articles
+                                    </li>
 
                                     {this.state.showPostChoices ?
                                         <this.PostsChoices/> : null} {/* condition : si l'état showPostChoices = true => exécution de PostChoices */}
                                 </ul>
 
-                                <ul className="fullPostMenuChoiceAccount fullPostMenuChoice" onMouseLeave={this.handleHoverAccount}>
+                                <ul className="fullPostMenuChoiceAccount fullPostMenuChoice"
+                                    onMouseLeave={this.handleHoverAccount}>
                                     <li className="fullPostMenuTitle" tabIndex="0"
-                                       onMouseEnter={this.handleHoverAccount}
-                                       onFocus={this.handleHoverAccount}>
-                                        Mon compte</li>
+                                        onMouseEnter={this.handleHoverAccount}
+                                        onFocus={this.handleHoverAccount}>
+                                        Mon compte
+                                    </li>
 
                                     {this.state.showAccountChoices ?
                                         <this.AccountChoices/> : null} {/* condition : si l'état showAccountChoices = true => exécution de AccountChoices */}
@@ -453,8 +444,9 @@ class DisplayOnePost extends React.Component {
 
                                 <ul className="fullPostMenuChoiceTerms fullPostMenuChoice">
                                     <li className="fullPostMenuTitle" tabIndex="0" onClick={this.handleClickTerms}
-                                       onKeyDown={this.handlePressEnterTerms}>Mentions
-                                        légales</li>
+                                        onKeyDown={this.handlePressEnterTerms}>Mentions
+                                        légales
+                                    </li>
                                 </ul>
                             </ul>
                         </nav>

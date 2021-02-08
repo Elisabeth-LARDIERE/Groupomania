@@ -35,16 +35,9 @@ class Header extends React.Component {
 
     handleHoverShowPostsChoices() { // au survol ou au focus de l'onglet "mes articles"
         if (this.state.showPostChoices === false) { // si menu "mes articles" = invisible
-            if (this.state.showAccountChoices === true) { // si menu "mon compte" = visible
-                this.setState({ // nouvel état : menu "mes articles" => visible et menu "mon compte" => invisible
-                    showPostChoices: true,
-                    showAccountChoices: false
-                })
-            } else { // si menu "mon compte" = invisible
-                this.setState({ // nouvel état : menu "mes articles" => visible
-                    showPostChoices: true
-                })
-            }
+            this.setState({ // nouvel état : menu "mes articles" => visible et menu "mon compte" => invisible
+                showPostChoices: true
+            })
         } else { // si menu "mes articles" = visible
             this.setState({ // nouvel état : menu "mes articles" => invisible
                 showPostChoices: false
@@ -54,16 +47,9 @@ class Header extends React.Component {
 
     handleHoverShowAccountChoices() { // au survol ou au focus de l"onglet "mon compte"
         if (this.state.showAccountChoices === false) { // si menu "mon compte" = invisible
-            if (this.state.showPostChoices === true) { // si menu "mes articles = visible
-                this.setState({ // nouvel état : menu "mon compte" => visible et menu "mes articles" => invisible
-                    showAccountChoices: true,
-                    showPostChoices: false
-                })
-            } else { // si menu "mes articles" = invisible
-                this.setState({ // nouvel état : menu "mon compte" => visible
-                    showAccountChoices: true
-                })
-            }
+            this.setState({ // nouvel état : menu "mon compte" => visible et menu "mes articles" => invisible
+                showAccountChoices: true
+            })
         } else { // si menu "mon profil" = visible
             this.setState({ // nouvel état : menu "mon compte" => invisible
                 showAccountChoices: false
@@ -221,7 +207,8 @@ class Header extends React.Component {
                             onFocus={this.handleHoverShowPostsChoices}>Mes articles
                         </li>
 
-                        {this.state.showPostChoices ? <this.PostsChoices/> : null} {/* condition : si l'état showPostChoices = true => exécution de PostChoices */}
+                        {this.state.showPostChoices ?
+                            <this.PostsChoices/> : null} {/* condition : si l'état showPostChoices = true => exécution de PostChoices */}
                     </ul>
 
                     <ul className="menuChoiceAccount menuChoice" onMouseLeave={this.handleHoverShowAccountChoices}>
@@ -229,7 +216,8 @@ class Header extends React.Component {
                             onFocus={this.handleHoverShowAccountChoices}>Mon compte
                         </li>
 
-                        {this.state.showAccountChoices ? <this.AccountChoices/> : null} {/* condition : si l'état showAccountChoices = true => exécution de AccountChoices */}
+                        {this.state.showAccountChoices ?
+                            <this.AccountChoices/> : null} {/* condition : si l'état showAccountChoices = true => exécution de AccountChoices */}
                     </ul>
 
                     <ul className="menuAvatar">
@@ -239,7 +227,8 @@ class Header extends React.Component {
                     </ul>
                 </nav>
 
-                <img className="headerAvatarSmallDevices" src={'http://localhost:3001/' + user.avatar} // avatar pour petits écrans
+                <img className="headerAvatarSmallDevices"
+                     src={'http://localhost:3001/' + user.avatar} // avatar pour petits écrans
                      alt="avatar par défaut">
                 </img>
             </header>
