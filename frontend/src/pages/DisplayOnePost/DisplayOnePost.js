@@ -101,15 +101,15 @@ class DisplayOnePost extends React.Component {
     PostsChoices() { // affichage des choix si l'onglet "mes articles" est déplié (état : visibilité)
         return (
             <Fragment>
-                <a className="fullPostMenuChoicePostsLink fullPostMenuChoiceLink" tabIndex="0"
+                <li className="fullPostMenuChoicePostsLink fullPostMenuChoiceLink" tabIndex="0"
                    onClick={this.handleClickUserPosts} onKeyDown={this.handlePressEnterPosts}>Mes
                     publications
-                </a>
+                </li>
 
-                <a className="fullPostMenuChoicePostsLink fullPostMenuChoiceLink" tabIndex="0"
+                <li className="fullPostMenuChoicePostsLink fullPostMenuChoiceLink" tabIndex="0"
                    onClick={this.handleClickCreateNewPost} onKeyDown={this.handlePressEnterNewPost}>Publier un
                     article
-                </a>
+                </li>
             </Fragment>
         )
     }
@@ -117,13 +117,13 @@ class DisplayOnePost extends React.Component {
     AccountChoices() { // affichage des choix si l'onglet "mon compte" est déplié (état : visibilité)
         return (
             <Fragment>
-                <a className="fullPostMenuChoiceAccountLink fullPostMenuChoiceLink" tabIndex="0"
+                <li className="fullPostMenuChoiceAccountLink fullPostMenuChoiceLink" tabIndex="0"
                    onClick={this.handleClickUserAccount} onKeyDown={this.handlePressEnterAccount}>Mon profil
-                </a>
+                </li>
 
-                <a className="fullPostMenuChoiceAccountLink fullPostMenuChoiceLink" tabIndex="0"
+                <li className="fullPostMenuChoiceAccountLink fullPostMenuChoiceLink" tabIndex="0"
                    onClick={this.handleClickLogout} onKeyDown={this.handlePressEnterLogout}>Me déconnecter
-                </a>
+                </li>
             </Fragment>
         )
     }
@@ -425,37 +425,37 @@ class DisplayOnePost extends React.Component {
 
                         <nav className="fullPostNavBar">
                             <ul className="fullPostMenu">
-                                <li className="fullPostMenuChoiceHome fullPostMenuChoice">
-                                    <a className="fullPostMenuTitle" tabIndex="0"
+                                <ul className="fullPostMenuChoiceHome fullPostMenuChoice">
+                                    <li className="fullPostMenuTitle" tabIndex="0"
                                        onClick={this.handleClickHome} onKeyDown={this.handlePressEnterHome}>Retour à
                                         la
-                                        Une</a>
-                                </li>
+                                        Une</li>
+                                </ul>
 
-                                <li className="fullPostMenuChoicePosts fullPostMenuChoice">
-                                    <a className="fullPostMenuTitle" tabIndex="0"
+                                <ul className="fullPostMenuChoicePosts fullPostMenuChoice">
+                                    <li className="fullPostMenuTitle" tabIndex="0"
                                        onPointerEnter={this.handleHoverPosts}
-                                       onFocus={this.handleHoverPosts}>Mes articles</a>
+                                       onFocus={this.handleHoverPosts}>Mes articles</li>
 
                                     {this.state.showPostChoices ?
                                         <this.PostsChoices/> : null} {/* condition : si l'état showPostChoices = true => exécution de PostChoices */}
-                                </li>
+                                </ul>
 
-                                <li className="fullPostMenuChoiceAccount fullPostMenuChoice">
-                                    <a className="fullPostMenuTitle" tabIndex="0"
+                                <ul className="fullPostMenuChoiceAccount fullPostMenuChoice">
+                                    <li className="fullPostMenuTitle" tabIndex="0"
                                        onPointerEnter={this.handleHoverAccount}
                                        onFocus={this.handleHoverAccount}>
-                                        Mon compte</a>
+                                        Mon compte</li>
 
                                     {this.state.showAccountChoices ?
                                         <this.AccountChoices/> : null} {/* condition : si l'état showAccountChoices = true => exécution de AccountChoices */}
-                                </li>
+                                </ul>
 
-                                <li className="fullPostMenuChoiceTerms fullPostMenuChoice">
-                                    <a className="fullPostMenuTitle" tabIndex="0" onClick={this.handleClickTerms}
+                                <ul className="fullPostMenuChoiceTerms fullPostMenuChoice">
+                                    <li className="fullPostMenuTitle" tabIndex="0" onClick={this.handleClickTerms}
                                        onKeyDown={this.handlePressEnterTerms}>Mentions
-                                        légales</a>
-                                </li>
+                                        légales</li>
+                                </ul>
                             </ul>
                         </nav>
 

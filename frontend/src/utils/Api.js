@@ -3,8 +3,8 @@
 // imports
 import axios from 'axios';
 
-// configuration du type de contenu des headers
-const headers = {
+// configuration des headers
+const contentType = {
     'Content-type': 'application/json'
 };
 
@@ -13,7 +13,7 @@ const signupRequest = (firstname, lastname, email, password) => {
     return axios.post(
         'http://localhost:3001/api/v1/auth/signup',
         {firstname, lastname, email, password},
-        {headers: headers}
+        {headers: contentType}
     );
 }
 
@@ -22,7 +22,7 @@ const loginRequest = (email, password) => {
     return axios.post(
         'http://localhost:3001/api/v1/auth/login',
         {email, password},
-        {headers: headers}
+        {headers: contentType}
     );
 }
 
@@ -34,7 +34,7 @@ const getOneUserRequest = () => {
         'http://localhost:3001/api/v1/auth/?userId=' + userId,
         {
             headers: {
-                'Content-type': 'application/json',
+                contentType,
                 'Authorization': 'Bearer ' + token
             }
         }
@@ -48,7 +48,7 @@ const getAllPostsRequest = () => {
         'http://localhost:3001/api/v1/posts',
         {
             headers: {
-                'Content-type': 'application/json',
+                contentType,
                 'Authorization': 'Bearer ' + token
             }
         }
@@ -64,7 +64,7 @@ const getOnePostRequest = () => {
         'http://localhost:3001/api/v1/posts/?postId=' + postId,
         {
             headers: {
-                'Content-type': 'application/json',
+                contentType,
                 'Authorization': 'Bearer ' + token
             }
         }
@@ -78,7 +78,7 @@ const getOldPostsRequest = () => {
         'http://localhost:3001/api/v1/posts/old',
         {
             headers: {
-                'Content-type': 'application/json',
+                contentType,
                 'Authorization': 'Bearer ' + token
             }
         }
@@ -92,7 +92,7 @@ const getPopularPostsRequest = () => {
         'http://localhost:3001/api/v1/posts/popular',
         {
             headers: {
-                'Content-type': 'application/json',
+                contentType,
                 'Authorization': 'Bearer ' + token
             }
         }
@@ -108,7 +108,7 @@ const likePostRequest = (likes) => {
         {likes},
         {
             headers: {
-                'Content-type': 'application/json',
+                contentType,
                 'Authorization': 'Bearer ' + token
             }
         }
@@ -124,7 +124,7 @@ const getPostUserLikeRequest = () => {
         'http://localhost:3001/api/v1/posts/:postId/userLike',
         {
             headers: {
-                'Content-type': 'application/json',
+                contentType,
                 'Authorization': 'Bearer ' + token
             },
             params: {
@@ -143,7 +143,7 @@ const dislikePostRequest = (dislikes) => {
         {dislikes},
         {
             headers: {
-                'Content-type': 'application/json',
+                contentType,
                 'Authorization': 'Bearer ' + token
             }
         }
@@ -159,7 +159,7 @@ const getPostUserDislikeRequest = () => {
         'http://localhost:3001/api/v1/posts/:postId/userDislike',
         {
             headers: {
-                'Content-type': 'application/json',
+                contentType,
                 'Authorization': 'Bearer ' + token
             },
             params: {
@@ -177,7 +177,7 @@ const createComRequest = (content, postId) => {
         {content, postId},
         {
             headers: {
-                'Content-type': 'application/json',
+                contentType,
                 'Authorization': 'Bearer ' + token
             }
         }
@@ -192,7 +192,7 @@ const getAllComsRequest = () => {
         'http://localhost:3001/api/v1/coms/?postId=' + postId,
         {
             headers: {
-                'Content-type': 'application/json',
+                contentType,
                 'Authorization': 'Bearer ' + token
             }
 
@@ -208,7 +208,7 @@ const createPostRequest = (title, content) => {
         {title, content},
         {
             headers: {
-                'Content-type': 'application/json',
+                contentType,
                 'Authorization': 'Bearer ' + token
             }
         }
@@ -244,7 +244,7 @@ const deleteUserRequest = () => {
         'http://localhost:3001/api/v1/auth/delete/?userId=' + userId,
         {
             headers: {
-                'Content-type': 'application/json',
+                contentType,
                 'Authorization': 'Bearer ' + token
             }
         }
@@ -259,7 +259,7 @@ const deletePostRequest = () => {
         'http://localhost:3001/api/v1/posts/delete/?postId=' + postId,
         {
             headers: {
-                'Content-type': 'application/json',
+                contentType,
                 'Authorization': 'Bearer ' + token
             }
         }
@@ -274,7 +274,7 @@ const getAllUserPostsRequest = () => {
         'http://localhost:3001/api/v1/auth/:userId/posts',
         {
             headers: {
-                'Content-type': 'application/json',
+                contentType,
                 'Authorization': 'Bearer ' + token
             },
             params: {

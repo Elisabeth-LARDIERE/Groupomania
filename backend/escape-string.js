@@ -1,7 +1,7 @@
 // FONCTION DE PROTECTION AUX ATTAQUES PAR INJECTIONS SQL
 
 const escapeString = function(str) {
-    return str.replace(/[\0\x08\x09\x1a\n\r"'\\\%]/g, function (char) {
+    return str.replace(/[\0\x08\x09\x1a\n\r"'\\%]/g, function (char) {
         switch (char) {
             case "\0":
                 return "\\0";

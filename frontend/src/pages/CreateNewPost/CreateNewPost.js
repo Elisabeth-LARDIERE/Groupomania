@@ -88,13 +88,9 @@ class CreateNewPost extends React.Component {
                                                     'charmap  anchor help',
                                                 ],
 
-                                                toolbar:
-                                                    'undo redo | bold italic underline | \
-                                                    fontsizeselect forecolor backcolor| \
-                                                    alignleft aligncenter alignright alignjustify | \
-                                                    link | \
-                                                    emoticons | charmap |\
-                                                    bullist numlist outdent indent | help'
+                                                toolbar: [
+                                                    'undo redo | bold italic underline | fontsizeselect forecolor backcolor | alignleft aligncenter alignright alignjustify | link | emoticons | charmap | bullist numlist outdent indent | help'
+                                                ]
                                             }}
                                     />
                                 </form>

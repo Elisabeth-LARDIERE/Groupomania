@@ -3,6 +3,7 @@
 // imports
 const mysql = require('mysql');
 const config = require('./config');
+const setCharset = require("express");
 
 // configuration de connexion à la base de données
 const db = mysql.createConnection({
