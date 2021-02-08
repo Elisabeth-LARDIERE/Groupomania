@@ -344,7 +344,7 @@
         width: 80px;
         height: 80px;
         align-self: center;
-        margin: 90px 0;
+        margin: 40px 0;
     }
 
     /********** support **********/
@@ -456,5 +456,8 @@
 
     @media screen and (min-width: 1920px) {
 
+        aside .logoSphere {
+            margin: 80px 0;
+        }
     }
 }

@@ -6,7 +6,7 @@
     position: fixed;
     left: 0;
     width: 50%;
-    margin-top: 79px;
+    margin-top: 86px;
     transform: translateX(-50vw);
     transition: transform 250ms ease-in-out;
     background-image: radial-gradient(#2FC4D5, #07ADC1);
@@ -154,7 +154,7 @@ input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
     }
 
     #sidebarMenu {
-        margin-top: 93px;
+        margin-top: 102px;
     }
 
     .sidebarIconToggle {
