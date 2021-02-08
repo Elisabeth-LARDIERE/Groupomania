@@ -12,49 +12,34 @@ class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = { // initialisation de l'état du composant
-            showPostChoices: false, // invisibilité du menu de l'onglet "mes articles"
+            showPostsChoices: false, // invisibilité du menu de l'onglet "mes articles"
             showAccountChoices: false, // invisibilité du menu de l'onglet "mon compte"
             redirect: false // pas de redirection
         }
-        this.handleHoverShowPostsChoices = this.handleHoverShowPostsChoices.bind(this);
-        this.handleHoverShowAccountChoices = this.handleHoverShowAccountChoices.bind(this);
+
         this.handleClickHome = this.handleClickHome.bind(this);
         this.handlePressEnterHome = this.handlePressEnterHome.bind(this);
+
+        this.handleHoverShowPostsChoices = this.handleHoverShowPostsChoices.bind(this);
+        this.handleLeaveHidePostsChoices = this.handleLeaveHidePostsChoices.bind(this);
+
         this.handleClickUserPosts = this.handleClickUserPosts.bind(this);
         this.handlePressEnterPosts = this.handlePressEnterPosts.bind(this);
+
         this.handleClickCreateNewPost = this.handleClickCreateNewPost.bind(this);
         this.handlePressEnterNewPost = this.handlePressEnterNewPost.bind(this);
+
+        this.handleHoverShowAccountChoices = this.handleHoverShowAccountChoices.bind(this);
+        this.handleLeaveHideAccountChoices = this.handleLeaveHideAccountChoices.bind(this);
+
         this.handleClickUserAccount = this.handleClickUserAccount.bind(this);
         this.handlePressEnterAccount = this.handlePressEnterAccount.bind(this);
+
         this.handleClickLogout = this.handleClickLogout.bind(this);
         this.handlePressEnterLogout = this.handlePressEnterLogout.bind(this);
 
         this.PostsChoices = this.PostsChoices.bind(this);
         this.AccountChoices = this.AccountChoices.bind(this);
-    }
-
-    handleHoverShowPostsChoices() { // au survol ou au focus de l'onglet "mes articles"
-        if (this.state.showPostChoices === false) { // si menu "mes articles" = invisible
-            this.setState({ // nouvel état : menu "mes articles" => visible et menu "mon compte" => invisible
-                showPostChoices: true
-            })
-        } else { // si menu "mes articles" = visible
-            this.setState({ // nouvel état : menu "mes articles" => invisible
-                showPostChoices: false
-            })
-        }
-    }
-
-    handleHoverShowAccountChoices() { // au survol ou au focus de l"onglet "mon compte"
-        if (this.state.showAccountChoices === false) { // si menu "mon compte" = invisible
-            this.setState({ // nouvel état : menu "mon compte" => visible et menu "mes articles" => invisible
-                showAccountChoices: true
-            })
-        } else { // si menu "mon profil" = visible
-            this.setState({ // nouvel état : menu "mon compte" => invisible
-                showAccountChoices: false
-            })
-        }
     }
 
     handleClickHome() { // au clic sur l'onglet "accueil"
@@ -72,6 +57,22 @@ class Header extends React.Component {
     handlePressEnterHome(event) { // à la pression d'une touche sur l'onglet "accueil" /***** fonctionne quand ça veut *****/
         if (event.key === 'Enter') { // si c'est la touche Entrée : exécution de la fonction handleClickHome
             this.handleClickHome();
+        }
+    }
+
+    handleHoverShowPostsChoices() { // au survol ou au focus de l'onglet "mes articles"
+        if (this.state.showPostsChoices === false) { // si menu "mes articles" = invisible
+            this.setState({ // nouvel état : menu "mes articles" => visible
+                showPostsChoices: true
+            })
+        }
+    }
+
+    handleLeaveHidePostsChoices() { // quand la souris quitte l'onglet "mes articles" ou que le menu "mes articles" perd le focus
+        if (this.state.showPostsChoices === true) { // si menu "mes articles" = visible
+            this.setState({ // nouvel état : menu "mes articles" => invisible
+                showPostsChoices: false
+            })
         }
     }
 
@@ -108,6 +109,22 @@ class Header extends React.Component {
     handlePressEnterNewPost(event) { // à la pression d'une touche sur l'onglet "publier un article" (menu "mes articles") /***** foncrionne quand ça veut *****/
         if (event.key === 'Enter') { // si c'est la touche Entrée : exécution fonction handleClickCreateNewPost
             this.handleClickCreateNewPost();
+        }
+    }
+
+    handleHoverShowAccountChoices() { // au survol ou au focus de l"onglet "mon compte"
+        if (this.state.showAccountChoices === false) { // si menu "mon compte" = invisible
+            this.setState({ // nouvel état : menu "mon compte" => visible
+                showAccountChoices: true
+            })
+        }
+    }
+
+    handleLeaveHideAccountChoices() { // quand la souris quitte l'onglet "mon compte" ou que le menu "mon compte" perd le focus
+        if (this.state.showAccountChoices === true) { // si menu "mon compte" = visible
+            this.setState({ // nouvel état : menu "mon compte" => invisible
+                showAccountChoices: false
+            })
         }
     }
 
@@ -163,7 +180,7 @@ class Header extends React.Component {
                 </li>
 
                 <li className="menuChoicePostsLink menuChoiceLink" onClick={this.handleClickCreateNewPost} tabIndex="0"
-                    onKeyDown={this.handlePressEnterNewPost}>Publier un article
+                    onKeyDown={this.handlePressEnterNewPost} onBlur={this.handleLeaveHidePostsChoices}>Publier un article
                 </li>
             </Fragment>
         )
@@ -177,7 +194,7 @@ class Header extends React.Component {
                 </li>
 
                 <li className="menuChoiceAccountLink menuChoiceLink" onClick={this.handleClickLogout} tabIndex="0"
-                    onKeyDown={this.handlePressEnterLogout}>Me déconnecter
+                    onKeyDown={this.handlePressEnterLogout} onBlur={this.handleLeaveHideAccountChoices}>Me déconnecter
                 </li>
             </Fragment>
         )
@@ -202,18 +219,18 @@ class Header extends React.Component {
                         </li>
                     </ul>
 
-                    <ul className="menuChoicePosts menuChoice" onMouseLeave={this.handleHoverShowPostsChoices}>
-                        <li className="menuTitle" tabIndex="0" onMouseEnter={this.handleHoverShowPostsChoices}
-                            onFocus={this.handleHoverShowPostsChoices}>Mes articles
+                    <ul className="menuChoicePosts menuChoice" onMouseLeave={this.handleLeaveHidePostsChoices}>
+                        <li className="menuTitle" tabIndex="0" onFocus={this.handleHoverShowPostsChoices}>
+                            <span className="spanTitle" onMouseEnter={this.handleHoverShowPostsChoices}>Mes articles</span>
                         </li>
 
-                        {this.state.showPostChoices ?
+                        {this.state.showPostsChoices ?
                             <this.PostsChoices/> : null} {/* condition : si l'état showPostChoices = true => exécution de PostChoices */}
                     </ul>
 
-                    <ul className="menuChoiceAccount menuChoice" onMouseLeave={this.handleHoverShowAccountChoices}>
-                        <li className="menuTitle" tabIndex="0" onMouseEnter={this.handleHoverShowAccountChoices}
-                            onFocus={this.handleHoverShowAccountChoices}>Mon compte
+                    <ul className="menuChoiceAccount menuChoice" onMouseLeave={this.handleLeaveHideAccountChoices}>
+                        <li className="menuTitle" tabIndex="0" onFocus={this.handleHoverShowAccountChoices}>
+                            <span className="spanTitle" onMouseEnter={this.handleHoverShowAccountChoices}>Mon compte</span>
                         </li>
 
                         {this.state.showAccountChoices ?
