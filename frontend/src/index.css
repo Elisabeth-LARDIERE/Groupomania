@@ -84,7 +84,8 @@ a:hover, a:focus {
 }
 
 .filterTitleSmallDevices {
-    font-size: 0.8em;
+    font-size: 0.7em;
+    font-weight: bold;
 }
 
 .filterOptionsSmallDevices {
@@ -223,7 +224,7 @@ span.error {
 @media screen and (min-width: 1024px) {
 
     .filter {
-        margin-bottom: 65px;
+        margin-bottom: 20px;
         margin-top: 30px;
     }
 
@@ -311,7 +312,6 @@ span.error {
     }
 
     .filterTitle {
-        font-weight: bold;
         font-size: 1em;
     }
 
@@ -340,7 +340,7 @@ span.error {
     }
 
     .contact {
-        margin-bottom: 170px;
+        margin-bottom: 100px;
     }
 
     .contactAddress {
@@ -383,6 +383,10 @@ span.error {
     .asideNoFilter {
         width: 25vw;
     }
+
+    .filter {
+        margin-bottom: 100px;
+    }
 }
 
 @media screen and (min-width: 1920px) {
@@ -393,6 +397,14 @@ span.error {
 
     .asideNoFilter {
         width: 20vw;
+    }
+
+    .filter {
+        margin-bottom: 120px;
+    }
+
+    .contact {
+        margin-bottom: 140px;
     }
 
     h1 {

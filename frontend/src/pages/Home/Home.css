@@ -233,6 +233,10 @@
 
 @media screen and (min-width: 1024px) {
 
+    .postsBox {
+        height: 79vh;
+    }
+
     .post {
         width: 270px;
         height: 200px;
@@ -259,7 +263,7 @@
 @media screen and (min-width: 1280px) {
 
     .postsBox {
-        /*height: 84vh;*/
+        height: 95vh;
         width: 75vw;
         margin-right: 25vw;
     }

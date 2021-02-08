@@ -106,10 +106,22 @@
 
 .seeUserPostIcon {
     margin-right: 40px;
+    transform: scale(1);
+    transition: all 0.4s linear;
+}
+
+.seeUserPostIcon:hover {
+    transform: scale(1.2);
 }
 
 .deleteUserPostIcon {
     margin-right: 10px;
+    transform: scale(1);
+    transition: all 0.4s linear;
+}
+
+.deleteUserPostIcon:hover {
+    transform: scale(1.2);
 }
 
 .userPostsCreateNewPostButton {
