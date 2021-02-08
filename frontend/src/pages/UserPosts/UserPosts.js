@@ -23,8 +23,12 @@ class UserPosts extends React.Component {
             redirect: false, // pas de redirection
         }
         this.handleClickCreateNewPost = this.handleClickCreateNewPost.bind(this);
+
         this.handleClickOnePost = this.handleClickOnePost.bind(this);
+        this.handlePressEnterOnePost = this.handlePressEnterOnePost.bind(this);
+
         this.handleClickDeletePost = this.handleClickDeletePost.bind(this);
+        this.handlePressEnterDeletePost = this.handlePressEnterDeletePost.bind(this);
     }
 
     handleClickCreateNewPost() { // au clic sur le bouton "publier un nouvel article"
@@ -39,7 +43,7 @@ class UserPosts extends React.Component {
         }
     }
 
-    handleClickOnePost(post) { // au clic sur l'icone oeil/"voir l'article"
+    handleClickOnePost(post) { // au clic sur l'icon oeil/"voir l'article"
         const postId = post.postId;
         localStorage.setItem('postId', JSON.stringify(postId)); // récupération de l'id de l'article dans le localstorage
         localStorage.setItem('post', JSON.stringify(post)); // récupération de l'article dans le localstorage
@@ -52,7 +56,14 @@ class UserPosts extends React.Component {
             })
     }
 
-    handleClickDeletePost(post) { // au clic sur l'icone poubelle/"supprimer l'article"
+    handlePressEnterOnePost(event) { // à la pression d'une touche sur l'icon oeil/"voir l'article"
+        if (event.key === 'Enter') { // si c'est la touche Entrée : exécution de la fonction handleClickOnePost
+            event.preventDefault();
+            this.handleClickOnePost();
+        }
+    }
+
+    handleClickDeletePost(post) { // au clic sur l'icon poubelle/"supprimer l'article"
         const postId = post.postId;
         localStorage.setItem('postId', JSON.stringify(postId)); // récupération de l'id de l'article dans le localstorage
         deletePostRequest() // appel de la requête de suppression d'un article
@@ -63,6 +74,13 @@ class UserPosts extends React.Component {
             .catch(error => { // si échec requête
                 this.setState({error})
             })
+    }
+
+    handlePressEnterDeletePost(event) { // à la pression d'une touche sur l'icon poubelle/"supprimer l'article"
+        if (event.key === 'Enter') { // si c'est la touche Entrée : exécution de la fonction handleClickDeletePost
+            event.preventDefault();
+            this.handleClickDeletePost();
+        }
     }
 
     async componentDidMount() { // quand le composant est monté
@@ -118,17 +136,19 @@ class UserPosts extends React.Component {
 
                                                 <div className="userPostChoices">
                                                     <FontAwesomeIcon
-                                                        className="seeUserPostIcon userPostIcon button"
-                                                        icon={faEye} data-tip data-for="seePostTip"
-                                                        onClick={() => this.handleClickOnePost(post)}/>
-                                                    <ReactTooltip id="seePostTip" place="top" effect="solid"> {/* infobulle sur l'oeil */}
+                                                        className="seeUserPostIcon userPostIcon"
+                                                        icon={faEye} data-tip data-for="seePostTip" tabIndex="0"
+                                                        onClick={() => this.handleClickOnePost(post)}
+                                                        onKeyDown={() => this.handlePressEnterOnePost}/>
+                                                    <ReactTooltip id="seePostTip" place="top" effect="solid" > {/* infobulle sur l'oeil */}
                                                         Voir l'article
                                                     </ReactTooltip>
 
                                                     <FontAwesomeIcon
-                                                        className="deleteUserPostIcon userPostIcon button"
-                                                        icon={faTrashAlt} data-tip data-for="deletePostTip"
-                                                        onClick={() => this.handleClickDeletePost(post)}/>
+                                                        className="deleteUserPostIcon userPostIcon"
+                                                        icon={faTrashAlt} data-tip data-for="deletePostTip" tabIndex="0"
+                                                        onClick={() => this.handleClickDeletePost(post)}
+                                                        onKeyDown={() => this.handlePressEnterDeletePost}/>
                                                     <ReactTooltip id="deletePostTip" place="top" effect="solid"> {/* infobulle sur la poubelle */}
                                                         Supprimer l'article
                                                     </ReactTooltip>

@@ -110,7 +110,7 @@
     transition: all 0.4s linear;
 }
 
-.seeUserPostIcon:hover {
+.seeUserPostIcon:hover, .seeUserPostIcon:focus {
     transform: scale(1.2);
 }
 
@@ -120,7 +120,7 @@
     transition: all 0.4s linear;
 }
 
-.deleteUserPostIcon:hover {
+.deleteUserPostIcon:hover, .deleteUserPostIcon:focus {
     transform: scale(1.2);
 }
 

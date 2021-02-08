@@ -38,7 +38,7 @@ class DisplayOnePost extends React.Component {
             likes: likes, // nombre de likes de l'article
             dislikes: dislikes, // nombre de dislikes de l'article
             totalComs: totalComs, // nombre total de commentaires de l'article
-            showPostChoices: false, // invisibilité du menu de l'onglet "mes articles"
+            showPostsChoices: false, // invisibilité du menu de l'onglet "mes articles"
             showAccountChoices: false, // invisibilité du menu de l'onglet "mon compte"
             redirect: false, // pas de redirection
             width: window.innerWidth // largeur de l'écran = largeur actuelle
@@ -49,14 +49,15 @@ class DisplayOnePost extends React.Component {
         this.handleClickHome = this.handleClickHome.bind(this);
         this.handlePressEnterHome = this.handlePressEnterHome.bind(this);
 
-        this.PostsChoices = this.PostsChoices.bind(this);
-        this.AccountChoices = this.AccountChoices.bind(this);
+        this.handleHoverShowPostsChoices = this.handleHoverShowPostsChoices.bind(this);
+        this.handleLeaveHidePostsChoices = this.handleLeaveHidePostsChoices.bind(this);
 
-        this.handleHoverPosts = this.handleHoverPosts.bind(this);
         this.handlePressEnterPosts = this.handlePressEnterPosts.bind(this);
         this.handlePressEnterNewPost = this.handlePressEnterNewPost.bind(this);
 
-        this.handleHoverAccount = this.handleHoverAccount.bind(this);
+        this.handleHoverShowAccountChoices = this.handleHoverShowAccountChoices.bind(this);
+        this.handleLeaveHideAccountChoices = this.handleLeaveHideAccountChoices.bind(this);
+
         this.handlePressEnterAccount = this.handlePressEnterAccount.bind(this);
         this.handlePressEnterLogout = this.handlePressEnterLogout.bind(this);
 
@@ -77,6 +78,15 @@ class DisplayOnePost extends React.Component {
 
         this.handlePressEnterLikePost = this.handlePressEnterLikePost.bind(this);
         this.handlePressEnterDislikePost = this.handlePressEnterDislikePost.bind(this);
+
+        this.PostsChoices = this.PostsChoices.bind(this);
+        this.AccountChoices = this.AccountChoices.bind(this);
+    }
+
+    handleResize() { // au changement de largeur de l'écran
+        this.setState({ // nouvel état : largeur => largeur actualisée
+            width: window.innerWidth
+        })
     }
 
     handleClickHome() { // au clic sur l'onglet "accueil"
@@ -98,70 +108,18 @@ class DisplayOnePost extends React.Component {
         }
     }
 
-    PostsChoices() { // affichage des choix si l'onglet "mes articles" est déplié (état : visibilité)
-        return (
-            <Fragment>
-                <li className="fullPostMenuChoicePostsLink fullPostMenuChoiceLink" tabIndex="0"
-                   onClick={this.handleClickUserPosts} onKeyDown={this.handlePressEnterPosts}>Mes
-                    publications
-                </li>
-
-                <li className="fullPostMenuChoicePostsLink fullPostMenuChoiceLink" tabIndex="0"
-                   onClick={this.handleClickCreateNewPost} onKeyDown={this.handlePressEnterNewPost}>Publier un
-                    article
-                </li>
-            </Fragment>
-        )
-    }
-
-    AccountChoices() { // affichage des choix si l'onglet "mon compte" est déplié (état : visibilité)
-        return (
-            <Fragment>
-                <li className="fullPostMenuChoiceAccountLink fullPostMenuChoiceLink" tabIndex="0"
-                   onClick={this.handleClickUserAccount} onKeyDown={this.handlePressEnterAccount}>Mon profil
-                </li>
-
-                <li className="fullPostMenuChoiceAccountLink fullPostMenuChoiceLink" tabIndex="0"
-                   onClick={this.handleClickLogout} onKeyDown={this.handlePressEnterLogout}>Me déconnecter
-                </li>
-            </Fragment>
-        )
-    }
-
-    handleHoverPosts() { // au survol ou au focus de l'onglet "mes articles"
-        if (this.state.showPostChoices === false) { // si menu "mes articles" = invisible
-            if (this.state.showAccountChoices === true) { // si menu "mon compte" = visible
-                this.setState({ // nouvel état : menu "mes articles" => visible et menu "mon compte" => invisible
-                    showPostChoices: true,
-                    showAccountChoices: false
-                })
-            } else { // si menu "mon compte = invisible
-                this.setState({ // nouvel état : menu "mon compte" => visible
-                    showPostChoices: true
-                })
-            }
-        } else { // si menu "mes articles" = visible
-            this.setState({ // nouvel état : menu "mon compte" => invisible
-                showPostChoices: false
+    handleHoverShowPostsChoices() { // au survol ou au focus de l'onglet "mes articles"
+        if (this.state.showPostsChoices === false) { // si menu "mes articles" = invisible
+            this.setState({ // nouvel état : menu "mes articles" => visible
+                showPostsChoices: true
             })
         }
     }
 
-    handleHoverAccount() { // au survol ou au focus de l'onglet "mon compte"
-        if (this.state.showAccountChoices === false) { // si menu "mon compte" = invisible
-            if (this.state.showPostChoices === true) { // si menu "mes articles" = visible
-                this.setState({ // nouvel état : menu "mon compte" => visible et menu "mes articles" => invisible
-                    showAccountChoices: true,
-                    showPostChoices: false
-                })
-            } else { // si menu "mes articles"
-                this.setState({ // nouvel état : menu "mon compte" => visible
-                    showAccountChoices: true
-                })
-            }
-        } else { // si menu "mon compte" = visible
-            this.setState({ // nouvel état : menu "mon compte" => invisible
-                showAccountChoices: false
+    handleLeaveHidePostsChoices() { // quand la souris quitte l'onglet "mes articles"
+        if (this.state.showPostsChoices === true) { // si menu "mes articles" = visible
+            this.setState({ // nouvel état : menu "mes articles" => invisible
+                showPostsChoices: false
             })
         }
     }
@@ -201,6 +159,22 @@ class DisplayOnePost extends React.Component {
         if (event.key === 'Enter') {// si c'est la touche Entrée : exécution de la fonction handleClickCreateNewPost
             event.preventDefault();
             this.handleClickCreateNewPost();
+        }
+    }
+
+    handleHoverShowAccountChoices() { // au survol ou au focus de l'onglet "mon compte"
+        if (this.state.showAccountChoices === false) { // si menu "mon compte" = invisible
+            this.setState({ // nouvel état : menu "mon compte" => visible
+                showAccountChoices: true
+            })
+        }
+    }
+
+    handleLeaveHideAccountChoices() {
+        if (this.state.showAccountChoices === true) { // si menu "mon compte" = visible
+            this.setState({ // nouvel état : menu "mon compte" => invisible
+                showAccountChoices: false
+            })
         }
     }
 
@@ -259,6 +233,38 @@ class DisplayOnePost extends React.Component {
             event.preventDefault();
             this.handleClickTerms();
         }
+    }
+
+    PostsChoices() { // affichage des choix si l'onglet "mes articles" est déplié (état : visibilité)
+        return (
+            <Fragment>
+                <li className="fullPostMenuChoicePostsLink fullPostMenuChoiceLink" tabIndex="0"
+                    onClick={this.handleClickUserPosts} onKeyDown={this.handlePressEnterPosts}>Mes
+                    publications
+                </li>
+
+                <li className="fullPostMenuChoicePostsLink fullPostMenuChoiceLink" tabIndex="0"
+                    onClick={this.handleClickCreateNewPost} onKeyDown={this.handlePressEnterNewPost}
+                    onBlur={this.handleLeaveHidePostsChoices}>Publier un
+                    article
+                </li>
+            </Fragment>
+        )
+    }
+
+    AccountChoices() { // affichage des choix si l'onglet "mon compte" est déplié (état : visibilité)
+        return (
+            <Fragment>
+                <li className="fullPostMenuChoiceAccountLink fullPostMenuChoiceLink" tabIndex="0"
+                    onClick={this.handleClickUserAccount} onKeyDown={this.handlePressEnterAccount}>Mon profil
+                </li>
+
+                <li className="fullPostMenuChoiceAccountLink fullPostMenuChoiceLink" tabIndex="0"
+                    onClick={this.handleClickLogout} onKeyDown={this.handlePressEnterLogout}
+                    onBlur={this.handleLeaveHideAccountChoices}>Me déconnecter
+                </li>
+            </Fragment>
+        )
     }
 
     handleClickLikePost(event) { // au clic sur l'icon like de l'article
@@ -325,21 +331,20 @@ class DisplayOnePost extends React.Component {
     handlePressEnterDislikePost(event) { // à la pression d'une touche sur l'icon dislike
         if (event.key === 'Enter') { // si c'est la touche Entrée : exécution de la fonction handleClickDislikePost
             event.preventDefault();
-            this.handlePressEnterDislikePost();
+            this.handleClickDislikePost();
         }
-
     }
 
     handleEditorChange(content) { // à la saisie de caractères dans le champ de commentaire de l'éditeur de texte
         this.setState({content}) // nouvel état : le contenu du champ commentaire prend la valeur des caractères saisis
     }
 
-    async handleSubmitCom(event) { // à la soumission du commentaire
+    handleSubmitCom(event) { // à la soumission du commentaire
         event.preventDefault();
         if (this.state.content === "") { // si le contenu est vide
             alert("Veuillez écrire un commentaire");
         } else { // si un commentaire a été rédigé
-            await createComRequest(this.state.content, this.state.postId)// appel de la requête de création d'un commentaire
+            createComRequest(this.state.content, this.state.postId)// appel de la requête de création d'un commentaire
                 .then(() => { // si requête ok
                     const totalComs = this.state.totalComs + 1;
                     this.setState({totalComs}); // nouvel état : ajout du commentaire au nombre total de commentaires de l'article
@@ -359,12 +364,6 @@ class DisplayOnePost extends React.Component {
                     this.setState({error});
                 })
         }
-    }
-
-    handleResize() { // au changement de largeur de l'écran
-        this.setState({ // nouvel état : largeur => largeur actualisée
-            width: window.innerWidth
-        })
     }
 
     componentDidMount() { // quand le composant est monté
@@ -426,26 +425,31 @@ class DisplayOnePost extends React.Component {
                         <nav className="fullPostNavBar">
                             <ul className="fullPostMenu">
                                 <ul className="fullPostMenuChoiceHome fullPostMenuChoice">
-                                    <li className="fullPostMenuTitle" tabIndex="0"
-                                       onClick={this.handleClickHome} onKeyDown={this.handlePressEnterHome}>Retour à
-                                        la
-                                        Une</li>
+                                    <li className="fullPostMenuTitle" tabIndex="0" onClick={this.handleClickHome}
+                                        onKeyDown={this.handlePressEnterHome}>
+                                        Retour à la Une
+                                    </li>
                                 </ul>
 
-                                <ul className="fullPostMenuChoicePosts fullPostMenuChoice" onMouseLeave={this.handleHoverPosts}>
+                                <ul className="fullPostMenuChoicePosts fullPostMenuChoice"
+                                    onMouseLeave={this.handleLeaveHidePostsChoices}>
                                     <li className="fullPostMenuTitle" tabIndex="0"
-                                       onMouseEnter={this.handleHoverPosts}
-                                       onFocus={this.handleHoverPosts}>Mes articles</li>
+                                        onMouseEnter={this.handleHoverShowPostsChoices}
+                                        onFocus={this.handleHoverShowPostsChoices}>
+                                        Mes articles
+                                    </li>
 
-                                    {this.state.showPostChoices ?
+                                    {this.state.showPostsChoices ?
                                         <this.PostsChoices/> : null} {/* condition : si l'état showPostChoices = true => exécution de PostChoices */}
                                 </ul>
 
-                                <ul className="fullPostMenuChoiceAccount fullPostMenuChoice" onMouseLeave={this.handleHoverAccount}>
+                                <ul className="fullPostMenuChoiceAccount fullPostMenuChoice"
+                                    onMouseLeave={this.handleLeaveHideAccountChoices}>
                                     <li className="fullPostMenuTitle" tabIndex="0"
-                                       onMouseEnter={this.handleHoverAccount}
-                                       onFocus={this.handleHoverAccount}>
-                                        Mon compte</li>
+                                        onMouseEnter={this.handleHoverShowAccountChoices}
+                                        onFocus={this.handleHoverShowAccountChoices}>
+                                        Mon compte
+                                    </li>
 
                                     {this.state.showAccountChoices ?
                                         <this.AccountChoices/> : null} {/* condition : si l'état showAccountChoices = true => exécution de AccountChoices */}
@@ -453,8 +457,9 @@ class DisplayOnePost extends React.Component {
 
                                 <ul className="fullPostMenuChoiceTerms fullPostMenuChoice">
                                     <li className="fullPostMenuTitle" tabIndex="0" onClick={this.handleClickTerms}
-                                       onKeyDown={this.handlePressEnterTerms}>Mentions
-                                        légales</li>
+                                        onKeyDown={this.handlePressEnterTerms}>
+                                        Mentions légales
+                                    </li>
                                 </ul>
                             </ul>
                         </nav>
