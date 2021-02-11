@@ -133,6 +133,9 @@ exports.updateUser = (req, res) => {
                     lastname: req.body.lastname,
                     email: req.body.email
                 }
+                console.log(req.file);
+                console.log(req.file.filename);
+                console.log(userUpdated.avatar);
 
                 let query = `UPDATE users SET `;
                 let updated = false;
