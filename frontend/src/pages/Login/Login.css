@@ -2,16 +2,25 @@
 
 /********** Extra Small Devices **********/
 
+.sectionLogin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .formLoginBox {
     display: flex;
     flex-direction: column;
-    height: 82vh;
-    margin-top: 40px;
-    padding: 10px;
+    justify-content: center;
+    height: 90vh;
 }
 
 .formTitleLogin {
     margin-bottom: 40px;
+}
+
+.formLoginFieldsList .field {
+    margin-bottom: 30px;
 }
 
 .formButtonLogin {
@@ -40,23 +49,15 @@
 @media screen and (min-width: 480px) {
 
     .formLoginBox {
-        height: 76vh;
+        height: 86vh;
     }
-
-    .formLoginBox {
-        padding: 20px;
-    }
-
 }
 
 /********** Medium Devices **********/
 
 @media screen and (min-width: 768px) {
     .formLoginBox {
-        margin-top: 38px;
         align-items: center;
-        padding: 25px 0;
-        height: 75vh;
     }
 
     .formTitleLogin {
@@ -86,29 +87,27 @@
     }
 
     .sectionLogin {
-        width: 45vw;
-        height: 100vh;
-    }
-
-    .formLogin {
-        margin: 0 auto;
-    }
-
-    .formLoginBox {
-        padding: 0 20px;
+        width: 36vw;
+        padding: 0 2vw;
     }
 
     .formTitleLogin {
-        margin: 0 0 20px 10px;
+        margin: 0 0 20px 0;
         font-size: 2.5em;
     }
 }
 
 @media screen and (min-width: 1440px) {
 
+    .sectionLogin {
+        width: 41vw;
+    }
+
+    .formLoginBox {
+        height: 84vh;
+    }
+
     .formTitleLogin {
-        margin-left: 40px;
-        margin-top: 60px;
         margin-bottom: 40px;
     }
 
@@ -120,9 +119,6 @@
 
 @media screen and (min-width: 1600px) {
 
-    .formTitleLogin {
-        margin-left: 50px;
-    }
 }
 
 @media screen and (min-width: 1920px) {
@@ -132,7 +128,6 @@
     }
 
     .formTitleLogin {
-        margin-left: 70px;
         font-size: 3em;
     }
 

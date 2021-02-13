@@ -265,7 +265,7 @@
 
 @media screen and (min-width: 1280px) {
 
-    /*************** Aside ***************/
+    /*************** AsideFullPost ***************/
     .asideFullPost {
         display: flex;
         align-items: inherit;
@@ -301,7 +301,7 @@
     }
 
     /********** navigation menu **********/
-    .fullPostMenu {
+    /*.fullPostMenu {
         display: flex;
         flex-direction: column;
         padding: 10px;
@@ -337,7 +337,7 @@
 
     .fullPostMenuChoiceLink:hover, .fullPostMenuChoiceLink:focus {
         font-weight: bold;
-    }
+    }*/
 
     /********** logo **********/
     aside .logoSphere {

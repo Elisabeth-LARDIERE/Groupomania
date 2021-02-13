@@ -4,8 +4,8 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import BgImage from '../../components/BgImage/BgImage';
-import LogoSphere, {LogoSphereSignupAndCo} from '../../components/LogoSphere/LogoSphere';
-import LogoTitle, {LogoTitleSignupAndCo} from '../../components/LogoTitle/LogoTitle';
+import LogoSphere from '../../components/LogoSphere/LogoSphere';
+import LogoTitle from '../../components/LogoTitle/LogoTitle';
 import FormLogin from '../../components/FormLogin/FormLogin';
 import './Login.css';
 import '../../index.css';
@@ -19,9 +19,7 @@ function Login() {
             <section className="sectionLogin">
                 <div className="logoBox">
                     <LogoSphere/> {/* affichage de l'un ou de l'autre selon la taille de l'écran */}
-                    <LogoSphereSignupAndCo/>
                     <LogoTitle/> {/* affichage de l'un ou de l'autre selon la taille de l'écran */}
-                    <LogoTitleSignupAndCo/>
                 </div>
 
                 <div className="formLoginBox formBox">

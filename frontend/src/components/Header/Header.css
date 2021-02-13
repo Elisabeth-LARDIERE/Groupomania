@@ -10,46 +10,11 @@ header {
     flex-direction: column;
     padding: 1vh;
     height: 10vh;
-}
-
-.headerLogo .logoName {
-    display: block;
-}
-
-.headerLogo .logoSphere {
-    display: block;
-}
-
-.headerLogo {
-    display: flex;
     align-items: center;
-}
-
-.burgerMenu {
-    display: block;
-}
-
-.navBar {
-    display: none;
-}
-
-.menuChoice {
-    font-size: 0.6em;
-}
-
-.menuChoiceLink:hover, .menuTitle:hover {
-    cursor: pointer;
+    justify-content: center;
 }
 
 .headerAvatar {
-    display: none;
-}
-
-.headerAvatarSmallDevices {
-    display: block;
-    width: 30px;
-    height: 30px;
-    border-radius: 5px;
     align-self: flex-end;
     margin: auto 0;
 }
@@ -66,13 +31,9 @@ header {
         justify-content: center;
     }
 
-    .headerAvatar {
-        display: none;
-    }
-
-    .headerAvatarSmallDevices {
-        width: 45px;
-        height: 45px;
+    header .headerAvatar {
+        width: 60px;
+        height: 60px;
     }
 }
 
@@ -83,51 +44,12 @@ header {
 
     header {
         height: 10vh;
-        align-items: initial;
-        flex-direction: row;
-        justify-content: space-between;
         padding: 2vh;
     }
 
-    .headerAvatar {
-        display: block;
-        width: 45px;
-        height: 45px;
-        border-radius: 5px;
-    }
-
-    .headerAvatarSmallDevices {
-        display: none;
-    }
-
-    .navBar {
-        display: flex;
-        justify-content: stretch;
-        width: 70%;
-        margin: 0;
-    }
-
-    .menuTitle:hover, .menuTitle:focus {
-        font-weight: bold;
-    }
-
-    .menuChoice {
-        width: 200px;
-        font-size: 1.2em;
-        text-align: center;
-    }
-
-    .menuChoiceLink {
-        margin-top: 10px;
-        font-size: 0.7em;
-    }
-
-    .menuChoiceLink:hover, .menuChoiceLink:focus {
-        font-weight: bold;
-    }
-
-    .menuChoiceAccount {
-        margin-right: 20px;
+    header .headerAvatar {
+        width: 70px;
+        height: 70px;
     }
 }
 
@@ -135,9 +57,26 @@ header {
 
 @media screen and (min-width: 1024px) {
 
-    .headerAvatar {
-        width: 60px;
-        height: 60px;
+    header {
+        flex-direction: row;
+    }
+
+    header .headerLogoSphereBox, header .headerLogoNameBox {
+        position: initial;
+    }
+
+    header .headerAvatar {
+        margin-left: 25px;
+    }
+
+    header .headerLogoSphere {
+        width: 55px;
+        height: 55px;
+    }
+
+    header .headerLogoName {
+        margin: 15px 0 0 10px;
+        width: 90%;
     }
 }
 
@@ -149,10 +88,29 @@ header {
         height: 12vh;
     }
 
-    .menuChoice {
-        width: 300px;
-        font-size: 1.7em;
+    header .headerLogoSphere {
+        width: 65px;
+        height: 65px;
     }
+
+    header .headerLogoName {
+        margin-left: 20px;
+        width: 70%;
+    }
+
+    header .headerAvatar {
+        width: 80px;
+        height: 80px;
+        margin-left: 35px;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+
+    header .headerAvatar {
+       margin-left: 50px;
+    }
+
 }
 
 @media screen and (min-width: 1600px) {
@@ -161,28 +119,38 @@ header {
         height: 15vh;
     }
 
-    .navBar {
-        justify-content: flex-end;
+    header .headerLogoSphere {
+        width: 80px;
+        height: 80px;
     }
 
-    .menuChoice {
-        font-size: 1.8em;
+    header .headerLogoName {
+        width: 80%;
     }
 
-    .menuChoiceLink {
-        font-size: 0.8em;
+    header .headerAvatar {
+        width: 100px;
+        height: 100px;
+        margin-left: 40px;
     }
 }
 
 @media screen and (min-width: 1920px) {
 
-    .menuChoice {
-        width: 300px;
-        font-size: 1.9em;
+    header .headerLogoSphere {
+        width: 110px;
+        height: 110px;
     }
 
-    .headerAvatar {
-        width: 70px;
-        height: 70px;
+    header .headerLogoName {
+        width: 90%;
+        margin: 30px 60px 0 25px ;
     }
+
+    header .headerAvatar {
+        width: 120px;
+        height: 120px;
+        margin-left: 70px;
+    }
+
 }

@@ -1,0 +1,139 @@
+/******************** NAVBAR ********************/
+
+/********** Extra Small Devices **********/
+
+
+
+/******************** MEDIA QUERIES ********************/
+
+/********** Small Devices **********/
+
+@media screen and (min-width: 480px) {
+
+}
+
+/********** Medium Devices **********/
+
+@media screen and (min-width: 768px) {
+
+}
+
+
+/********** Large Devices **********/
+
+@media screen and (min-width: 1024px) {
+
+    /********** navigation menu **********/
+    .Menu {
+        display: flex;
+        width: 60%;
+        height: 100%;
+        justify-content: space-between;
+        margin: auto 0;
+    }
+
+    .MenuTitle {
+        cursor: pointer;
+        font-size: 1.2em;
+    }
+
+    .MenuTitle:hover, .MenuTitle:focus {
+        font-weight: bold;
+    }
+
+    .MenuChoice {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+        height: 100%;
+        width: 170px;
+        margin: 0 10px;
+    }
+
+    .MenuChoiceTerms {
+        margin-bottom: 0;
+    }
+
+    .MenuChoiceLink {
+        padding: 5px 0;
+    }
+
+    .MenuChoiceLink:hover, .MenuChoiceLink:focus {
+        font-weight: bold;
+    }
+}
+
+/********** Extra Large Devices **********/
+
+@media screen and (min-width: 1280px) {
+
+    .Menu {
+        width: 70%;
+    }
+
+    .MenuChoice {
+        width: 200px;
+    }
+
+    .MenuTitle {
+        font-size: 1.4em;
+    }
+
+    .MenuChoiceLink {
+        font-size: 1.2em;
+        padding: 5px 0;
+    }
+
+}
+
+@media screen and (min-width: 1440px) {
+
+    .MenuChoice {
+        width: 230px;
+    }
+
+    .MenuTitle {
+        font-size: 1.6em;
+    }
+
+    .MenuChoiceLink {
+        font-size: 1.3em;
+    }
+
+}
+
+@media screen and (min-width: 1600px) {
+
+    .MenuChoice {
+        padding-bottom: 10px;
+    }
+
+    .MenuTitle {
+        font-size: 1.8em;
+    }
+
+    .MenuChoiceLink {
+        font-size: 1.5em;
+        padding: 10px 0;
+    }
+}
+
+@media screen and (min-width: 1920px) {
+
+    .Menu {
+        width: 50%;
+        margin-left: 20px;
+    }
+
+    .MenuChoice {
+        width: 220px;
+    }
+
+    .MenuTitle {
+        margin-bottom: 5px;
+        font-size: 2em;
+    }
+
+}
+

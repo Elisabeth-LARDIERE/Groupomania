@@ -4,8 +4,8 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import BgImage from '../../components/BgImage/BgImage';
-import LogoSphere, {LogoSphereSignupAndCo} from '../../components/LogoSphere/LogoSphere';
-import LogoTitle, {LogoTitleSignupAndCo} from '../../components/LogoTitle/LogoTitle';
+import LogoSphere from '../../components/LogoSphere/LogoSphere';
+import LogoTitle from '../../components/LogoTitle/LogoTitle';
 import FormSignup from '../../components/FormSignup/FormSignup';
 import './Signup.css';
 import '../../index.css';
@@ -18,9 +18,9 @@ function Signup() {
             <div className="sectionSignup">
                 <section className="logoBox">
                     <LogoSphere/> {/* affichage de l'un ou de l'autre selon la taille de l'écran */}
-                    <LogoSphereSignupAndCo/>
+
                     <LogoTitle/> {/* affichage de l'un ou de l'autre selon la taille de l'écran */}
-                    <LogoTitleSignupAndCo/>
+
                 </section>
                 <section className="formSignupBox formBox">
                     <h1 className="formTitleSignup formTitle">Inscription</h1>
