@@ -9,6 +9,7 @@ import BurgerMenu from "../BurgerMenu/BurgerMenu";
 class Navbar extends React.Component {
     constructor(props) {
         super(props);
+        console.log(props);
         this.state = {
             showPostsChoices: false, // invisibilité du menu de l'onglet "mes articles"
             showAccountChoices: false, // invisibilité du menu de l'onglet "mon compte"
@@ -38,7 +39,6 @@ class Navbar extends React.Component {
 
         this.PostsChoices = this.PostsChoices.bind(this);
         this.AccountChoices = this.AccountChoices.bind(this);
-
     }
 
     handleClickHome() { // au clic sur l'onglet "accueil"
@@ -171,12 +171,12 @@ class Navbar extends React.Component {
     PostsChoices() { // affichage des choix si l'onglet "mes articles" est déplié (état : visibilité)
         return (
             <Fragment>
-                <li className="MenuChoicePostsLink MenuChoiceLink" tabIndex="0"
+                <li className="menuChoicePostsLink menuChoiceLink asideMenuChoiceLink" tabIndex="0"
                     onClick={this.handleClickUserPosts} onKeyDown={this.handlePressEnterPosts}>Mes
                     publications
                 </li>
 
-                <li className="MenuChoicePostsLink MenuChoiceLink" tabIndex="0"
+                <li className="menuChoicePostsLink menuChoiceLink asideMenuChoiceLink" tabIndex="0"
                     onClick={this.handleClickCreateNewPost} onKeyDown={this.handlePressEnterNewPost}
                     onBlur={this.handleLeaveHidePostsChoices}>Publier un
                     article
@@ -188,11 +188,11 @@ class Navbar extends React.Component {
     AccountChoices() { // affichage des choix si l'onglet "mon compte" est déplié (état : visibilité)
         return (
             <Fragment>
-                <li className="MenuChoiceAccountLink MenuChoiceLink" tabIndex="0"
+                <li className="menuChoiceAccountLink menuChoiceLink asideMenuChoiceLink" tabIndex="0"
                     onClick={this.handleClickUserAccount} onKeyDown={this.handlePressEnterAccount}>Mon profil
                 </li>
 
-                <li className="MenuChoiceAccountLink MenuChoiceLink" tabIndex="0"
+                <li className="menuChoiceAccountLink menuChoiceLink asideMenuChoiceLink" tabIndex="0"
                     onClick={this.handleClickLogout} onKeyDown={this.handlePressEnterLogout}
                     onBlur={this.handleLeaveHideAccountChoices}>Me déconnecter
                 </li>
@@ -201,18 +201,19 @@ class Navbar extends React.Component {
     }
 
     render() {
+
         return (
-            <nav className="Menu">
-                <ul className="MenuChoiceHome MenuChoice">
-                    <li className="MenuTitle" tabIndex="0" onClick={this.handleClickHome}
+            <nav className="menu asideMenu">
+                <ul className="menuChoiceHome menuChoice asideMenuChoice">
+                    <li className="menuTitle asideMenuTitle asideMenuTitleHome" tabIndex="0" onClick={this.handleClickHome}
                         onKeyDown={this.handlePressEnterHome}>
                         Accueil
                     </li>
                 </ul>
 
-                <ul className="MenuChoicePosts MenuChoice"
+                <ul className="menuChoicePosts menuChoice asideMenuChoice"
                     onMouseLeave={this.handleLeaveHidePostsChoices}>
-                    <li className="MenuTitle" tabIndex="0"
+                    <li className="menuTitle asideMenuTitle asideMenuTitlePosts" tabIndex="0"
                         onMouseEnter={this.handleHoverShowPostsChoices}
                         onFocus={this.handleHoverShowPostsChoices}>
                         Mes articles
@@ -222,9 +223,9 @@ class Navbar extends React.Component {
                         <this.PostsChoices/> : null} {/* condition : si l'état showPostChoices = true => exécution de PostChoices */}
                 </ul>
 
-                <ul className="MenuChoiceAccount MenuChoice"
+                <ul className="menuChoiceAccount menuChoice asideMenuChoice"
                     onMouseLeave={this.handleLeaveHideAccountChoices}>
-                    <li className="MenuTitle" tabIndex="0"
+                    <li className="menuTitle asideMenuTitle asideMenuTitleAccount" tabIndex="0"
                         onMouseEnter={this.handleHoverShowAccountChoices}
                         onFocus={this.handleHoverShowAccountChoices}>
                         Mon compte
@@ -233,6 +234,9 @@ class Navbar extends React.Component {
                     {this.state.showAccountChoices ?
                         <this.AccountChoices/> : null} {/* condition : si l'état showAccountChoices = true => exécution de AccountChoices */}
                 </ul>
+
+                {this.props.termsMenu ?
+                        <Terms/> : null}
             </nav>
         )
     }

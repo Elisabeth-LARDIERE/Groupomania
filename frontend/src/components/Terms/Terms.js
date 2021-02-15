@@ -35,8 +35,8 @@ class Terms extends React.Component {
 
     render() {
         return (
-            <ul className="fullPostMenuChoiceTerms fullPostMenuChoice">
-                <li className="fullPostMenuTitle" tabIndex="0" onClick={this.handleClickTerms}
+            <ul className="menuChoiceTerms menuChoice asideMenuChoice">
+                <li className="menuTitle asideMenuTitle" tabIndex="0" onClick={this.handleClickTerms}
                     onKeyDown={this.handlePressEnterTerms}>
                     Mentions légales
                 </li>

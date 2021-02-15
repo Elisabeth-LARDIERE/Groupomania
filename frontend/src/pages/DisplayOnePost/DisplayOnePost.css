@@ -2,9 +2,9 @@
 
 /********** Extra Small Devices **********/
 
-.asideFullPost {
+/*.asideFullPost {
     display: none;
-}
+}*/
 
 .fullPostBox {
     display: flex;
@@ -266,39 +266,12 @@
 @media screen and (min-width: 1280px) {
 
     /*************** AsideFullPost ***************/
-    .asideFullPost {
-        display: flex;
-        align-items: inherit;
-        background-image: radial-gradient(#2FC4D5, #07ADC1);
-        box-shadow: 5px 4px 15px rgba(24, 30, 86, 0.25), 0 5px 5px rgba(24, 30, 86, 0.22);
-        width: 18vw;
-        padding: 1vw;
-        height: 100vh;
-        position: fixed;
-        left: 0;
-        border: none;
-    }
+
 
     /********** current user **********/
-    .fullPostCurrentUser {
-        display: flex;
-        padding: 10px;
-        margin-bottom: 80px;
-        align-items: center;
-        box-shadow: 0 14px 28px rgba(24, 30, 86, 0.25), 0 10px 10px rgba(24, 30, 86, 0.22);
-    }
 
-    .fullPostCurrentUserAvatar {
-        border-radius: 50%;
-        width: 70px;
-        height: 70px;
-        margin-right: 20px;
-    }
 
-    .fullPostCurrentUserId {
-        font-family: 'Libre Baskerville', 'serif';
-        font-size: 1.3em;
-    }
+
 
     /********** navigation menu **********/
     /*.fullPostMenu {
@@ -340,12 +313,7 @@
     }*/
 
     /********** logo **********/
-    aside .logoSphere {
-        width: 80px;
-        height: 80px;
-        align-self: center;
-        margin: 40px 0;
-    }
+
 
     /********** support **********/
     .fullPostAsideSeparator {
@@ -361,9 +329,9 @@
 
     /*************** Post ***************/
     .fullPostBox {
-        width: 80%;
+        width: 78vw;
         padding: 0;
-        margin-left: 20%;
+        margin-left: 22vw;
         height: 100vh;
     }
 
@@ -456,8 +424,6 @@
 
     @media screen and (min-width: 1920px) {
 
-        aside .logoSphere {
-            margin: 80px 0;
-        }
+
     }
 }

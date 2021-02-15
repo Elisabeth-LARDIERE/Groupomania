@@ -1,0 +1,149 @@
+/******************** ASIDE FULL POST ********************/
+
+/********** Extra Small Devices **********/
+
+
+/******************** MEDIA QUERIES ********************/
+
+/********** Small Devices **********/
+
+@media screen and (min-width: 480px) {
+
+}
+
+/********** Medium Devices **********/
+
+@media screen and (min-width: 768px) {
+
+}
+
+/********** Large Devices **********/
+
+@media screen and (min-width: 1024px) {
+
+}
+
+/********** Extra Large Devices **********/
+
+@media screen and (min-width: 1280px) {
+
+    .asideFullPost {
+        display: flex;
+        align-items: center;
+        background-image: radial-gradient(#2FC4D5, #07ADC1);
+        box-shadow: 5px 4px 15px rgba(24, 30, 86, 0.25), 0 5px 5px rgba(24, 30, 86, 0.22);
+        width: 20vw;
+        padding: 1vw;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        border: none;
+    }
+
+    .currentUser {
+        display: flex;
+        padding: 10px;
+        margin: 0 0 60px 0;
+        align-items: center;
+        width: 85%;
+        box-shadow: 0 1px 3px rgba(24, 30, 86, 0.12), 0 1px 2px rgba(24, 30, 86, 0.24);
+    }
+
+    aside .asideAvatar {
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        margin-right: 10px;
+    }
+
+    .currentUserId {
+        font-family: 'Libre Baskerville', 'serif';
+        font-size: 1.3em;
+    }
+
+    aside .asideMenu {
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 1px 3px rgba(24, 30, 86, 0.12), 0 1px 2px rgba(24, 30, 86, 0.24);
+        padding: 0 10px;
+        height: initial;
+        width: 85%;
+        margin: 0 0 30px 0;
+    }
+
+    aside .asideMenuChoice {
+        align-items: flex-start;
+        margin: 0;
+        font-size: 0.8em;
+    }
+
+    .menuChoiceTerms {
+        height: initial;
+    }
+
+    aside .asideMenuTitle {
+        padding: 10px 0;
+    }
+
+    aside .asideLogoSphereBox {
+        position: initial;
+    }
+
+    aside .logoSphere {
+        align-self: center;
+        margin: 40px 0;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+
+}
+
+@media screen and (min-width: 1600px) {
+
+    aside .asideAvatar {
+        width: 65px;
+        height: 65px;
+        margin-right: 15px;
+    }
+
+    .currentUserId {
+        font-size: 1.5em;
+    }
+
+    aside .asideMenu {
+        margin-bottom: 10px;
+    }
+
+    aside .asideMenuChoice {
+        font-size: 0.7em;
+    }
+
+    aside .logoSphere {
+        margin: 20px 0;
+        width: 70px;
+        height: 70px;
+    }
+}
+
+@media screen and (min-width: 1920px) {
+
+    aside .asideAvatar {
+        width: 75px;
+        height: 75px;
+    }
+
+    .currentUserId {
+        font-size: 1.7em;
+    }
+
+    aside .asideMenu {
+        margin-bottom: 30px;
+    }
+
+    aside .logoSphere {
+        margin: 40px 0;
+        width: 75px;
+        height: 75px;
+    }
+}

@@ -14,7 +14,7 @@ class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            width: window.innerWidth // largeur de l'écran = largeur actuelle
+            width: window.innerWidth, // largeur de l'écran = largeur actuelle
         }
         this.handleResize = this.handleResize.bind(this);
     }

@@ -9,26 +9,33 @@ import Support from "../Support/Support";
 import Avatar from "../Avatar/Avatar";
 import Terms from "../Terms/Terms";
 
-function AsideFullPost() {
-    const user = JSON.parse(localStorage.getItem('user'));
-    return (
-        <aside className="asideFullPost">
+class AsideFullPost extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            termsMenu: true
+        };
+    }
 
-            <div className="fullPostCurrentUser currentUser">
-                <Avatar/>
+    render() {
+        const user = JSON.parse(localStorage.getItem('user'));
+        return (
+            <aside className="asideFullPost">
 
-                <p className="fullPostCurrentUserId">{user.firstname} {user.lastname}</p>
-            </div>
+                <div className="currentUser asideCurrentUser">
+                    <Avatar/>
 
-            <Navbar/>
+                    <p className="currentUserId asideCurrentUserId">{user.firstname} {user.lastname}</p>
+                </div>
 
-            <Terms/>
+                <Navbar termsMenu={this.state.termsMenu}/>
 
-            <LogoSphere/>
+                <LogoSphere/>
 
-            <Support/>
-        </aside>
-    )
+                <Support/>
+            </aside>
+        )
+    }
 }
 
 export default AsideFullPost;

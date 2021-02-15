@@ -7,8 +7,8 @@ import './LogoSphere.css';
 
 function LogoSphere() { // pour écrans jusqu'à 1279px de largeur
     return (
-        <div className="logoSphereBox headerLogoSphereBox">
-            <img className="logoSphere headerLogoSphere" src={logo} alt="logo sphérique de Groupomania">
+        <div className="logoSphereBox headerLogoSphereBox asideLogoSphereBox">
+            <img className="logoSphere headerLogoSphere asideLogoSphere" src={logo} alt="logo sphérique de Groupomania">
             </img>
         </div>
     )
