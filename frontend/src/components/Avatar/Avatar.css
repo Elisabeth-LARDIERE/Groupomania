@@ -7,22 +7,3 @@
     height: 40px;
     border-radius: 5px;
 }
-
-/******************** MEDIA QUERIES ********************/
-
-/********** Small Devices **********/
-
-@media screen and (min-width: 480px) {
-
-
-}
-
-/********** Extra Large Devices **********/
-
-@media screen and (min-width: 1280px) {
-
-}
-
-@media screen and (min-width: 1600px) {
-
-}

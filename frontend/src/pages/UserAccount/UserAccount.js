@@ -20,7 +20,7 @@ class UserAccount extends React.Component {
             avatar: 'http://localhost:3001/' + user.avatar,
             previewAvatar: null, // aperçu de l'avatar quand changement : null
             width: window.innerWidth, // largeur de l'écran = largeur actuelle
-            location: window.location,
+            location: window.location, // localisation = localisation actuelle
             errors: { // champs des erreurs : vides
                 firstname: '',
                 lastname: '',

@@ -1,7 +1,7 @@
 // ASIDE
 
 // imports
-import React, {Fragment} from "react";
+import React from "react";
 import './Aside.css';
 import Filter from "../Filter/Filter";
 import Support from "../Support/Support";
@@ -13,7 +13,7 @@ class Aside extends React.Component {
     }
 
     render() {
-        const renderAside = () => {
+        const renderFilter = () => { // fonction d'affichage du filter selon la page
         if (this.props.location.pathname === '/home') {
             return (
                 <Filter/>
@@ -24,7 +24,7 @@ class Aside extends React.Component {
     }
         return (
             <aside className="aside">
-                {renderAside()}
+                {renderFilter()}
 
                 <Support/>
 

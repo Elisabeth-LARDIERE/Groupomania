@@ -23,7 +23,7 @@ class UserPosts extends React.Component {
             userPostsList: [], // tableau des articles vide
             redirect: false, // pas de redirection
             width: window.innerWidth, // largeur de l'écran = largeur actuelle
-            location: window.location
+            location: window.location // localisation = localisation actuelle
         }
 
         this.handleResize = this.handleResize.bind(this);

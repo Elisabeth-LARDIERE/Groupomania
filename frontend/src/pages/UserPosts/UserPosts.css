@@ -1,4 +1,4 @@
-/******************** USER POSTS ********************/
+/******************** PUBLICATIONS DE L'UTILISATEUR ********************/
 
 /********** Extra Small Devices **********/
 
@@ -132,6 +132,7 @@
     margin: 20px 40px;
 }
 
+
 /******************** MEDIA QUERIES ********************/
 
 /********** Small Devices **********/
@@ -263,10 +264,6 @@
         align-self: flex-start;
         margin: 20px 0 20px 50px;
     }
-}
-
-@media screen and (min-width: 1440px) {
-
 }
 
 @media screen and (min-width: 1600px) {

@@ -1,4 +1,4 @@
-/******************** SIGN UP ********************/
+/******************** INSCRIPTION ********************/
 
 /********** Extra Small Devices **********/
 
@@ -55,13 +55,6 @@
 
 /******************** MEDIA QUERIES ********************/
 
-/********** Small Devices **********/
-
-@media screen and (min-width: 480px) {
-
-
-}
-
 /********** Medium Devices **********/
 
 @media screen and (min-width: 768px) {
@@ -80,7 +73,6 @@
         font-size: 3em;
     }
 }
-
 
 /********** Large Devices **********/
 
@@ -122,7 +114,6 @@
     }
 
 }
-
 
 /********** Extra Large Devices **********/
 
@@ -223,5 +214,4 @@
     .formTitleSignup {
         font-size: 3em;
     }
-
 }

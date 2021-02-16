@@ -27,7 +27,7 @@ class Header extends React.Component {
 
     render() {
         window.addEventListener('resize', this.handleResize); // écoute du changement de largeur d'écran
-        const renderComponents = () => { // fonction d'affichage du header selon la largeur de l'écran
+        const renderComponents = () => { // fonction d'affichage burgerMenu ou navBar selon la largeur de l'écran
             if (this.state.width < 1024) {
                 return (
                     <BurgerMenu/>

@@ -4,13 +4,13 @@
 import React, {Fragment} from "react";
 import './NavBar.css';
 import Terms from "../Terms/Terms";
-import BurgerMenu from "../BurgerMenu/BurgerMenu";
+
 
 class Navbar extends React.Component {
     constructor(props) {
         super(props);
         console.log(props);
-        this.state = {
+        this.state = { // initialisation de l'état du composant
             showPostsChoices: false, // invisibilité du menu de l'onglet "mes articles"
             showAccountChoices: false, // invisibilité du menu de l'onglet "mon compte"
             redirect: false, // pas de redirection
@@ -236,7 +236,7 @@ class Navbar extends React.Component {
                 </ul>
 
                 {this.props.termsMenu ?
-                        <Terms/> : null}
+                        <Terms/> : null} {/* condition : si la prop termsMenu du parent = true => affichage de l'onglet "mentions légales" */}
             </nav>
         )
     }

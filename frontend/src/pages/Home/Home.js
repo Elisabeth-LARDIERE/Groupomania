@@ -21,7 +21,7 @@ class Home extends React.Component {
             showOldPosts: false, // invisibilité de l'option "les plus anciennes" dans la barre de tri des publications
             postsList: [], // tableau des articles*/
             width: window.innerWidth, // largeur de l'écran = largeur actuelle
-            location: window.location
+            location: window.location // localisation = localisation actuelle
         }
         this.handleResize = this.handleResize.bind(this);
 
@@ -121,7 +121,7 @@ class Home extends React.Component {
     render() {
         const renderHTML = (rawHTML: string) => React.createElement("div", {dangerouslySetInnerHTML: {__html: rawHTML}}); // fonction d'affichage du HTML dans son format original
         window.addEventListener('resize', this.handleResize); // écoute du changement de largeur d'écran
-        const renderFilter = () => { // fonction d'affichage de la barre de tri selon la largeur de l'écran
+        const renderFilter = () => { // fonction d'affichage du filter selon la largeur de l'écran
             if (this.state.width < 1280) {
                 return (
                     <Filter onChangeFilter={this.handleChangeFilter} details={this.state}/>

@@ -17,9 +17,9 @@ function Signup() {
             <BgImage/>
             <div className="sectionSignup">
                 <section className="logoBox">
-                    <LogoSphere/> {/* affichage de l'un ou de l'autre selon la taille de l'écran */}
+                    <LogoSphere/>
 
-                    <LogoTitle/> {/* affichage de l'un ou de l'autre selon la taille de l'écran */}
+                    <LogoTitle/>
 
                 </section>
                 <section className="formSignupBox formBox">

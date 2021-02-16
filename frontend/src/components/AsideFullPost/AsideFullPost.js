@@ -1,4 +1,4 @@
-// ASIDE FULL POST
+// ASIDE ARTICLE INDIVIDUEL
 
 // imports
 import React from "react";
@@ -11,13 +11,13 @@ import Avatar from "../Avatar/Avatar";
 class AsideFullPost extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
+        this.state = { // initialisation de l'état du composant : visibilité de l'onglet "mentions légales"
             termsMenu: true
         };
     }
 
     render() {
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(localStorage.getItem('user')); // récupération de l'utilisateur dans le localstorage
         return (
             <aside className="asideFullPost">
 

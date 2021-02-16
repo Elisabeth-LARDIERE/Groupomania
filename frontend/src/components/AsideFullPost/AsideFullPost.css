@@ -1,27 +1,7 @@
 /******************** ASIDE FULL POST ********************/
 
-/********** Extra Small Devices **********/
-
 
 /******************** MEDIA QUERIES ********************/
-
-/********** Small Devices **********/
-
-@media screen and (min-width: 480px) {
-
-}
-
-/********** Medium Devices **********/
-
-@media screen and (min-width: 768px) {
-
-}
-
-/********** Large Devices **********/
-
-@media screen and (min-width: 1024px) {
-
-}
 
 /********** Extra Large Devices **********/
 
@@ -94,10 +74,6 @@
         align-self: center;
         margin: 40px 0;
     }
-}
-
-@media screen and (min-width: 1440px) {
-
 }
 
 @media screen and (min-width: 1600px) {

@@ -1,4 +1,4 @@
-// FILTER
+// BARRE DE TRI / FILTRES
 
 // imports
 import React from "react";
@@ -17,7 +17,7 @@ class Filter extends React.Component {
 
                 <hr className="separator"/>
 
-                <select className="filterOptions" value={this.props.value}
+                <select className="filterOptions" value={this.props.value} // récupération des props du parent pour affichage différent en fonction de la valeur de la barre de tri
                         onChange={this.props.onChangeFilter}>
 
                     <option className="filterNews">

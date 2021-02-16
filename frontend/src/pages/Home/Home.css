@@ -1,4 +1,4 @@
-/******************** HOME ********************/
+/******************** ACCUEIL ********************/
 
 /********** Extra Small Devices **********/
 
@@ -145,10 +145,6 @@
 
 @media screen and (min-width: 480px) {
 
-    .postsBox {
-        /*height: 86vh;*/
-    }
-
     .post {
         width: 375px;
         height: 250px;
@@ -191,10 +187,6 @@
         display: flex;
     }
 
-    .postsBox {
-        /*height: 79vh;*/
-    }
-
     .filterSmallDevices {
         width: 40%;
     }
@@ -235,10 +227,6 @@
 
 @media screen and (min-width: 1024px) {
 
-    /*.postsBox {
-        height: 79vh;
-    }*/
-
     .post {
         width: 270px;
         height: 200px;
@@ -259,7 +247,6 @@
 @media screen and (min-width: 1280px) {
 
     .postsBox {
-        /*height: 95vh;*/
         width: 75vw;
         margin-right: 25vw;
     }
@@ -332,7 +319,6 @@
 
     .postsBox {
         padding-left: 10px;
-        /*height: 81vh;*/
     }
 
 }

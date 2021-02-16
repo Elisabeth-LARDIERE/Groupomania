@@ -1,4 +1,4 @@
-// TERMS
+// MENTIONS LEGALES
 
 // imports
 import React from "react";

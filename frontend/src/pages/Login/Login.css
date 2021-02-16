@@ -1,4 +1,4 @@
-/******************** LOGIN ********************/
+/******************** CONNEXION ********************/
 
 /********** Extra Small Devices **********/
 
@@ -66,7 +66,6 @@
 
 }
 
-
 /********** Large Devices **********/
 
 @media screen and (min-width: 1024px) {
@@ -117,10 +116,6 @@
 
 }
 
-@media screen and (min-width: 1600px) {
-
-}
-
 @media screen and (min-width: 1920px) {
 
     .formButtonLogin {
@@ -130,5 +125,4 @@
     .formTitleLogin {
         font-size: 3em;
     }
-
 }

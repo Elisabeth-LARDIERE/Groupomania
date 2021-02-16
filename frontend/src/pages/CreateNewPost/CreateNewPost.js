@@ -16,7 +16,7 @@ class CreateNewPost extends React.Component {
             title: "",
             content: "",
             width: window.innerWidth, // largeur de l'écran = largeur actuelle
-            location: window.location
+            location: window.location // localisation = localisation actuelle
         }
         this.handleResize = this.handleResize.bind(this);
         this.handleChangeTitle = this.handleChangeTitle.bind(this);

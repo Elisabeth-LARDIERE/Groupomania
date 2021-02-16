@@ -1,10 +1,6 @@
-/******************** FULL POST ********************/
+/******************** ARTICLE INDIVIDUEL ********************/
 
 /********** Extra Small Devices **********/
-
-/*.asideFullPost {
-    display: none;
-}*/
 
 .fullPostBox {
     display: flex;
@@ -265,60 +261,6 @@
 
 @media screen and (min-width: 1280px) {
 
-    /*************** AsideFullPost ***************/
-
-
-    /********** current user **********/
-
-
-
-
-    /********** navigation menu **********/
-    /*.fullPostMenu {
-        display: flex;
-        flex-direction: column;
-        padding: 10px;
-        box-shadow: 0 14px 28px rgba(24, 30, 86, 0.25), 0 10px 10px rgba(24, 30, 86, 0.22);
-        margin-bottom: 30px;
-    }
-
-    .fullPostMenuTitle {
-        font-size: 1.2em;
-        cursor: pointer;
-    }
-
-    .fullPostMenuTitle:hover, .fullPostMenuTitle:focus {
-        font-weight: bold;
-    }
-
-    .fullPostMenuChoice {
-        display: flex;
-        flex-direction: column;
-        width: fit-content;
-        margin-bottom: 30px;
-        cursor: pointer;
-    }
-
-    .fullPostMenuChoiceTerms {
-        margin-bottom: 0;
-    }
-
-    .fullPostMenuChoiceLink {
-        font-size: 1.1em;
-        padding: 5px 0;
-    }
-
-    .fullPostMenuChoiceLink:hover, .fullPostMenuChoiceLink:focus {
-        font-weight: bold;
-    }*/
-
-    /********** logo **********/
-
-
-    /********** support **********/
-
-
-    /*************** Post ***************/
     .fullPostBox {
         width: 78vw;
         padding: 0;
@@ -402,19 +344,5 @@
         display: flex;
         align-items: center;
         font-family: 'Libre Baskerville', serif;
-    }
-
-
-    @media screen and (min-width: 1440px) {
-
-    }
-
-    @media screen and (min-width: 1600px) {
-
-    }
-
-    @media screen and (min-width: 1920px) {
-
-
     }
 }

@@ -19,7 +19,7 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import AsideFullPost from "../../components/AsideFullPost/AsideFullPost";
 
-const userId = JSON.parse(localStorage.getItem('userId'));
+const userId = JSON.parse(localStorage.getItem('userId')); // récupération de l'identifiant de l'utilisateur dans le localstorage
 
 class DisplayOnePost extends React.Component {
     constructor(props) {
@@ -31,8 +31,8 @@ class DisplayOnePost extends React.Component {
         const totalComs = post.totalComs;
         this.state = { // initialisation de l'état du composant
             comsList: [], // tableau des commentaires vide
-            postUserLike: null,
-            postUserDislike: null,
+            postUserLike: null, // pas de like de l'utilsateur connecté pour l'article
+            postUserDislike: null, // pas de dislike de l'utilisateur connecté pour l'article
             content: '', // champ de commentaire vide
             postId: postId, // id de l'article
             likes: likes, // nombre de likes de l'article
@@ -190,7 +190,7 @@ class DisplayOnePost extends React.Component {
         const renderHTML = (rawHTML: string) => React.createElement("div", {dangerouslySetInnerHTML: {__html: rawHTML}}); // fonction d'affichage du HTML dans son format original
         const post = JSON.parse(localStorage.getItem('post')); // récupération de l'article dans le localstorage
         window.addEventListener('resize', this.handleResize); // écoute du changement de largeur d'écran
-        const renderComponents = () => { // fonction d'affichage du header selon la largeur de l'écran
+        const renderComponents = () => { // fonction d'affichage conditionnel header ou aside selon la largeur de l'écran
             if (this.state.width < 1280) {
                 return (
                     <Header/>

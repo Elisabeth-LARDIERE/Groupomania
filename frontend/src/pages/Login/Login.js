@@ -18,8 +18,8 @@ function Login() {
 
             <section className="sectionLogin">
                 <div className="logoBox">
-                    <LogoSphere/> {/* affichage de l'un ou de l'autre selon la taille de l'écran */}
-                    <LogoTitle/> {/* affichage de l'un ou de l'autre selon la taille de l'écran */}
+                    <LogoSphere/>
+                    <LogoTitle/>
                 </div>
 
                 <div className="formLoginBox formBox">
