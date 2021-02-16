@@ -8,6 +8,9 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faComments, faThumbsDown, faThumbsUp} from "@fortawesome/free-regular-svg-icons";
 import Header from '../../components/Header/Header';
 import Footer from "../../components/Footer/Footer";
+import Filter from "../../components/Filter/Filter";
+import Aside from "../../components/Aside/Aside";
+
 
 class Home extends React.Component {
     constructor(props) {
@@ -16,35 +19,22 @@ class Home extends React.Component {
             showPosts: true, // visibilité de l'option "les plus récentes" dans la barre de tri des publications
             showPopularPosts: false, // invisibilité de l'option "les plus populaires" dans la barre de tri des publications
             showOldPosts: false, // invisibilité de l'option "les plus anciennes" dans la barre de tri des publications
-            postsList: [] // tableau des commentaires
+            postsList: [], // tableau des articles*/
+            width: window.innerWidth, // largeur de l'écran = largeur actuelle
+            location: window.location
         }
+        this.handleResize = this.handleResize.bind(this);
+
         this.handleClickOnePost = this.handleClickOnePost.bind(this);
         this.handleChangeFilter = this.handleChangeFilter.bind(this);
 
-        this.Posts = this.Posts.bind(this);
-        this.PopularPosts = this.PopularPosts.bind(this);
-        this.OldPosts = this.OldPosts.bind(this);
         this.OnePostLink = this.OnePostLink.bind(this);
     }
 
-    // affichage d'un titre différent en fonction du choix dans la barre de tri des publications
-
-    Posts() {
-        return (
-            <h1 className="postsBoxTitle">À la Une</h1>
-        )
-    }
-
-    PopularPosts() {
-        return (
-            <h1 className="postsBoxTitle">Les plus populaires</h1>
-        )
-    }
-
-    OldPosts() {
-        return (
-            <h1 className="postsBoxTitle">Les plus anciennes</h1>
-        )
+    handleResize() { // au changement de largeur de l'écran
+        this.setState({ // nouvel état : largeur => largeur actualisée
+            width: window.innerWidth
+        })
     }
 
     OnePostLink() { // affichage du choix de voir l'article individuel
@@ -130,34 +120,40 @@ class Home extends React.Component {
 
     render() {
         const renderHTML = (rawHTML: string) => React.createElement("div", {dangerouslySetInnerHTML: {__html: rawHTML}}); // fonction d'affichage du HTML dans son format original
+        window.addEventListener('resize', this.handleResize); // écoute du changement de largeur d'écran
+        const renderFilter = () => { // fonction d'affichage de la barre de tri selon la largeur de l'écran
+            if (this.state.width < 1280) {
+                return (
+                    <Filter onChangeFilter={this.handleChangeFilter} details={this.state}/>
+                )
+            } else {
+                return null
+            }
+        }
+
+        const renderAside = () => { // fonction d'affichage du aside selon la largeur de l'écran
+            if (this.state.width > 1279) {
+                return (
+                    <Aside location={this.state.location}/>
+                )
+            } else {
+                return null
+            }
+        }
         return (
             <Fragment>
                 <Header/>
 
                 <main className="mainHome">
                     <section className="postsBox">
-                        {this.state.showPosts ? <this.Posts/> : null} {/* condition : si l'état showPosts = true => exécution de Posts */}
-                        {this.state.showPopularPosts ? <this.PopularPosts/> : null} {/* condition : si l'état showPopularPosts = true => exécution de PopularPosts */}
-                        {this.state.showOldPosts ? <this.OldPosts/> : null} {/* condition : si l'état showOldPosts = true => exécution de OldPosts */}
+                        {this.state.showPosts ? <h1 className="postsBoxTitle">À la
+                            Une</h1> : null} {/* condition : si l'état showPosts = true => exécution de Posts */}
+                        {this.state.showPopularPosts ? <h1 className="postsBoxTitle">Les plus
+                            populaires</h1> : null} {/* condition : si l'état showPopularPosts = true => exécution de PopularPosts */}
+                        {this.state.showOldPosts ? <h1 className="postsBoxTitle">Les plus
+                            anciennes</h1> : null} {/* condition : si l'état showOldPosts = true => exécution de OldPosts */}
 
-                        <div className="filter filterSmallDevices">
-                            <p className="filterTitleSmallDevices">Trier les publications</p>
-                            <select className="filterOptionsSmallDevices" value={this.state.value}
-                                    onChange={this.handleChangeFilter}>
-
-                                <option className="filterNewsSmallDevices">
-                                    Les plus récentes
-                                </option>
-
-                                <option className="filterLikesSmallDevices">
-                                    Les plus populaires
-                                </option>
-
-                                <option className="filterDateOldSmallDevices">
-                                    Les plus anciennes
-                                </option>
-                            </select>
-                        </div>
+                        {renderFilter()}
 
                         <ul className="postsList">
                             {this.state.postsList.map(post => { // fonction de map sur les éléments de la liste des articles
@@ -188,7 +184,9 @@ class Home extends React.Component {
                                                 <div className="postPreviewContent">{renderHTML(post.content)}</div>
                                             </div>
 
-                                            <button className="seeMoreButton button" onClick={() => this.handleClickOnePost(post)}>Voir plus</button>
+                                            <button className="seeMoreButton button"
+                                                    onClick={() => this.handleClickOnePost(post)}>Voir plus
+                                            </button>
 
 
                                             <div className="postFooter">
@@ -213,55 +211,8 @@ class Home extends React.Component {
                         </ul>
                     </section>
 
-                    <aside>
-                        <div className="filter">
-                            <p className="filterTitle">Trier les publications</p>
+                    {renderAside()}
 
-                            <hr className="separator"/>
-
-                            <select className="filterOptions" value={this.state.value}
-                                    onChange={this.handleChangeFilter}>
-
-                                <option className="filterNews">
-                                    Les plus récentes
-                                </option>
-
-                                <option className="filterLikes">
-                                    Les plus populaires
-                                </option>
-
-                                <option className="filterDateOld">
-                                    Les plus anciennes
-                                </option>
-
-                            </select>
-
-                        </div>
-
-                        <div className="support">
-                            <div className="contact">
-                                <p className="contactTitle supportTitle">Contact</p>
-
-                                <hr className="separator"/>
-
-                                <p className="contactAddress">
-                                    1 rue du réseau<br/>
-                                    44000 NETWORK-CITY
-                                </p>
-                                <p className="contactPhone">02 20 20 20 20</p>
-
-                                <p>
-                                    <a className="mail" href="mailto:social@groupomania.com">social@groupomania.com</a>
-                                </p>
-                            </div>
-
-                            <div className="termsLink">
-                                <a href="http://localhost:3000/terms">
-                                    <button className="termsButton button">Mentions légales</button>
-                                </a>
-                            </div>
-                        </div>
-                    </aside>
                 </main>
 
                 <Footer/>

@@ -1,0 +1,118 @@
+/******************** FILTER ********************/
+
+/********** Extra Small Devices **********/
+
+.filter {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0;
+}
+
+.separator {
+    display: none;
+}
+
+.filterTitle {
+    font-size: 0.7em;
+    font-weight: bold;
+}
+
+.filterOptions {
+    font-size: 0.7em;
+    padding: 5px;
+}
+
+/******************** MEDIA QUERIES ********************/
+
+/********** Small Devices **********/
+
+@media screen and (min-width: 480px) {
+
+    .filter {
+        margin: 20px 0 30px;
+        width: 70%;
+    }
+}
+
+/********** Medium Devices **********/
+
+@media screen and (min-width: 768px) {
+
+    .filter {
+        width: 60%;
+    }
+
+    .filterTitle {
+        font-size: 1em;
+        font-weight: bold;
+    }
+
+    .filterOptions {
+        font-size: 0.9em;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+
+    .filter {
+        margin-bottom: 20px;
+        margin-top: 30px;
+        width: 50%;
+    }
+}
+
+/********** Extra Large Devices **********/
+
+@media screen and (min-width: 1280px) {
+
+    .filter {
+        display: flex;
+        flex-direction: column;
+        margin: 40px 0 140px;
+        text-align: center;
+    }
+
+    .filterTitle {
+        font-size: 0.9em;
+    }
+
+    .separator {
+        display: block;
+        margin-bottom: 20px;
+        margin-top: 0;
+        width: 60%;
+    }
+
+    .filterOptions {
+        padding: 10px;
+        font-family: 'Libre Baskerville', serif;
+        font-size: 1em;
+        box-shadow: 0 1px 3px rgba(24, 30, 86, 0.12), 0 1px 4px rgba(24, 30, 86, 0.24);
+        border-radius: 3px;
+        border: none;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+
+    .filter {
+        margin-bottom: 100px;
+    }
+}
+
+@media screen and (min-width: 1920px) {
+
+    .filter {
+        margin-bottom: 120px;
+    }
+
+    .filterTitle {
+        font-size: 1em;
+    }
+
+    .filterOptions {
+        font-size: 1.1em;
+    }
+}

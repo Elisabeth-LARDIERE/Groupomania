@@ -1,0 +1,50 @@
+/******************** SUPPORT ********************/
+
+/********** Extra Small Devices **********/
+
+/********** Extra Large Devices **********/
+
+@media screen and (min-width: 1280px) {
+
+    .support {
+        text-align: center;
+        margin: auto 0;
+    }
+
+    .supportTitle {
+        font-size: 1em;
+        font-weight: bold;
+        color: #181E56;
+    }
+
+    .supportSeparator {
+        width: 40%;
+        background-color: #FFCAD4;
+        border: none;
+        height: 1px;
+    }
+
+    .contact {
+        margin-bottom: 100px;
+    }
+
+    .contactAddress {
+        line-height: 2;
+    }
+
+    .contactMail {
+        color: #181E56;
+    }
+
+    .contactMail:hover, .contactMail:focus {
+        color: #D72C6C;
+        outline: none;
+    }
+}
+
+@media screen and (min-width: 1920px) {
+
+    .contact {
+        margin-bottom: 140px;
+    }
+}

@@ -33,7 +33,7 @@ class Header extends React.Component {
                     <BurgerMenu/>
                 )
             } else {
-                return <Navbar/>;
+                return <Navbar/>
             }
         }
         return (

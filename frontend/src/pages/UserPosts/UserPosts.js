@@ -14,6 +14,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faComments, faThumbsDown, faThumbsUp} from "@fortawesome/fontawesome-free-regular";
 import {faEye, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import Footer from "../../components/Footer/Footer";
+import Aside from "../../components/Aside/Aside";
 
 class UserPosts extends React.Component {
     constructor(props) {
@@ -21,7 +22,12 @@ class UserPosts extends React.Component {
         this.state = { // initialisation de l'état du composant
             userPostsList: [], // tableau des articles vide
             redirect: false, // pas de redirection
+            width: window.innerWidth, // largeur de l'écran = largeur actuelle
+            location: window.location
         }
+
+        this.handleResize = this.handleResize.bind(this);
+
         this.handleClickCreateNewPost = this.handleClickCreateNewPost.bind(this);
 
         this.handleClickOnePost = this.handleClickOnePost.bind(this);
@@ -29,6 +35,12 @@ class UserPosts extends React.Component {
 
         this.handleClickDeletePost = this.handleClickDeletePost.bind(this);
         this.handlePressEnterDeletePost = this.handlePressEnterDeletePost.bind(this);
+    }
+
+    handleResize() { // au changement de largeur de l'écran
+        this.setState({ // nouvel état : largeur => largeur actualisée
+            width: window.innerWidth
+        })
     }
 
     handleClickCreateNewPost() { // au clic sur le bouton "publier un nouvel article"
@@ -96,6 +108,16 @@ class UserPosts extends React.Component {
     }
 
     render() {
+        window.addEventListener('resize', this.handleResize); // écoute du changement de largeur de l'écran
+        const renderAside = () => { // fonction d'affichage du aside selon la largeur de l'écran
+            if (this.state.width > 1279) {
+                return (
+                    <Aside location={this.state.location}/>
+                )
+            } else {
+                return null
+            }
+        }
         return (
             <Fragment>
                 <Header/>
@@ -140,7 +162,8 @@ class UserPosts extends React.Component {
                                                         icon={faEye} data-tip data-for="seePostTip" tabIndex="0"
                                                         onClick={() => this.handleClickOnePost(post)}
                                                         onKeyDown={() => this.handlePressEnterOnePost}/>
-                                                    <ReactTooltip id="seePostTip" place="top" effect="solid" > {/* infobulle sur l'oeil */}
+                                                    <ReactTooltip id="seePostTip" place="top"
+                                                                  effect="solid"> {/* infobulle sur l'oeil */}
                                                         Voir l'article
                                                     </ReactTooltip>
 
@@ -149,7 +172,8 @@ class UserPosts extends React.Component {
                                                         icon={faTrashAlt} data-tip data-for="deletePostTip" tabIndex="0"
                                                         onClick={() => this.handleClickDeletePost(post)}
                                                         onKeyDown={() => this.handlePressEnterDeletePost}/>
-                                                    <ReactTooltip id="deletePostTip" place="top" effect="solid"> {/* infobulle sur la poubelle */}
+                                                    <ReactTooltip id="deletePostTip" place="top"
+                                                                  effect="solid"> {/* infobulle sur la poubelle */}
                                                         Supprimer l'article
                                                     </ReactTooltip>
                                                 </div>
@@ -161,27 +185,7 @@ class UserPosts extends React.Component {
                         </ul>
                     </section>
 
-                    <aside className="asideNoFilter">
-                        <div className="support">
-                            <div className=" contactNoFilter contact">
-                                <p className="contactTitle supportTitle">Contact</p>
-
-                                <p>1 rue du réseau<br/>
-                                    44000 NANTES</p>
-                                <p>02 23 23 23 23</p>
-
-                                <p>
-                                    <a className="mail" href="mailto:social@groupomania.com">social@groupomania.com</a>
-                                </p>
-                            </div>
-
-                            <div className="termsLink">
-                                <a href="http://localhost:3000/terms">
-                                    <button className="termsButton button">Mentions légales</button>
-                                </a>
-                            </div>
-                        </div>
-                    </aside>
+                    {renderAside()}
                 </main>
 
                 <Footer/>

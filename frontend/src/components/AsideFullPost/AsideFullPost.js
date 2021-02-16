@@ -7,7 +7,6 @@ import LogoSphere from "../LogoSphere/LogoSphere";
 import Navbar from "../NavBar/NavBar";
 import Support from "../Support/Support";
 import Avatar from "../Avatar/Avatar";
-import Terms from "../Terms/Terms";
 
 class AsideFullPost extends React.Component {
     constructor(props) {

@@ -9,9 +9,6 @@ body {
     color: #181E56;
 }
 
-aside {
-    display: none;
-}
 
 /*************** headings ***************/
 h1 {
@@ -70,27 +67,6 @@ a {
 
 a:hover, a:focus {
     outline: none;
-}
-
-.filterSmallDevices {
-    display: flex;
-    width: 100%;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.filter {
-    margin: 0;
-}
-
-.filterTitleSmallDevices {
-    font-size: 0.7em;
-    font-weight: bold;
-}
-
-.filterOptionsSmallDevices {
-    font-size: 0.7em;
-    padding: 5px;
 }
 
 /*************** form ***************/
@@ -185,15 +161,6 @@ span.error {
     h1 {
         font-size: 2em;
     }
-
-    .filterSmallDevices {
-        margin: 20px 0 30px;
-        width: 70%;
-    }
-
-    .filterOptionsSmallDevices {
-        font-size: 0.8em;
-    }
 }
 
 /********** Medium Devices **********/
@@ -223,20 +190,6 @@ span.error {
 }
 
 @media screen and (min-width: 1024px) {
-
-    .filter {
-        margin-bottom: 20px;
-        margin-top: 30px;
-    }
-
-    .filterTitleSmallDevices {
-        font-size: 1em;
-        font-weight: bold;
-    }
-
-    .filterOptionsSmallDevices {
-        font-size: 0.9em;
-    }
 
     h2 {
         font-size: 1.4em;
@@ -283,81 +236,6 @@ span.error {
         font-size: 2em;
     }
 
-    aside {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 25vw;
-        height: 84vh;
-        position: fixed;
-        right: 0;
-    }
-
-    .asideNoFilter {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-    }
-
-    .filterSmallDevices {
-        display: none;
-    }
-
-    .filter {
-        margin: 40px 0 140px;
-        text-align: center;
-    }
-
-    .filterTitle {
-        font-size: 1em;
-    }
-
-    .separator {
-        margin-bottom: 20px;
-        width: 60%;
-    }
-
-    .filterOptions {
-        padding: 10px;
-        font-family: 'Libre Baskerville', serif;
-        font-size: 1.1em;
-        box-shadow: 0 1px 3px rgba(24, 30, 86, 0.12), 0 1px 4px rgba(24, 30, 86, 0.24);
-        border-radius: 3px;
-        border: none;
-    }
-
-    .support {
-        text-align: center;
-    }
-
-    .supportTitle {
-        font-size: 1em;
-        font-weight: bold;
-        color: #181E56;
-    }
-
-    .contact {
-        margin-bottom: 100px;
-    }
-
-    .contactAddress {
-        line-height: 2;
-    }
-
-    .mail {
-        color: #181E56;
-    }
-
-    .mail:hover, .mail:focus {
-        color: #2BC1D3;
-        outline: none;
-    }
-
-    .termsButton {
-        font-size: 1em;
-        padding: 10px 15px;
-    }
-
     .formLabel {
         padding-left: 20px;
     }
@@ -380,37 +258,13 @@ span.error {
 }
 
 @media screen and (min-width: 1600px) {
-
-    .asideNoFilter {
-        width: 25vw;
-    }
-
-    .filter {
-        margin-bottom: 100px;
-    }
-
+    
     .formInput {
         width: 40vw;
     }
 }
 
 @media screen and (min-width: 1920px) {
-
-    aside {
-        width: 20vw;
-    }
-
-    .asideNoFilter {
-        width: 20vw;
-    }
-
-    .filter {
-        margin-bottom: 120px;
-    }
-
-    .contact {
-        margin-bottom: 140px;
-    }
 
     h1 {
         font-size: 4em;

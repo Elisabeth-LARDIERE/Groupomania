@@ -316,16 +316,7 @@
 
 
     /********** support **********/
-    .fullPostAsideSeparator {
-        width: 40%;
-        background-color: #FFCAD4;
-        border: none;
-        height: 1px;
-    }
 
-    .fullPostMail:hover, .fullPostMail:focus {
-        color: #D72C6C;
-    }
 
     /*************** Post ***************/
     .fullPostBox {

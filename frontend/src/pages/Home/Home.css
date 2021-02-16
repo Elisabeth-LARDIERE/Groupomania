@@ -7,7 +7,6 @@
     flex-direction: column;
     align-items: center;
     margin: 0;
-    /*height: 88vh;*/
     width: 100vw;
     background-color: #F1FCFC;
     box-shadow: 5px 4px 15px rgba(24, 30, 86, 0.25), 0 5px 5px rgba(24, 30, 86, 0.22);
@@ -57,23 +56,26 @@
 .postAuthor {
     display: flex;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 .postAuthorName {
     padding-left: 3px;
-    font-size: 0.6em;
+    font-size: 0.8em;
+    margin-top: 5px;
+    margin-bottom: 0;
 }
 
-.avatarHome {
+.postAuthorHome .avatarHome {
     border-radius: 50%;
-    width: 20px;
-    height: 20px;
+    margin-top: 5px;
 }
 
 .postAuthorId {
     display: flex;
-    font-size: 1.2em;
+    font-size: 1em;
     padding-left: 3px;
+    margin-top: 5px;
 }
 
 .postDate {
@@ -153,8 +155,12 @@
         margin: 10px auto 20px;
     }
 
+    .postAuthorId {
+        padding-left: 10px;
+    }
+
     .postAuthorName {
-        font-size: 0.8em;
+        font-size: 1em;
     }
 
     .avatarHome {
@@ -212,10 +218,6 @@
         height: 40px;
     }
 
-    .postAuthorId {
-        font-size: 1.2em;
-    }
-
     .postDate {
         font-size: 0.8em;
     }
@@ -233,28 +235,22 @@
 
 @media screen and (min-width: 1024px) {
 
-    .postsBox {
+    /*.postsBox {
         height: 79vh;
-    }
+    }*/
 
     .post {
         width: 270px;
         height: 200px;
         margin: 25px 20px;
-
     }
 
     .post:hover .seeMoreButton {
         width: 10vw;
     }
 
-    .avatarHome {
-        width: 30px;
-        height: 30px;
-    }
-
-    .postDate {
-        font-size: 0.7em;
+    .postAuthorName {
+        font-size: 0.9em;
     }
 }
 
@@ -263,7 +259,7 @@
 @media screen and (min-width: 1280px) {
 
     .postsBox {
-        height: 95vh;
+        /*height: 95vh;*/
         width: 75vw;
         margin-right: 25vw;
     }
@@ -315,6 +311,16 @@
     .post {
         width: 400px;
         height: 260px;
+    }
+
+    .postAuthorName {
+       margin-top: 10px;
+    }
+
+    .postAuthorHome .avatarHome {
+       width: 50px;
+       height: 50px;
+        margin-top: 10px;
     }
 
     .postPreviewTitle {

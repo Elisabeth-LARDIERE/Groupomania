@@ -7,17 +7,27 @@ import './CreateNewPost.css'
 import {createPostRequest} from "../../utils/Api";
 import {Editor} from "@tinymce/tinymce-react";
 import Footer from "../../components/Footer/Footer";
+import Aside from "../../components/Aside/Aside";
 
 class CreateNewPost extends React.Component {
     constructor(props) {
         super(props);
         this.state = { // initialisation de l'état du composant : titre et contenu vides
             title: "",
-            content: ""
+            content: "",
+            width: window.innerWidth, // largeur de l'écran = largeur actuelle
+            location: window.location
         }
+        this.handleResize = this.handleResize.bind(this);
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleEditorChange = this.handleEditorChange.bind(this);
         this.handleSubmitPost = this.handleSubmitPost.bind(this);
+    }
+
+    handleResize() { // au changement de largeur de l'écran
+        this.setState({ // nouvel état : largeur => largeur actualisée
+            width: window.innerWidth
+        })
     }
 
     handleChangeTitle(event) { // à la saisie de caractères dans le champ titre
@@ -44,6 +54,16 @@ class CreateNewPost extends React.Component {
     }
 
     render() {
+        window.addEventListener('resize', this.handleResize); // écoute du changement de largeur de l'écran
+        const renderAside = () => { // fonction d'affichage du aside selon la largeur de l'écran
+            if (this.state.width > 1279) {
+                return (
+                    <Aside location={this.state.location}/>
+                )
+            } else {
+                return null
+            }
+        }
         return (
             <Fragment>
                 <Header/>
@@ -103,27 +123,7 @@ class CreateNewPost extends React.Component {
                         </div>
                     </section>
 
-                    <aside className="asideNoFilter">
-                        <div className="support">
-                            <div className="contactNoFilter contact">
-                                <p className="contactTitle supportTitle">Contact</p>
-
-                                <p>1 rue du réseau<br/>
-                                    44000 NANTES</p>
-                                <p>02 23 23 23 23</p>
-
-                                <p>
-                                    <a className="mail" href="mailto:social@groupomania.com">social@groupomania.com</a>
-                                </p>
-                            </div>
-
-                            <div className="termsLink">
-                                <a href="http://localhost:3000/terms">
-                                    <button className="termsButton button">Mentions légales</button>
-                                </a>
-                            </div>
-                        </div>
-                    </aside>
+                    {renderAside()}
                 </main>
 
                 <Footer/>

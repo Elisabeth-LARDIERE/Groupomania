@@ -7,6 +7,7 @@ import {deleteUserRequest, updateUserRequest} from "../../utils/Api";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import {validateForm, validEmailRegex} from "../../utils/Validations";
+import Aside from "../../components/Aside/Aside";
 
 class UserAccount extends React.Component {
     constructor(props) {
@@ -18,16 +19,25 @@ class UserAccount extends React.Component {
             email: user.email,
             avatar: 'http://localhost:3001/' + user.avatar,
             previewAvatar: null, // aperçu de l'avatar quand changement : null
+            width: window.innerWidth, // largeur de l'écran = largeur actuelle
+            location: window.location,
             errors: { // champs des erreurs : vides
                 firstname: '',
                 lastname: '',
                 email: ''
             }
         }
+        this.handleResize = this.handleResize.bind(this);
         this.handleChangeInfos = this.handleChangeInfos.bind(this);
         this.handleChangeAvatar = this.handleChangeAvatar.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClickDelete = this.handleClickDelete.bind(this);
+    }
+
+    handleResize() { // au changement de largeur de l'écran
+        this.setState({ // nouvel état : largeur => largeur actualisée
+            width: window.innerWidth
+        })
     }
 
     handleChangeInfos(event) { // au changement des informations dans les champs ciblés du formulaire
@@ -114,6 +124,16 @@ class UserAccount extends React.Component {
     }
 
     render() {
+        window.addEventListener('resize', this.handleResize); // écoute du changement de largeur de l'écran
+        const renderAside = () => { // fonction d'affichage du aside selon la largeur de l'écran
+            if (this.state.width > 1279) {
+                return (
+                    <Aside location={this.state.location}/>
+                )
+            } else {
+                return null
+            }
+        }
         const {errors} = this.state;
         return (
             <Fragment>
@@ -189,27 +209,7 @@ class UserAccount extends React.Component {
                         </div>
                     </section>
 
-                    <aside className="asideNoFilter">
-                        <div className="support">
-                            <div className=" contactNoFilter contact">
-                                <p className="contactTitle supportTitle">Contact</p>
-
-                                <p>1 rue du réseau<br/>
-                                    44000 NANTES</p>
-                                <p>02 23 23 23 23</p>
-
-                                <p>
-                                    <a className="mail" href="mailto:social@groupomania.com">social@groupomania.com</a>
-                                </p>
-                            </div>
-
-                            <div className="termsLink">
-                                <a href="http://localhost:3000/terms">
-                                    <button className="termsButton button">Mentions légales</button>
-                                </a>
-                            </div>
-                        </div>
-                    </aside>
+                    {renderAside()}
                 </main>
 
                 <Footer/>
