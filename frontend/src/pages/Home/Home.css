@@ -6,6 +6,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: 88vh;
     margin: 0;
     width: 100vw;
     background-color: #F1FCFC;
@@ -145,6 +146,10 @@
 
 @media screen and (min-width: 480px) {
 
+    .postsBox {
+       min-height: 86vh;
+    }
+
     .post {
         width: 375px;
         height: 250px;
@@ -185,6 +190,10 @@
 
     .mainHome {
         display: flex;
+    }
+
+    .postsBox {
+        min-height: 79vh;
     }
 
     .filterSmallDevices {
@@ -248,6 +257,7 @@
 
     .postsBox {
         width: 75vw;
+        min-height: 84vh;
         margin-right: 25vw;
     }
 
@@ -319,6 +329,7 @@
 
     .postsBox {
         padding-left: 10px;
+        min-height: 81vh;
     }
 
 }

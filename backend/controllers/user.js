@@ -8,6 +8,7 @@ const User = require('../models/User');
 const db = require('../db');
 const escapeString = require('../escape-string');
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
 
 
 // création d'un modèle de mot de passe
@@ -318,6 +319,7 @@ exports.deleteUser = (req, res) => {
             if (err || row.length === 0) { // si aucun résultat ou erreur
                 res.status(401).json({message: 'Impossible de supprimer le compte !'});
             } else { // si utilisateur trouvé
+                const user = row;
                 db.query(`SELECT postId, COUNT(*) AS totalComs FROM coms WHERE userId = '${req.query.userId}' GROUP BY postId`, (err, row) => { // recherche du nombre de commentaires laissés par l'utilisateur, et sur quels articles
                         if (err || row.length === 0) { // si pas de résultat ou erreur
                             console.log('pas de commentaires publiés');
@@ -395,6 +397,15 @@ exports.deleteUser = (req, res) => {
                 db.query(`DELETE FROM users WHERE userId = '${req.query.userId}'`) // suppression de l'utilisateur
                 console.log(16);
                 res.status(204).json();
+
+                const path = user[0].avatar;
+                const filename = path.split('/')[1];
+                console.log(filename);
+                if(filename !== 'avatar-default.png') {
+                    fs.unlink(`images/${filename}`, (err) => {
+                        if(err) throw err;
+                    });
+                }
             }
         })
     } catch (error) {
