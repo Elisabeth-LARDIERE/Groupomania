@@ -26,7 +26,7 @@ class Avatar extends React.Component {
                      alt="mon avatar">
                 </img>
             )
-        } else if ((this.state.location.pathname === this.props.updatedAvatar === false) || this.state.location.pathname !== '/userAccount'){
+        } else if ((this.state.location.pathname === '/userAccount' && this.props.updatedAvatar === false) || (this.state.location.pathname !== '/userAccount')) {
             const user = JSON.parse(localStorage.getItem('user'));
             console.log(this.state.location.pathname);
             console.log(this.props.details);
