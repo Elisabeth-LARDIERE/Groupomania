@@ -7,7 +7,6 @@ import './Filter.css';
 class Filter extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props);
     }
 
     render() {
@@ -17,7 +16,7 @@ class Filter extends React.Component {
 
                 <hr className="separator"/>
 
-                <select className="filterOptions" value={this.props.value} // récupération des props du parent pour affichage différent en fonction de la valeur de la barre de tri
+                <select className="filterOptions" value={this.props.details} // récupération des props du parent pour affichage différent en fonction de la valeur de la barre de tri
                         onChange={this.props.onChangeFilter}>
 
                     <option className="filterNews">

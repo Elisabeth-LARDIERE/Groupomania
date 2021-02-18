@@ -124,7 +124,7 @@ class Home extends React.Component {
         const renderFilter = () => { // fonction d'affichage du filter selon la largeur de l'écran
             if (this.state.width < 1280) {
                 return (
-                    <Filter onChangeFilter={this.handleChangeFilter} details={this.state}/>
+                    <Filter onChangeFilter={this.handleChangeFilter} details={this.state.value}/>
                 )
             } else {
                 return null
@@ -134,7 +134,7 @@ class Home extends React.Component {
         const renderAside = () => { // fonction d'affichage du aside selon la largeur de l'écran
             if (this.state.width > 1279) {
                 return (
-                    <Aside location={this.state.location}/>
+                    <Aside location={this.state.location} onChangeFilter={this.handleChangeFilter} details={this.state.value}/>
                 )
             } else {
                 return null
