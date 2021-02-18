@@ -124,6 +124,15 @@ exports.updateUser = (req, res) => {
                 res.status(401).json({message: 'Impossible de modifier le profil !'})
             } else { // si utilisateur trouvé
                 const user = row[0];
+                if (req.file) {
+                   const path = user.avatar;
+                   const filename = path.split('/')[1];
+                   if (filename !== 'avatar-default.png') {
+                       fs.unlink(`images/${filename}`, (err) => {
+                           if (err) throw err;
+                       })
+                   }
+                }
                 const userUpdated = req.file ? { // création du profil modifié, si modification de l'avatar
                     firstname: req.body.firstname,
                     lastname: req.body.lastname,

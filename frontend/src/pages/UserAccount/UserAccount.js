@@ -28,6 +28,7 @@ class UserAccount extends React.Component {
                 email: ''
             }
         }
+        console.log(this.state.updatedAvatar);
         this.handleResize = this.handleResize.bind(this);
         this.handleChangeInfos = this.handleChangeInfos.bind(this);
         this.handleChangeAvatar = this.handleChangeAvatar.bind(this);
