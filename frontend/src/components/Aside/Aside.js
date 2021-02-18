@@ -16,7 +16,7 @@ class Aside extends React.Component {
         const renderFilter = () => { // fonction d'affichage du filter selon la page
         if (this.props.location.pathname === '/home') {
             return (
-                <Filter/>
+                <Filter onChangeFilter={this.props.onChangeFilter} details={this.props.details}/>
             )
         } else {
             return null

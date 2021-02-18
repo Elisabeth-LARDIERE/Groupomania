@@ -17,8 +17,9 @@ class UserAccount extends React.Component {
             lastname: user.lastname, // nom de famille, prénom, email et avatar : ceuxde l'utilisateur connecté
             firstname: user.firstname,
             email: user.email,
-            avatar: 'http://localhost:3001/' + user.avatar,
+            avatar: user.avatar,
             previewAvatar: null, // aperçu de l'avatar quand changement : null
+            updatedAvatar: false,
             width: window.innerWidth, // largeur de l'écran = largeur actuelle
             location: window.location, // localisation = localisation actuelle
             errors: { // champs des erreurs : vides
@@ -76,11 +77,14 @@ class UserAccount extends React.Component {
     handleChangeAvatar(event) { // au choix du fichier-nouvel avatar
         this.setState({ // nouvel état :
             avatar: event.target.files[0], // avatar => nouveau nom de fichier
-            previewAvatar: URL.createObjectURL(event.target.files[0]) // création d'un aperçu du fichier sélectionné
+            previewAvatar: URL.createObjectURL(event.target.files[0]), // création d'un aperçu du fichier sélectionné
+            updatedAvatar: true
         })
     }
 
     handleSubmit(event) { // à la soumission du formulaire
+        console.log(this.state.previewAvatar);
+        console.log(this.state.updatedAvatar);
         event.preventDefault();
         const user = JSON.parse(localStorage.getItem('user')); // récupération de l'utilisateur dans le localstorage
         if (validateForm(this.state.errors)) { // si les conditions de validité sont respectées
@@ -137,7 +141,7 @@ class UserAccount extends React.Component {
         const {errors} = this.state;
         return (
             <Fragment>
-                <Header/>
+                <Header onChangeAvatar={this.handleChangeAvatar} details={this.state.previewAvatar} updatedAvatar={this.state.updatedAvatar}/>
 
                 <main className="mainAccount">
                     <section className="accountBloc">
