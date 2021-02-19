@@ -10,7 +10,7 @@ import {
     getAllComsRequest,
     likePostRequest,
     dislikePostRequest,
-    getPostUserLikeRequest, getPostUserDislikeRequest
+    getPostUserLikeRequest, getPostUserDislikeRequest, deletePostRequest, deleteComRequest
 
 } from "../../utils/Api";
 import {faComments, faThumbsDown, faThumbsUp} from "@fortawesome/fontawesome-free-regular";
@@ -18,6 +18,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import AsideFullPost from "../../components/AsideFullPost/AsideFullPost";
+import {faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import ReactTooltip from "react-tooltip";
 
 const userId = JSON.parse(localStorage.getItem('userId')); // récupération de l'identifiant de l'utilisateur dans le localstorage
 
@@ -51,6 +53,14 @@ class DisplayOnePost extends React.Component {
 
         this.handlePressEnterLikePost = this.handlePressEnterLikePost.bind(this);
         this.handlePressEnterDislikePost = this.handlePressEnterDislikePost.bind(this);
+
+        this.handleClickDeletePost = this.handleClickDeletePost.bind(this);
+        this.handlePressEnterDeletePost = this.handlePressEnterDeletePost.bind(this);
+
+        this.handleHoverOneCom = this.handleHoverOneCom.bind(this);
+
+        this.handleClickDeleteCom = this.handleClickDeleteCom.bind(this);
+        this.handlePressEnterDeleteCom = this.handlePressEnterDeleteCom.bind(this);
 
     }
 
@@ -159,6 +169,57 @@ class DisplayOnePost extends React.Component {
         }
     }
 
+    handleClickDeletePost(post) { // au clic sur l'icon poubelle/"supprimer l'article"
+        const postId = post.postId;
+        localStorage.setItem('postId', JSON.stringify(postId)); // récupération de l'id de l'article dans le localstorage
+        deletePostRequest() // appel de la requête de suppression d'un article
+            .then(() => { // si requête ok
+                alert('Article supprimé !');
+                window.location.href = "/home"; // rechargement de la page actualisée
+            })
+            .catch(error => { // si échec requête
+                this.setState({error})
+            })
+    }
+
+    handlePressEnterDeletePost(event) { // à la pression d'une touche sur l'icon poubelle/"supprimer l'article"
+        if (event.key === 'Enter') { // si c'est la touche Entrée : exécution de la fonction handleClickDeletePost
+            event.preventDefault();
+            this.handleClickDeletePost();
+        }
+    }
+
+    async handleClickDeleteCom() { // au clic sur le bouton de suppression d'un commentaire
+        await deleteComRequest(this.state.totalComs) // appel de la requête de suppression d'un commentaire
+            .then(() => { // si requête ok
+                this.setState({totalComs: this.state.totalComs - 1}); // nouvel état : déduction d'un commentaire au total des commentaires de l'article
+                alert('Commentaire supprimé !');
+                getAllComsRequest() // appel de la requête de récupération de tous les commentaires
+                    .then(res => { // si requête ok
+                        const comsList = res.data;
+                        this.setState({comsList}); // nouvel état : ajout du commentaire au tableau de commentaires
+                    })
+                    .catch(error => { // si échec requête
+                        this.setState({error});
+                    })
+            })
+            .catch(error => { // si échec requête
+                    this.setState({error})
+                }
+            )
+    }
+
+    handlePressEnterDeleteCom(event) { // à la pression d'une touche sur l'icon poubelle/"supprimer l'article"
+        if (event.key === 'Enter') { // si c'est la touche Entrée : exécution de la fonction handleClickDeletePost
+            event.preventDefault();
+            this.handleClickDeleteCom();
+        }
+    }
+
+    handleHoverOneCom(comId) {
+        localStorage.setItem('com', JSON.stringify((comId)));
+    }
+
     componentDidMount() { // quand le composant est monté
         getAllComsRequest() // appel de la requête de récupération de tous les commentaires
             .then(res => { // si requête ok
@@ -187,8 +248,45 @@ class DisplayOnePost extends React.Component {
     }
 
     render() {
+        const user = JSON.parse(localStorage.getItem('user'));
+        console.log(user.admin);
         const renderHTML = (rawHTML: string) => React.createElement("div", {dangerouslySetInnerHTML: {__html: rawHTML}}); // fonction d'affichage du HTML dans son format original
         const post = JSON.parse(localStorage.getItem('post')); // récupération de l'article dans le localstorage
+        const renderDeletePostModo = () => {
+            if (user.admin === 1) {
+                return (
+                    <Fragment>
+                        <FontAwesomeIcon
+                            className="fullPostDeleteIcon fullPostIcon"
+                            icon={faTrashAlt} data-tip data-for="deletePostTip" tabIndex="0"
+                            onClick={() => this.handleClickDeletePost(post)}
+                            onKeyDown={() => this.handlePressEnterDeletePost}/>
+                        <ReactTooltip id="deletePostTip" place="left"
+                                      effect="solid"> {/* infobulle sur la poubelle */}
+                            Supprimer l'article
+                        </ReactTooltip>
+                    </Fragment>
+                )
+            }
+        }
+
+        const renderDeleteComModo = () => {
+            if (user.admin === 1) {
+                return (
+                    <Fragment>
+                        <FontAwesomeIcon
+                            className="fullPostDeleteIcon fullPostIcon"
+                            icon={faTrashAlt} data-tip data-for="deleteComTip" tabIndex="0"
+                            onClick={() => this.handleClickDeleteCom()}
+                            onKeyDown={() => this.handlePressEnterDeleteCom}/>
+                        <ReactTooltip id="deleteComTip" place="left"
+                                      effect="solid"> {/* infobulle sur la poubelle */}
+                            Supprimer le commentaire
+                        </ReactTooltip>
+                    </Fragment>
+                )
+            }
+        }
         window.addEventListener('resize', this.handleResize); // écoute du changement de largeur d'écran
         const renderComponents = () => { // fonction d'affichage conditionnel header ou aside selon la largeur de l'écran
             if (this.state.width < 1280) {
@@ -212,19 +310,22 @@ class DisplayOnePost extends React.Component {
                                     <h2 className="fullPostTitle">{post.title}</h2>
 
                                     <div className="fullPostInfos">
-                                        <div className="fullPostAuthor">
-                                            <img className="fullPostAuthorAvatar avatar"
-                                                 src={'http://localhost:3001/' + post.avatar}
-                                                 alt="avatar par défaut">
-                                            </img>
+                                        <div className="fullPostHeaderPost">
+                                            <div className="fullPostAuthor">
+                                                <img className="fullPostAuthorAvatar avatar"
+                                                     src={'http://localhost:3001/' + post.avatar}
+                                                     alt="avatar par défaut">
+                                                </img>
 
-                                            <p className="fullPostAuthorId">{post.firstname} {post.lastname}</p>
+                                                <p className="fullPostAuthorId">{post.firstname} {post.lastname}</p>
+
+                                            </div>
+
+                                            {renderDeletePostModo()}
                                         </div>
 
                                         <hr className="fullPostSeparator"/>
-
                                     </div>
-
                                 </div>
 
                                 <div className="fullPostContent">{renderHTML(post.content)}</div>
@@ -252,6 +353,7 @@ class DisplayOnePost extends React.Component {
                                     <p className="postDislikes iconStylePost">{this.state.dislikes}</p>
                                 </div>
                             </div>
+
                         </section>
 
                         <section className="fullPostBoxComs">
@@ -289,14 +391,19 @@ class DisplayOnePost extends React.Component {
                                     {this.state.comsList.map(com => { // fonction de map sur les éléments de la liste de commentaires
                                         const {comId} = com;
                                         return ( // affichage de chaque commentaire
-                                            <li className="com" key={comId}>
-                                                <div className="comAuthor">
-                                                    <img className="comAvatar avatar"
-                                                         src={'http://localhost:3001/' + com.avatar}
-                                                         alt="avatar par défaut">
-                                                    </img>
+                                            <li className="com" key={comId} tabIndex="0"
+                                                onPointerEnter={() => this.handleHoverOneCom(comId)}>
+                                                <div className="comHeader">
+                                                    <div className="comAuthor">
+                                                        <img className="comAvatar avatar"
+                                                             src={'http://localhost:3001/' + com.avatar}
+                                                             alt="avatar par défaut">
+                                                        </img>
 
-                                                    <p className="comAuthorId">{com.firstname} {com.lastname}</p>
+                                                        <p className="comAuthorId">{com.firstname} {com.lastname}</p>
+                                                    </div>
+
+                                                    {renderDeleteComModo()}
                                                 </div>
 
                                                 <div className="comContent">{renderHTML(com.content)}</div>

@@ -200,6 +200,21 @@ const getAllComsRequest = () => {
     );
 }
 
+// fonction de suppression d'un commentaire
+const deleteComRequest = () => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    const comId = JSON.parse(localStorage.getItem('com'))
+    return axios.delete(
+        'http://localhost:3001/api/v1/coms/delete/?comId=' + comId,
+        {
+            headers: {
+                contentType,
+                'Authorization': 'Bearer ' + token
+            }
+        }
+    );
+}
+
 // fonction de création d'un article
 const createPostRequest = (title, content) => {
     const token = JSON.parse(localStorage.getItem('token'));
@@ -285,6 +300,6 @@ const getAllUserPostsRequest = () => {
 }
 
 export { signupRequest, loginRequest, getOneUserRequest, getAllPostsRequest, getOnePostRequest, getOldPostsRequest,
-        getPopularPostsRequest, likePostRequest, dislikePostRequest, createComRequest, getAllComsRequest, createPostRequest,
+        getPopularPostsRequest, likePostRequest, dislikePostRequest, createComRequest, getAllComsRequest, deleteComRequest, createPostRequest,
         updateUserRequest, deleteUserRequest, deletePostRequest, getAllUserPostsRequest, getPostUserLikeRequest, getPostUserDislikeRequest
 };

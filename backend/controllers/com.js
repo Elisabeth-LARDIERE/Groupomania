@@ -70,7 +70,7 @@ exports.getAllComs = (req, res) => {
     try {
         const postId = req.query.postId;
         db.query(`SELECT * FROM coms WHERE postId = '${postId}'`, (err, row) => { // recherche des commentaires d'un article avec son id
-            if (err || row.length === 0) { // si aucun résultat ou erreur
+            if (err) { // si aucun résultat ou erreur
                 res.status(401).json({message: 'Impossible de charger les commentaires !'})
             } else { // si commentaire(s) trouvé(s)
                 const com = row;
@@ -85,12 +85,19 @@ exports.getAllComs = (req, res) => {
 // fonction de suppression d'un commentaire
 exports.deleteCom = (req, res) => {
     try {
-        const {comId} = req.params;
-        db.query(`SELECT * FROM com WHERE comId = '${comId}'`, (err, row) => { // recherche d'un commentaire avec son id
+        db.query(`SELECT * FROM coms WHERE comId = '${req.query.comId}'`, (err, row) => { // recherche d'un article avec son id
             if (err || row.length === 0) { // si aucun résultat ou erreur
                 res.status(401).json({message: 'Impossible de supprimer le commentaire !'})
             } else { // si commentaire trouvé
-                db.query(`DELETE FROM coms WHERE comId = '${comId}'`); // suppression du commentaire
+                const postId = row[0].postId
+                console.log(postId);
+                db.query(`SELECT posts.totalComs FROM posts WHERE postId = '${postId}'`, (err, row) => {
+                    const totalComs = row[0].totalComs;
+                    console.log(totalComs);
+                    const newTotalComs = totalComs - 1;
+                    db.query(`UPDATE posts SET posts.totalComs = '${newTotalComs}' WHERE postId = '${postId}'`); // sauvegarde du nouveau total de commentaires
+                })
+                db.query(`DELETE FROM coms WHERE comId = '${req.query.comId}'`); // suppression de l'article sélectionné
                 res.status(200).json({message: 'Commentaire supprimé !'})
             }
         })
