@@ -7,14 +7,15 @@ import './Avatar.css';
 class Avatar extends React.Component {
     constructor(props) {
         super(props);
+        console.log(props.avatar);
     }
 
     render() {
         const user = JSON.parse(localStorage.getItem('user'));
-        console.log(user.avatar);
+        console.log(this.props.avatar);
         return (
             <img className="avatar headerAvatar asideAvatar"
-                 src={'http://localhost:3001/' +user.avatar}
+                 src={this.props.avatar}
                  alt="mon avatar">
             </img>
         )

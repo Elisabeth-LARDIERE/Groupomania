@@ -17,7 +17,7 @@ class UserAccount extends React.Component {
             lastname: user.lastname, // nom de famille, prénom, email et avatar : ceuxde l'utilisateur connecté
             firstname: user.firstname,
             email: user.email,
-            avatar: 'http://localhost:3001' +user.avatar,
+            avatar: 'http://localhost:3001/' + user.avatar,
             previewAvatar: null, // aperçu de l'avatar quand changement : null
             width: window.innerWidth, // largeur de l'écran = largeur actuelle
             location: window.location, // localisation = localisation actuelle
@@ -81,6 +81,7 @@ class UserAccount extends React.Component {
     }
 
     handleSubmit(event) { // à la soumission du formulaire
+        console.log(this.state.previewAvatar);
         event.preventDefault();
         const user = JSON.parse(localStorage.getItem('user')); // récupération de l'utilisateur dans le localstorage
         if (validateForm(this.state.errors)) { // si les conditions de validité sont respectées
@@ -135,9 +136,10 @@ class UserAccount extends React.Component {
             }
         }
         const {errors} = this.state;
+        console.log(this.state.previewAvatar);
         return (
             <Fragment>
-                <Header/>
+                <Header avatar={this.state.previewAvatar} onChangeAvatar={this.handleChangeAvatar}/>
 
                 <main className="mainAccount">
                     <section className="accountBloc">
