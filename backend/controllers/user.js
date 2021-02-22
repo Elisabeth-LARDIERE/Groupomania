@@ -45,25 +45,23 @@ exports.signup = async (req, res) => {
                 db.query(`INSERT INTO users(firstname, lastname, email, password, admin) VALUES('${escapeString(user.firstname)}', '${escapeString(user.lastname)}', 
             '${user.email}', '${user.password}', ${(user.admin)})`) // sauvegarde du nouvel utilisateur
                 res.status(201).json(user)
-            }
-        } else {
-            const hash = await bcrypt.hash(req.body.password, 10); // hachage du mot de passe
-            const user = new User({ // création d'un nouvel utilisateur avec mot de passe crypté
-                firstname: req.body.firstname,
-                lastname: req.body.lastname,
-                email: req.body.email,
-                password: hash
-            });
-            db.query(`INSERT INTO users(firstname, lastname, email, password) VALUES('${escapeString(user.firstname)}', '${escapeString(user.lastname)}', 
+            } else {
+                const hash = await bcrypt.hash(req.body.password, 10); // hachage du mot de passe
+                const user = new User({ // création d'un nouvel utilisateur avec mot de passe crypté
+                    firstname: req.body.firstname,
+                    lastname: req.body.lastname,
+                    email: req.body.email,
+                    password: hash
+                });
+                db.query(`INSERT INTO users(firstname, lastname, email, password) VALUES('${escapeString(user.firstname)}', '${escapeString(user.lastname)}', 
             '${user.email}', '${user.password}')`) // sauvegarde du nouvel utilisateur
-            res.status(201).json(user)
+                res.status(201).json(user)
+            }
         }
-    } catch
-        (error) {
+    } catch (error) {
         res.status(500).json({error})
     }
-}
-;
+};
 
 // fonction de connexion d'un utilisateur
 exports.login = (req, res) => {
