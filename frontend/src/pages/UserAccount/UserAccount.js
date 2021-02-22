@@ -17,9 +17,8 @@ class UserAccount extends React.Component {
             lastname: user.lastname, // nom de famille, prénom, email et avatar : ceuxde l'utilisateur connecté
             firstname: user.firstname,
             email: user.email,
-            avatar: user.avatar,
+            avatar: 'http://localhost:3001' +user.avatar,
             previewAvatar: null, // aperçu de l'avatar quand changement : null
-            updatedAvatar: false,
             width: window.innerWidth, // largeur de l'écran = largeur actuelle
             location: window.location, // localisation = localisation actuelle
             errors: { // champs des erreurs : vides
@@ -28,7 +27,6 @@ class UserAccount extends React.Component {
                 email: ''
             }
         }
-        console.log(this.state.updatedAvatar);
         this.handleResize = this.handleResize.bind(this);
         this.handleChangeInfos = this.handleChangeInfos.bind(this);
         this.handleChangeAvatar = this.handleChangeAvatar.bind(this);
@@ -79,13 +77,10 @@ class UserAccount extends React.Component {
         this.setState({ // nouvel état :
             avatar: event.target.files[0], // avatar => nouveau nom de fichier
             previewAvatar: URL.createObjectURL(event.target.files[0]), // création d'un aperçu du fichier sélectionné
-            updatedAvatar: true
         })
     }
 
     handleSubmit(event) { // à la soumission du formulaire
-        console.log(this.state.previewAvatar);
-        console.log(this.state.updatedAvatar);
         event.preventDefault();
         const user = JSON.parse(localStorage.getItem('user')); // récupération de l'utilisateur dans le localstorage
         if (validateForm(this.state.errors)) { // si les conditions de validité sont respectées
@@ -93,7 +88,7 @@ class UserAccount extends React.Component {
                 && this.state.avatar === "http://localhost:3001/" + user.avatar) { // si aucune information n'a été modifiée
                 alert("Vous n'avez modifié aucune information !")
             } else if (this.state.lastname !== user.lastname || this.state.firstname !== user.firstname || this.state.email !== user.email
-                      || this.state.avatar !== user.avatar) { // si au moins une information a été modifiée
+                      || this.state.avatar !== "http://localhost:3001/" + user.avatar) { // si au moins une information a été modifiée
                 updateUserRequest(this.state.lastname, this.state.firstname, this.state.email, this.state.avatar) // appel de la requête de mise à jour de l'utilisateur
                     .then(() => { // si requête ok
                             const newUser = { // création d'un nouvel utilisateur
@@ -142,7 +137,7 @@ class UserAccount extends React.Component {
         const {errors} = this.state;
         return (
             <Fragment>
-                <Header onChangeAvatar={this.handleChangeAvatar} details={this.state.previewAvatar} updatedAvatar={this.state.updatedAvatar}/>
+                <Header/>
 
                 <main className="mainAccount">
                     <section className="accountBloc">

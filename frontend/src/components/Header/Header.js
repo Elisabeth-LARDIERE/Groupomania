@@ -26,7 +26,6 @@ class Header extends React.Component {
     }
 
     render() {
-        const user = JSON.parse(localStorage.getItem('user'));
         window.addEventListener('resize', this.handleResize); // écoute du changement de largeur d'écran
         const renderComponents = () => { // fonction d'affichage burgerMenu ou navBar selon la largeur de l'écran
             if (this.state.width < 1024) {
@@ -46,7 +45,7 @@ class Header extends React.Component {
 
                 {renderComponents()}
 
-                <Avatar details={this.props.details} onChangeAvatar={this.props.onChangeAvatar} updatedAvatar={this.props.updatedAvatar}/>
+                <Avatar/>
 
             </header>
         )
