@@ -8,6 +8,7 @@ const userRoutes = require('./routes/user');
 const postRoutes = require('./routes/post');
 const comRoutes = require('./routes/com');
 const cors = require('cors');
+const helmet = require('helmet');
 
 // création de l'application express
 const app = express();
@@ -27,6 +28,9 @@ app.use(bodyParser.json());
 
 // gestion de tinymce
 app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
+
+// activation de la protection helmet : configuration des en-têtes HTTP de manière appropriée
+app.use(helmet());
 
 // gestion de la ressource image de manière statique
 app.use('/images', express.static(path.join(__dirname, 'images')));

@@ -14,7 +14,7 @@ import Aside from "../../components/Aside/Aside";
 
 class Home extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = { // initialisation du composant
             showPosts: true, // visibilité de l'option "les plus récentes" dans la barre de tri des publications
             showPopularPosts: false, // invisibilité de l'option "les plus populaires" dans la barre de tri des publications
@@ -140,9 +140,10 @@ class Home extends React.Component {
                 return null
             }
         }
+        const user = JSON.parse(localStorage.getItem('user'));
         return (
             <Fragment>
-                <Header/>
+                <Header avatar={user.avatar}/>
 
                 <main className="mainHome">
                     <section className="postsBox">

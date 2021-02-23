@@ -118,9 +118,10 @@ class UserPosts extends React.Component {
                 return null
             }
         }
+        const user = JSON.parse(localStorage.getItem('user'));
         return (
             <Fragment>
-                <Header/>
+                <Header avatar={user.avatar}/>
 
                 <main className="mainUserPosts">
                     <section className="userPostsSection">

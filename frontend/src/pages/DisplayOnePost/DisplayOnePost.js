@@ -272,6 +272,7 @@ class DisplayOnePost extends React.Component {
 
         const renderDeleteComModo = () => {
             if (user.admin === 1) {
+                console.log("42")
                 return (
                     <Fragment>
                         <FontAwesomeIcon
@@ -291,7 +292,7 @@ class DisplayOnePost extends React.Component {
         const renderComponents = () => { // fonction d'affichage conditionnel header ou aside selon la largeur de l'écran
             if (this.state.width < 1280) {
                 return (
-                    <Header/>
+                    <Header avatar={user.avatar}/>
                 )
             } else {
                 return <AsideFullPost/>

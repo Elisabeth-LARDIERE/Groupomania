@@ -7,9 +7,10 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 
 function Terms() {
+    const user = JSON.parse(localStorage.getItem('user'));
     return (
         <Fragment>
-            <Header/>
+            <Header avatar={user.avatar}/>
             <main className="mainTerms">
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ac sem ac nibh faucibus dignissim a
                     non justo. Vestibulum sit amet nisi diam. Cras ullamcorper ligula a nulla egestas, a porttitor elit

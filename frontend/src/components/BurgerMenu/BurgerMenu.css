@@ -171,6 +171,10 @@ input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
 
 @media screen and (min-width: 768px) {
 
+    #sidebarMenu {
+        margin-top: 96px;
+    }
+
     .spinner {
         width: 170%;
     }

@@ -17,7 +17,8 @@ class UserAccount extends React.Component {
             lastname: user.lastname, // nom de famille, prénom, email et avatar : ceuxde l'utilisateur connecté
             firstname: user.firstname,
             email: user.email,
-            avatar: 'http://localhost:3001/' + user.avatar,
+            avatar: user.avatar,
+            admin: user.admin,
             previewAvatar: null, // aperçu de l'avatar quand changement : null
             width: window.innerWidth, // largeur de l'écran = largeur actuelle
             location: window.location, // localisation = localisation actuelle
@@ -75,29 +76,37 @@ class UserAccount extends React.Component {
 
     handleChangeAvatar(event) { // au choix du fichier-nouvel avatar
         this.setState({ // nouvel état :
-            avatar: event.target.files[0], // avatar => nouveau nom de fichier
-            previewAvatar: URL.createObjectURL(event.target.files[0]), // création d'un aperçu du fichier sélectionné
+            avatar: event.target.files[0],// avatar => nouveau nom de fichier
+            previewAvatar: URL.createObjectURL(event.target.files[0]) // création d'un aperçu du fichier sélectionné
         })
     }
 
     handleSubmit(event) { // à la soumission du formulaire
-        console.log(this.state.previewAvatar);
+        console.log(this.state.avatar, 1);
         event.preventDefault();
         const user = JSON.parse(localStorage.getItem('user')); // récupération de l'utilisateur dans le localstorage
+        const avatar = this.state.avatar.name.split(' ').join('_');
+        const urlAvatar = 'http://localhost:3001/images/' + avatar;
+        console.log(urlAvatar);
         if (validateForm(this.state.errors)) { // si les conditions de validité sont respectées
             if (this.state.lastname === user.lastname && this.state.firstname === user.firstname && this.state.email === user.email
-                && this.state.avatar === "http://localhost:3001/" + user.avatar) { // si aucune information n'a été modifiée
+                && urlAvatar === user.avatar) { // si aucune information n'a été modifiée
                 alert("Vous n'avez modifié aucune information !")
             } else if (this.state.lastname !== user.lastname || this.state.firstname !== user.firstname || this.state.email !== user.email
-                      || this.state.avatar !== "http://localhost:3001/" + user.avatar) { // si au moins une information a été modifiée
-                updateUserRequest(this.state.lastname, this.state.firstname, this.state.email, this.state.avatar) // appel de la requête de mise à jour de l'utilisateur
+                || urlAvatar !== user.avatar) { // si au moins une information a été modifiée
+                 updateUserRequest(this.state.lastname, this.state.firstname, this.state.email, this.state.avatar, this.state.admin) // appel de la requête de mise à jour de l'utilisateur
                     .then(() => { // si requête ok
+                        this.setState( {
+                            avatar: urlAvatar
+                        })
+                        console.log(this.state.avatar, 8);
                             const newUser = { // création d'un nouvel utilisateur
                                 lastname: this.state.lastname,
                                 firstname: this.state.firstname,
                                 email: this.state.email,
                                 password: this.state.password,
-                                avatar: this.state.previewAvatar
+                                avatar: this.state.avatar,
+                                admin: this.state.admin
                             }
                             localStorage.setItem('user', JSON.stringify(newUser)); // stockage du nouvel utilisateur dans le localstorage
                             alert("Votre profil a bien été modifié !");
@@ -136,10 +145,10 @@ class UserAccount extends React.Component {
             }
         }
         const {errors} = this.state;
-        console.log(this.state.previewAvatar);
+        console.log(this.state.avatar);
         return (
             <Fragment>
-                <Header avatar={this.state.previewAvatar} onChangeAvatar={this.handleChangeAvatar}/>
+                <Header avatar={this.state.avatar} onSubmitAvatar={this.handleSubmit} onChangeAvatar={this.handleChangeAvatar}/>
 
                 <main className="mainAccount">
                     <section className="accountBloc">
@@ -198,7 +207,8 @@ class UserAccount extends React.Component {
                                         profil
                                     </button>
 
-                                    <button className="accountDeleteButton button" onClick={this.handleClickDelete}>Supprimer
+                                    <button className="accountDeleteButton button"
+                                            onClick={this.handleClickDelete}>Supprimer
                                         le
                                         profil
                                     </button>

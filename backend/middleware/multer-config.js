@@ -17,8 +17,7 @@ const storage = multer.diskStorage({
     },
     filename: (req, file, cb) => { // dit à multer quel nom de fichier utiliser
         const name = file.originalname.split(' ').join('_');
-        const extension = MIME_TYPES[file.mimetype];
-        cb(null, name + Date.now() + '.' + extension);
+        cb(null, name);
     },
     fileFilter: (req, file, cb) => { // vérification du format d'un fichier entrant
         if (MIME_TYPES) { // si format autorisé

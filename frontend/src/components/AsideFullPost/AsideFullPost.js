@@ -22,7 +22,7 @@ class AsideFullPost extends React.Component {
             <aside className="asideFullPost">
 
                 <div className="currentUser asideCurrentUser">
-                    <Avatar/>
+                    <Avatar avatar={user.avatar}/>
 
                     <p className="currentUserId asideCurrentUserId">{user.firstname} {user.lastname}</p>
                 </div>
