@@ -56,9 +56,7 @@ class UserPosts extends React.Component {
     }
 
     handleClickOnePost(post) { // au clic sur l'icon oeil/"voir l'article"
-        const postId = post.postId;
-        localStorage.setItem('postId', JSON.stringify(postId)); // récupération de l'id de l'article dans le localstorage
-        localStorage.setItem('post', JSON.stringify(post)); // récupération de l'article dans le localstorage
+        localStorage.setItem('post', JSON.stringify(post)); // stockage de l'article sélectionné dans le localstorage
         getOnePostRequest() // appel de la requête de récupération d'un article spécifique
             .then(() => { // si requête ok
                 window.location.href = "/displayOnePost" // redirection "article individuel"
@@ -68,6 +66,7 @@ class UserPosts extends React.Component {
             })
     }
 
+    /********** ne fonctionne pas **********/
     handlePressEnterOnePost(event) { // à la pression d'une touche sur l'icon oeil/"voir l'article"
         if (event.key === 'Enter') { // si c'est la touche Entrée : exécution de la fonction handleClickOnePost
             event.preventDefault();
@@ -76,8 +75,7 @@ class UserPosts extends React.Component {
     }
 
     handleClickDeletePost(post) { // au clic sur l'icon poubelle/"supprimer l'article"
-        const postId = post.postId;
-        localStorage.setItem('postId', JSON.stringify(postId)); // récupération de l'id de l'article dans le localstorage
+        localStorage.setItem('post', JSON.stringify(post)); // stockage de l'article sélectionné dans le localstorage
         deletePostRequest() // appel de la requête de suppression d'un article
             .then(() => { // si requête ok
                 alert('Article supprimé !');
@@ -88,6 +86,7 @@ class UserPosts extends React.Component {
             })
     }
 
+    /********** ne fonctionne pas **********/
     handlePressEnterDeletePost(event) { // à la pression d'une touche sur l'icon poubelle/"supprimer l'article"
         if (event.key === 'Enter') { // si c'est la touche Entrée : exécution de la fonction handleClickDeletePost
             event.preventDefault();
@@ -120,7 +119,6 @@ class UserPosts extends React.Component {
         }
 
         const user = JSON.parse(localStorage.getItem('user')); // récupération de l'utilisateur dans le localstorage
-
         return (
             <Fragment>
                 <Header avatar={'http://localhost:3001/' + user.avatar}/>
@@ -164,7 +162,7 @@ class UserPosts extends React.Component {
                                                         className="seeUserPostIcon userPostIcon"
                                                         icon={faEye} data-tip data-for="seePostTip" tabIndex="0"
                                                         onClick={() => this.handleClickOnePost(post)}
-                                                        onKeyDown={() => this.handlePressEnterOnePost}/>
+                                                        onKeyDown={this.handlePressEnterOnePost}/>
                                                     <ReactTooltip id="seePostTip" place="top"
                                                                   effect="solid"> {/* infobulle sur l'oeil */}
                                                         Voir l'article
@@ -174,7 +172,7 @@ class UserPosts extends React.Component {
                                                         className="deleteUserPostIcon userPostIcon"
                                                         icon={faTrashAlt} data-tip data-for="deletePostTip" tabIndex="0"
                                                         onClick={() => this.handleClickDeletePost(post)}
-                                                        onKeyDown={() => this.handlePressEnterDeletePost}/>
+                                                        onKeyDown={this.handlePressEnterDeletePost}/>
                                                     <ReactTooltip id="deletePostTip" place="top"
                                                                   effect="solid"> {/* infobulle sur la poubelle */}
                                                         Supprimer l'article

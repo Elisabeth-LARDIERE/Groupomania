@@ -37,7 +37,7 @@
     box-shadow: 0 14px 28px rgba(24, 30, 86, 0.25), 0 10px 10px rgba(24, 30, 86, 0.22);
 }
 
-.post:hover .seeMoreButton {
+.post:hover .seeMoreButton, .post:focus .seeMoreButton {
     display: block;
     width: 30vw;
     height: 20px;
@@ -178,7 +178,7 @@
         font-size: 1.3em;
     }
 
-    .post:hover .seeMoreButton {
+    .post:hover .seeMoreButton, .post:focus .seeMoreButton {
         width: 20vw;
         height: 20px;
     }
@@ -210,7 +210,7 @@
         margin: 20px;
     }
 
-    .post:hover .seeMoreButton {
+    .post:hover .seeMoreButton, .post:focus .seeMoreButton {
         width: 13vw;
     }
 
@@ -242,7 +242,7 @@
         margin: 25px 20px;
     }
 
-    .post:hover .seeMoreButton {
+    .post:hover .seeMoreButton, .post:focus .seeMoreButton {
         width: 10vw;
     }
 
@@ -271,7 +271,7 @@
         margin: 25px 40px;
     }
 
-    .post:hover .seeMoreButton {
+    .post:hover .seeMoreButton, .post:hover .seeMoreButton {
         width: 8vw;
         height: 25px;
     }
@@ -341,7 +341,7 @@
         margin-right: 20vw;
     }
 
-    .post:hover .seeMoreButton {
+    .post:hover .seeMoreButton, .post:focus .seeMoreButton {
         width: 6vw;
         height: 30px;
         font-size: 1em;

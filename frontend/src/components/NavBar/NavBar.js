@@ -158,6 +158,7 @@ class Navbar extends React.Component {
                 window.location = '/'
             )
         }
+        localStorage.clear();
     }
 
     handlePressEnterLogout(event) { // à la pression d'une touche sur l'onglet "me déconnecter" (menu "mon compte")

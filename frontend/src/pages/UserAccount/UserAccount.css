@@ -208,7 +208,7 @@
         height: 40vh;
         align-self: center;
         margin: 50px 0;
-        border-radius: 10px;
+        border-radius: 50%;
     }
 
     .accountButtons {
