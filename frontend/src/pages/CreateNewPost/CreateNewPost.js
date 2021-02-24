@@ -67,7 +67,7 @@ class CreateNewPost extends React.Component {
         const user = JSON.parse(localStorage.getItem('user'));
         return (
             <Fragment>
-                <Header avatar={user.avatar}/>
+                <Header/>
                 <main className="mainNewPost">
                     <section className="newPostSection">
                         <div className="newPostTitleAndValidation">

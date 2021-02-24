@@ -46,7 +46,7 @@ class Header extends React.Component {
 
                 {renderComponents()}
 
-                <Avatar avatar={this.props.avatar} onChangeAvatar={this.props.onChangeAvatar} onSubmitAvatar={this.props.onSubmitAvatar}/>
+                <Avatar/>
 
             </header>
         )

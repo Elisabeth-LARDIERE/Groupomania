@@ -143,7 +143,7 @@ class Home extends React.Component {
         const user = JSON.parse(localStorage.getItem('user'));
         return (
             <Fragment>
-                <Header avatar={user.avatar}/>
+                <Header/>
 
                 <main className="mainHome">
                     <section className="postsBox">

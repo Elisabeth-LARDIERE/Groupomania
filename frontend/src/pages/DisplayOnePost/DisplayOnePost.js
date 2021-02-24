@@ -249,7 +249,6 @@ class DisplayOnePost extends React.Component {
 
     render() {
         const user = JSON.parse(localStorage.getItem('user'));
-        console.log(user.admin);
         const renderHTML = (rawHTML: string) => React.createElement("div", {dangerouslySetInnerHTML: {__html: rawHTML}}); // fonction d'affichage du HTML dans son format original
         const post = JSON.parse(localStorage.getItem('post')); // récupération de l'article dans le localstorage
         const renderDeletePostModo = () => {
@@ -272,7 +271,6 @@ class DisplayOnePost extends React.Component {
 
         const renderDeleteComModo = () => {
             if (user.admin === 1) {
-                console.log("42")
                 return (
                     <Fragment>
                         <FontAwesomeIcon
@@ -292,7 +290,7 @@ class DisplayOnePost extends React.Component {
         const renderComponents = () => { // fonction d'affichage conditionnel header ou aside selon la largeur de l'écran
             if (this.state.width < 1280) {
                 return (
-                    <Header avatar={user.avatar}/>
+                    <Header/>
                 )
             } else {
                 return <AsideFullPost/>

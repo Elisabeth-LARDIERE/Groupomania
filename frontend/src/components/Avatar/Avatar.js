@@ -15,7 +15,7 @@ class Avatar extends React.Component {
         console.log(this.props.avatar);
         return (
             <img className="avatar headerAvatar asideAvatar"
-                 src={this.props.avatar} onSubmit={this.props.onSubmitAvatar} onChange={this.props.onChangeAvatar}
+                 src={'http://localhost:3001/' + user.avatar}
                  alt="mon avatar">
             </img>
         )
