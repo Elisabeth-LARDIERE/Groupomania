@@ -10,7 +10,7 @@ function Terms() {
     const user = JSON.parse(localStorage.getItem('user'));
     return (
         <Fragment>
-            <Header/>
+            <Header avatar={'http://localhost:3001/' + user.avatar}/>
             <main className="mainTerms">
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ac sem ac nibh faucibus dignissim a
                     non justo. Vestibulum sit amet nisi diam. Cras ullamcorper ligula a nulla egestas, a porttitor elit

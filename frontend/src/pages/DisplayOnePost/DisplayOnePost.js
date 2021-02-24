@@ -290,7 +290,7 @@ class DisplayOnePost extends React.Component {
         const renderComponents = () => { // fonction d'affichage conditionnel header ou aside selon la largeur de l'écran
             if (this.state.width < 1280) {
                 return (
-                    <Header/>
+                    <Header avatar={'http://localhost:3001/' + user.avatar}/>
                 )
             } else {
                 return <AsideFullPost/>

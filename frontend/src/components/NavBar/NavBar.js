@@ -9,7 +9,6 @@ import Terms from "../Terms/Terms";
 class Navbar extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props);
         this.state = { // initialisation de l'état du composant
             showPostsChoices: false, // invisibilité du menu de l'onglet "mes articles"
             showAccountChoices: false, // invisibilité du menu de l'onglet "mon compte"

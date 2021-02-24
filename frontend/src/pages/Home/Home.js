@@ -10,11 +10,13 @@ import Header from '../../components/Header/Header';
 import Footer from "../../components/Footer/Footer";
 import Filter from "../../components/Filter/Filter";
 import Aside from "../../components/Aside/Aside";
+import Avatar from "../../components/Avatar/Avatar";
 
 
 class Home extends React.Component {
     constructor(props) {
         super(props);
+        console.log(props);
         this.state = { // initialisation du composant
             showPosts: true, // visibilité de l'option "les plus récentes" dans la barre de tri des publications
             showPopularPosts: false, // invisibilité de l'option "les plus populaires" dans la barre de tri des publications
@@ -143,7 +145,7 @@ class Home extends React.Component {
         const user = JSON.parse(localStorage.getItem('user'));
         return (
             <Fragment>
-                <Header/>
+                <Header avatar={'http://localhost:3001/' + user.avatar}/>
 
                 <main className="mainHome">
                     <section className="postsBox">
