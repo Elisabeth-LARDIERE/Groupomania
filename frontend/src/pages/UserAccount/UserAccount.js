@@ -28,7 +28,6 @@ class UserAccount extends React.Component {
                 email: ''
             }
         }
-        console.log(this.state.avatar, 0);
         this.handleResize = this.handleResize.bind(this);
         this.handleChangeInfos = this.handleChangeInfos.bind(this);
         this.handleChangeAvatar = this.handleChangeAvatar.bind(this);
@@ -83,20 +82,17 @@ class UserAccount extends React.Component {
     }
 
     handleSubmit(event) { // à la soumission du formulaire
-        console.log(this.state.avatar, 1);
-        const avatarName = this.state.avatar.name.split(' ').join('_');
-        console.log(avatarName);
-        const avatarNameFile = 'images/' + avatarName;
-        console.log(avatarNameFile);
-
         event.preventDefault();
         const user = JSON.parse(localStorage.getItem('user')); // récupération de l'utilisateur dans le localstorage
+        const avatarName = this.state.avatar.name.split(' ').join('_'); // récupération du nom de l'image uploadée, en remplaçant les espaces éventuels par des underscores
+        const avatarPath = 'images/' + avatarName; //
+
         if (validateForm(this.state.errors)) { // si les conditions de validité sont respectées
             if (this.state.lastname === user.lastname && this.state.firstname === user.firstname && this.state.email === user.email &&
-                avatarNameFile === user.avatar) { // si aucune information n'a été modifiée
+                avatarPath === user.avatar) { // si aucune information n'a été modifiée
                 alert("Vous n'avez modifié aucune information !")
             } else if (this.state.lastname !== user.lastname || this.state.firstname !== user.firstname || this.state.email !== user.email
-                || avatarNameFile !== user.avatar) { // si au moins une information a été modifiée
+                || avatarPath !== user.avatar) { // si au moins une information a été modifiée
                 updateUserRequest(this.state.lastname, this.state.firstname, this.state.email, this.state.avatar, this.state.admin) // appel de la requête de mise à jour de l'utilisateur
                     .then(() => { // si requête ok
                             const newUser = { // création d'un nouvel utilisateur
@@ -104,15 +100,15 @@ class UserAccount extends React.Component {
                                 firstname: this.state.firstname,
                                 email: this.state.email,
                                 password: this.state.password,
-                                avatar: avatarNameFile,
+                                avatar: avatarPath,
                                 admin: this.state.admin
                             }
                             localStorage.setItem('user', JSON.stringify(newUser)); // stockage du nouvel utilisateur dans le localstorage
                             alert("Votre profil a bien été modifié !");
-                            this.setState( {
-                                avatar: 'http://localhost:3001/' + avatarNameFile
+
+                            this.setState( { // nouvel état :
+                                avatar: 'http://localhost:3001/' + avatarPath // avatar => nouveau nom de fichier
                             })
-                            console.log(this.state.avatar, 2);
                         }
                     )
                     .catch(error => { // si échec requête
@@ -148,7 +144,7 @@ class UserAccount extends React.Component {
             }
         }
         const {errors} = this.state;
-        console.log(this.state.avatar, 3);
+
         return (
             <Fragment>
                 <Header avatar={this.state.avatar} onSubmitAvatar={this.handleSubmit}/>

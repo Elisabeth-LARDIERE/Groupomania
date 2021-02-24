@@ -52,7 +52,7 @@ class Navbar extends React.Component {
         }
     }
 
-    handlePressEnterHome(event) { // à la pression d'une touche sur l'onglet "accueil" /***** fonctionne quand ça veut *****/
+    handlePressEnterHome(event) { // à la pression d'une touche sur l'onglet "accueil"
         if (event.key === 'Enter') { // si c'est la touche Entrée : exécution de la fonction handleClickHome
             event.preventDefault();
             this.handleClickHome();
@@ -87,7 +87,7 @@ class Navbar extends React.Component {
         }
     }
 
-    handlePressEnterPosts(event) { // à la pression d'une touche sur l'onglet "mes publications" (menu "mes articles) /***** fonctionne quand ça veut *****/
+    handlePressEnterPosts(event) { // à la pression d'une touche sur l'onglet "mes publications" (menu "mes articles)
         if (event.key === 'Enter') { // si c'est la touche Entrée : exécution de la fonction handleClickUserPosts
             event.preventDefault();
             this.handleClickUserPosts();
@@ -106,7 +106,7 @@ class Navbar extends React.Component {
         }
     }
 
-    handlePressEnterNewPost(event) { // à la pression d'une touche sur l'onglet "publier un article" (menu "mes articles") /***** fonctionne quand ça veut *****/
+    handlePressEnterNewPost(event) { // à la pression d'une touche sur l'onglet "publier un article" (menu "mes articles")
         if (event.key === 'Enter') {// si c'est la touche Entrée : exécution de la fonction handleClickCreateNewPost
             event.preventDefault();
             this.handleClickCreateNewPost();
@@ -121,7 +121,7 @@ class Navbar extends React.Component {
         }
     }
 
-    handleLeaveHideAccountChoices() {
+    handleLeaveHideAccountChoices() { // quand la souris quitte l'onglet "mon compte"
         if (this.state.showAccountChoices === true) { // si menu "mon compte" = visible
             this.setState({ // nouvel état : menu "mon compte" => invisible
                 showAccountChoices: false
@@ -141,7 +141,7 @@ class Navbar extends React.Component {
         }
     }
 
-    handlePressEnterAccount(event) { // à la pression d'une touche sur l'onglet "mon profil" (menu "mon compte") /***** fonctionne quand ça veut *****/
+    handlePressEnterAccount(event) { // à la pression d'une touche sur l'onglet "mon profil" (menu "mon compte")
         if (event.key === 'Enter') { // si c'est la touche Entrée : exécution de la fonction handleCliCkUserAccount
             event.preventDefault();
             this.handleClickUserAccount();
@@ -160,7 +160,7 @@ class Navbar extends React.Component {
         }
     }
 
-    handlePressEnterLogout(event) { // à la pression d'une touche sur l'onglet "me déconnecter" (menu "mon compte") /***** fonctionne quand ça veut *****/
+    handlePressEnterLogout(event) { // à la pression d'une touche sur l'onglet "me déconnecter" (menu "mon compte")
         if (event.key === 'Enter') { // si c'est la touche Entrée : exécution de la fonction handleClickLogout
             event.preventDefault();
             this.handleClickLogout();

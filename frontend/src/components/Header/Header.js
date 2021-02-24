@@ -13,8 +13,7 @@ import Avatar from "../Avatar/Avatar";
 class Header extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props);
-        this.state = {
+        this.state = { // initialisation de l'état du composant
             width: window.innerWidth, // largeur de l'écran = largeur actuelle
         }
         this.handleResize = this.handleResize.bind(this);

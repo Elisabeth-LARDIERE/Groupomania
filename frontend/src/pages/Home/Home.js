@@ -99,6 +99,7 @@ class Home extends React.Component {
         const postId = post.postId;
         localStorage.setItem('postId', JSON.stringify(postId)); // récupération de l'id du post dans le localstorage
         localStorage.setItem('post', JSON.stringify(post)); // récupération du post dans le localstorage
+
         getOnePostRequest() // appel de la requête de récupération d'un article spécifique
             .then(() => { // si requête ok : redirection "afficher un article"
                 window.location.href = "/displayOnePost"
@@ -142,7 +143,9 @@ class Home extends React.Component {
                 return null
             }
         }
-        const user = JSON.parse(localStorage.getItem('user'));
+
+        const user = JSON.parse(localStorage.getItem('user')); // récupération de l'utilisateur dans le localstorage
+
         return (
             <Fragment>
                 <Header avatar={'http://localhost:3001/' + user.avatar}/>

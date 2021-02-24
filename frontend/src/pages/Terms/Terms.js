@@ -7,7 +7,8 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 
 function Terms() {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem('user')); // récupération de l'utilisateur dans le localstorage
+
     return (
         <Fragment>
             <Header avatar={'http://localhost:3001/' + user.avatar}/>

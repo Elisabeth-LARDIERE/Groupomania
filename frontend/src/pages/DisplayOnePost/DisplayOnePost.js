@@ -251,7 +251,8 @@ class DisplayOnePost extends React.Component {
         const user = JSON.parse(localStorage.getItem('user'));
         const renderHTML = (rawHTML: string) => React.createElement("div", {dangerouslySetInnerHTML: {__html: rawHTML}}); // fonction d'affichage du HTML dans son format original
         const post = JSON.parse(localStorage.getItem('post')); // récupération de l'article dans le localstorage
-        const renderDeletePostModo = () => {
+
+        const renderDeletePostModo = () => { // fonction d'affichage de l'icon de suppression d'un article si l'utilisateur est le modérateur
             if (user.admin === 1) {
                 return (
                     <Fragment>
@@ -269,7 +270,7 @@ class DisplayOnePost extends React.Component {
             }
         }
 
-        const renderDeleteComModo = () => {
+        const renderDeleteComModo = () => { // fonction d'affichage de l'icon de suppression d'un commentaire si l'utilisateur est le modérateur
             if (user.admin === 1) {
                 return (
                     <Fragment>

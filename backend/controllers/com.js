@@ -90,10 +90,8 @@ exports.deleteCom = (req, res) => {
                 res.status(401).json({message: 'Impossible de supprimer le commentaire !'})
             } else { // si commentaire trouvé
                 const postId = row[0].postId
-                console.log(postId);
                 db.query(`SELECT posts.totalComs FROM posts WHERE postId = '${postId}'`, (err, row) => {
                     const totalComs = row[0].totalComs;
-                    console.log(totalComs);
                     const newTotalComs = totalComs - 1;
                     db.query(`UPDATE posts SET posts.totalComs = '${newTotalComs}' WHERE postId = '${postId}'`); // sauvegarde du nouveau total de commentaires
                 })

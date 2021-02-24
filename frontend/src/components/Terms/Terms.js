@@ -7,7 +7,7 @@ import './Terms.css';
 class Terms extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
+        this.state = { // initialisation de l'état du composant
             redirect: false // pas de redirection
         }
         this.handleClickTerms = this.handleClickTerms.bind(this);

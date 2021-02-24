@@ -118,7 +118,9 @@ class UserPosts extends React.Component {
                 return null
             }
         }
-        const user = JSON.parse(localStorage.getItem('user'));
+
+        const user = JSON.parse(localStorage.getItem('user')); // récupération de l'utilisateur dans le localstorage
+
         return (
             <Fragment>
                 <Header avatar={'http://localhost:3001/' + user.avatar}/>
