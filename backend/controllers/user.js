@@ -42,8 +42,10 @@ exports.signup = async (req, res) => {
                     password: hash,
                     admin: "1"
                 });
-                db.query(`INSERT INTO users(firstname, lastname, email, password, admin) VALUES('${escapeString(user.firstname)}', '${escapeString(user.lastname)}', 
-            '${user.email}', '${user.password}', ${(user.admin)})`) // sauvegarde du nouvel utilisateur
+                /*db.query(`INSERT INTO users(firstname, lastname, email, password, admin) VALUES('${escapeString(user.firstname)}', '${escapeString(user.lastname)}',
+            '${user.email}', '${user.password}', ${(user.admin)})`) // sauvegarde du nouvel utilisateur*/
+                db.query(`INSERT INTO users(firstname, lastname, email, password, admin)VALUES(?, ?, ?, ?, ?)`,
+                    [escapeString(user.firstname), escapeString(user.lastname), user.email, user.password, user.admin]) // sauvegarde du nouvel utilisateur
                 res.status(201).json(user)
             } else {
                 const hash = await bcrypt.hash(req.body.password, 10); // hachage du mot de passe
@@ -53,9 +55,15 @@ exports.signup = async (req, res) => {
                     email: req.body.email,
                     password: hash
                 });
-                db.query(`INSERT INTO users(firstname, lastname, email, password) VALUES('${escapeString(user.firstname)}', '${escapeString(user.lastname)}', 
-            '${user.email}', '${user.password}')`) // sauvegarde du nouvel utilisateur
+                /*db.query(`INSERT INTO users(firstname, lastname, email, password) VALUES('${escapeString(user.firstname)}', '${escapeString(user.lastname)}',
+            '${user.email}', '${user.password}')`) // sauvegarde du nouvel utilisateur*/
+                db.query(`INSERT INTO users(firstname, lastname, email, password)VALUES(?, ?, ?, ?)`,
+                    [escapeString(user.firstname), escapeString(user.lastname), user.email, user.password]) // sauvegarde du nouvel utilisateur
                 res.status(201).json(user)
+
+                /*db.query(`INSERT INTO users(firstname, lastname, email, password) VALUES(?, ?, ?, ?)`,
+                    {firstname), user.lastname, user.email, user.password}) // sauvegarde du nouvel utilisateur
+                res.status(201).json(user)*/
             }
         }
     } catch (error) {
@@ -66,7 +74,8 @@ exports.signup = async (req, res) => {
 // fonction de connexion d'un utilisateur
 exports.login = (req, res) => {
     try {
-        db.query(`SELECT * FROM users WHERE email = '${req.body.email}'`, (err, row) => { // vérification de la présence de l'utilisateur dans la bdd
+        /*db.query(`SELECT * FROM users WHERE email = '${req.body.email}'`, (err, row) => { // vérification de la présence de l'utilisateur dans la bd*/
+        db.query(`SELECT * FROM users WHERE email = ?`, req.body.email, (err, row) => { // vérification de la présence de l'utilisateur dans la bd
             if (err || row.length === 0) { // si aucun résultat ou erreur
                 res.status(401).json({message: 'Utilisateur non trouvé !'})
             } else { // si utlisateur trouvé
@@ -99,7 +108,9 @@ exports.login = (req, res) => {
 
 exports.getOneUser = (req, res) => {
     try {
-        db.query(`SELECT * FROM users WHERE userId = '${req.query.userId}'`, (err, row) => { // vérification de la présence de l'utilisateur dans la bdd
+        /*db.query(`SELECT * FROM users WHERE userId = '${req.query.userId}'`, (err, row) => { // vérification de la présence de l'utilisateur dans la bdd*/
+        db.query(`SELECT * FROM users WHERE userId = ?`, req.query.userId, (err, row) => { // vérification de la présence de l'utilisateur dans la bdd
+
             if (err || row.length === 0) { // si aucun résultat ou erreur
                 res.status(401).json({message: 'Utilisateur non trouvé !'})
             } else { // si utilisataur trouvé
@@ -116,7 +127,8 @@ exports.getOneUser = (req, res) => {
 
 exports.updateUser = (req, res) => {
     try {
-        db.query(`SELECT * FROM users WHERE userId = '${req.query.userId}'`, (err, row) => { // vérification de la présence de l'utilisateur dans la bdd
+        /*db.query(`SELECT * FROM users WHERE userId = '${req.query.userId}'`, (err, row) => { // vérification de la présence de l'utilisateur dans la bdd*/
+        db.query(`SELECT * FROM users WHERE userId = ?`, req.query.userId, (err, row) => { // vérification de la présence de l'utilisateur dans la bdd
             if (err || row.length === 0) { // si aucun résultat ou erreur
                 res.status(401).json({message: 'Impossible de modifier le profil !'})
             } else { // si utilisateur trouvé
@@ -169,7 +181,8 @@ exports.updateUser = (req, res) => {
                     updated = true;
                 }
                 if (updated) { // si au moins un paramètre modifié
-                    db.query(query + `WHERE userId = '${req.query.userId}'`); // mise à jour du profil utilisateur
+                    /*db.query(query + `WHERE userId = '${req.query.userId}'`); // mise à jour du profil utilisateur*/
+                    db.query(query + `WHERE userId = ?`, req.query.userId); // mise à jour du profil utilisateur
                     res.status(200).json({avatar: userUpdated.avatar ? userUpdated.avatar : user.avatar}); // avec avatar modifié ou non
                 } else { // si aucun paramètre modifié
                     res.status(204).json(); // réponse de non-modification
@@ -184,24 +197,30 @@ exports.updateUser = (req, res) => {
 // fonction de suppression d'un utlisateur
 exports.deleteUser = (req, res) => {
     try {
-        db.query(`SELECT * FROM users WHERE userId = '${req.query.userId}'`, (err, row) => { // vérification de la présence de l'utilisateur dans la bdd
+        /*db.query(`SELECT * FROM users WHERE userId = '${req.query.userId}'`, (err, row) => { // vérification de la présence de l'utilisateur dans la bdd*/
+        db.query(`SELECT * FROM users WHERE userId = ?`, req.query.userId, (err, row) => { // vérification de la présence de l'utilisateur dans la bdd
             if (err || row.length === 0) { // si aucun résultat ou erreur
                 res.status(401).json({message: 'Impossible de supprimer le compte !'});
             } else { // si utilisateur trouvé
                 const user = row;
-                db.query(`SELECT postId, COUNT(*) AS totalComs FROM coms WHERE userId = '${req.query.userId}' GROUP BY postId`, (err, row) => { // recherche du nombre de commentaires laissés par l'utilisateur, et sur quels articles
+                /*db.query(`SELECT postId, COUNT(*) AS totalComs FROM coms WHERE userId = '${req.query.userId}' GROUP BY postId`, (err, row) => { // recherche du nombre de commentaires laissés par l'utilisateur, et sur quels articles*/
+                db.query(`SELECT postId, COUNT(*)AS totalComs FROM coms WHERE userId = ? GROUP BY
+                          postId`, req.query.userId, (err, row) => { // recherche du nombre de commentaires laissés par l'utilisateur, et sur quels articles
                         if (err || row.length === 0) { // si pas de résultat ou erreur
                             console.log('pas de commentaires publiés');
                         } else { // si résultat
                             for (let i of row) { // pour chaque paire clé/valeur obtenue...
                                 const comsPostId = i.postId; // ... création d'une constante pour chaque valeur : id de l'article et total de coms associé
                                 const comsTotalComs = i.totalComs;
-                                db.query(`SELECT * FROM posts WHERE postId = '${comsPostId}'`, (err, row) => { // ... recherche de tous les articles avec les id obtenus
+                                /*db.query(`SELECT * FROM posts WHERE postId = '${comsPostId}'`, (err, row) => { // ... recherche de tous les articles avec les id obtenus*/
+                                db.query(`SELECT * FROM posts WHERE postId = ?`, comsPostId, (err, row) => { // ... recherche de tous les articles avec les id obtenus
                                         if (err || row.length === 0) { // si aucun résultat ou erreur
                                         } else { // si article(s) trouvé(s)
                                             const totalComs = row[0].totalComs;
                                             const newTotal = totalComs - comsTotalComs;
-                                            db.query(`UPDATE posts SET posts.totalComs = '${newTotal}' WHERE postId = '${comsPostId}'`); // mise à jour du nombre total de commentaires pour chacun des articles sélectionnés
+                                            /*db.query(`UPDATE posts SET posts.totalComs = '${newTotal}' WHERE postId = '${comsPostId}'`); // mise à jour du nombre total de commentaires pour chacun des articles sélectionnés*/
+                                            db.query(`UPDATE posts SET posts.totalComs = ? WHERE postId =
+                                                      ?`, [newTotal, comsPostId]); // mise à jour du nombre total de commentaires pour chacun des articles sélectionnés
                                         }
                                     }
                                 )
@@ -210,47 +229,55 @@ exports.deleteUser = (req, res) => {
                     }
                 )
 
-                db.query(`SELECT * FROM likes WHERE userId = '${req.query.userId}' GROUP BY postId`, (err, row) => { // recherche des likes laissés par l'utilisateur, et sur quels articles
+                /*db.query(`SELECT * FROM likes WHERE userId = '${req.query.userId}' GROUP BY postId`, (err, row) => { // recherche des likes laissés par l'utilisateur, et sur quels articles*/
+                db.query(`SELECT * FROM likes WHERE userId = ? GROUP BY postId`, req.query.postId, (err, row) => { // recherche des likes laissés par l'utilisateur, et sur quels articles
                     if (err || row.length === 0) { // si aucun résultat ou erreur
                         console.log('pas de likes publiés');
                     } else { // si like(s) trouvé(s)
                         for (let i of row) { // pour chaque paire clé/valeur obtenue...
                             const likesPostId = i.postId; // ... création d'une constante pour chaque valeur : id de l'article et total de likes associé,
-                            db.query(`SELECT * FROM posts WHERE postId = '${likesPostId}'`, (err, row) => { // ... recherche de tous les articles avec les id obtenus
+                            /*db.query(`SELECT * FROM posts WHERE postId = '${likesPostId}'`, (err, row) => { // ... recherche de tous les articles avec les id obtenus*/
+                            db.query(`SELECT * FROM posts WHERE postId = ?`, likesPostId, (err, row) => { // ... recherche de tous les articles avec les id obtenus
                                 if (err || row.length === 0) { // si aucun résultat ou erreur
                                 } else { // si article(s) trouvé(s)
                                     const totalLikes = row[0].likes;
                                     const newTotal = totalLikes - 1;
-                                    db.query(`UPDATE posts SET posts.likes = '${newTotal}' WHERE postId = '${likesPostId}'`); // mise à jour du nombre total de likes pour chacun des articles sélectionnés.
+                                    /*db.query(`UPDATE posts SET posts.likes = '${newTotal}' WHERE postId = '${likesPostId}'`); // mise à jour du nombre total de likes pour chacun des articles sélectionnés*/
+                                    db.query(`UPDATE posts SET posts.likes = ? WHERE postId =
+                                              ?`, [newTotal, likesPostId]); // mise à jour du nombre total de likes pour chacun des articles sélectionnés
                                 }
                             })
                         }
                     }
                 })
 
-                db.query(`SELECT * FROM dislikes WHERE userId = '${req.query.userId}' GROUP BY postId`, (err, row) => { // recherche des dislikes laissés par l'utilisateur, et sur quels articles
+                /*db.query(`SELECT * FROM dislikes WHERE userId = '${req.query.userId}' GROUP BY postId`, (err, row) => { // recherche des dislikes laissés par l'utilisateur, et sur quels articles*/
+                db.query(`SELECT * FROM dislikes WHERE userId = ? GROUP BY postId`, req.query.userId, (err, row) => { // recherche des dislikes laissés par l'utilisateur, et sur quels articles
                     if (err || row.length === 0) { // si aucun résultat ou erreur
                         console.log('pas de dislikes publiés');
                     } else { // si dislike(s) trouvé(s)
                         for (let i of row) { // pour chaque paire clé/valeur obtenue...
                             const dislikesPostId = i.postId; // ... création d'une constante pour chaque valeur : id de l'article et total de dislikes associé,
-                            db.query(`SELECT * FROM posts WHERE postId = '${dislikesPostId}'`, (err, row) => { // ... recherche de tous les articles avec les id obtenus
+                            /*db.query(`SELECT * FROM posts WHERE postId = '${dislikesPostId}'`, (err, row) => { // ... recherche de tous les articles avec les id obtenus*/
+                            db.query(`SELECT * FROM posts WHERE postId = ?`, dislikesPostId, (err, row) => { // ... recherche de tous les articles avec les id obtenus
                                 if (err || row.length === 0) { // si aucun résultat ou erreur
                                 } else { // si article(s) trouvé(s)
                                     const totalDislikes = row[0].dislikes;
                                     const newTotal = totalDislikes - 1;
-                                    db.query(`UPDATE posts SET posts.dislikes = '${newTotal}' WHERE postId = '${dislikesPostId}'`); // mise à jour du nombre total de dislikes pour chacun des articles sélectionnés.
+                                    /*db.query(`UPDATE posts SET posts.dislikes = '${newTotal}' WHERE postId = '${dislikesPostId}'`); // mise à jour du nombre total de dislikes pour chacun des articles sélectionnés*/
+                                    db.query(`UPDATE posts SET posts.dislikes = ? WHERE postId = ?`, [newTotal, dislikesPostId]); // mise à jour du nombre total de dislikes pour chacun des articles sélectionnés
                                 }
                             })
                         }
                     }
                 })
-                db.query(`DELETE FROM users WHERE userId = '${req.query.userId}'`) // suppression de l'utilisateur
+                /*db.query(`DELETE FROM users WHERE userId = '${req.query.userId}'`) // suppression de l'utilisateur*/
+                db.query(`DELETE FROM users WHERE userId = ?`, req.query.userId) // suppression de l'utilisateur
                 res.status(204).json();
 
                 const path = user[0].avatar;
                 const filename = path.split('/')[1];
-                if (filename !== 'avatar-default.png') { // suppression de l'ancien avatar du fichier "images", suaf si l'ancien avatar est celui par défaut
+                if (filename !== 'avatar-default.png') { // suppression de l'ancien avatar du fichier "images", sauf si l'ancien avatar est celui par défaut
                     fs.unlink(`images/${filename}`, (err) => {
                         if (err) throw err;
                     });
@@ -268,8 +295,10 @@ exports.getAllUserPosts = (req, res) => {
         const token = req.headers.authorization.split(' ')[1]; // récupération du token dans le header authorization
         const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); // vérification du token pour authentification utilisateur
         const userId = decodedToken.userId;
-        db.query(`SELECT * FROM posts WHERE userId = '${userId}'`, (err, row) => { // recherche de tous les articles créés par l'utilsateur
-            if (err || row.length === 0) { // si aucun résultat ou erreur
+        /*db.query(`SELECT * FROM posts WHERE userId = '${userId}'`, (err, row) => { // recherche de tous les articles créés par l'utilsateur*/
+            db.query(`SELECT * FROM posts WHERE userId = ?`, userId, (err, row) => { // recherche de tous les articles créés par l'utilsateur
+
+                if (err || row.length === 0) { // si aucun résultat ou erreur
                 res.status(401).json({message: 'Articles non trouvés !'})
             } else { // si article(s) trouvé(s)
                 const post = row;

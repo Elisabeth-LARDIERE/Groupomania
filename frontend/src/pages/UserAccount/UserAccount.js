@@ -18,6 +18,7 @@ class UserAccount extends React.Component {
             firstname: user.firstname,
             email: user.email,
             avatar: 'http://localhost:3001/' + user.avatar,
+            updatedAvatar: false,
             admin: user.admin,
             previewAvatar: null, // aperçu de l'avatar quand changement : null
             width: window.innerWidth, // largeur de l'écran = largeur actuelle
@@ -77,43 +78,69 @@ class UserAccount extends React.Component {
     handleChangeAvatar(event) { // au choix du fichier-nouvel avatar
         this.setState({ // nouvel état :
             avatar: event.target.files[0],// avatar => nouveau nom de fichier
-            previewAvatar: URL.createObjectURL(event.target.files[0]) // création d'un aperçu du fichier sélectionné
+            previewAvatar: URL.createObjectURL(event.target.files[0]), // création d'un aperçu du fichier sélectionné
+            updatedAvatar: true
         })
     }
 
     handleSubmit(event) { // à la soumission du formulaire
         event.preventDefault();
         const user = JSON.parse(localStorage.getItem('user')); // récupération de l'utilisateur dans le localstorage
-        const avatarName = this.state.avatar.name.split(' ').join('_'); // récupération du nom de l'image uploadée, en remplaçant les espaces éventuels par des underscores
-        const avatarPath = 'images/' + avatarName; //
-
         if (validateForm(this.state.errors)) { // si les conditions de validité sont respectées
             if (this.state.lastname === user.lastname && this.state.firstname === user.firstname && this.state.email === user.email &&
-                avatarPath === user.avatar) { // si aucune information n'a été modifiée
+                this.state.avatar === 'http://localhost:3001/' + user.avatar) { // si aucune information n'a été modifiée
                 alert("Vous n'avez modifié aucune information !")
             } else if (this.state.lastname !== user.lastname || this.state.firstname !== user.firstname || this.state.email !== user.email
-                || avatarPath !== user.avatar) { // si au moins une information a été modifiée
-                updateUserRequest(this.state.lastname, this.state.firstname, this.state.email, this.state.avatar, this.state.admin) // appel de la requête de mise à jour de l'utilisateur
-                    .then(() => { // si requête ok
-                            const newUser = { // création d'un nouvel utilisateur
-                                lastname: this.state.lastname,
-                                firstname: this.state.firstname,
-                                email: this.state.email,
-                                password: this.state.password,
-                                avatar: avatarPath,
-                                admin: this.state.admin
-                            }
-                            localStorage.setItem('user', JSON.stringify(newUser)); // stockage du nouvel utilisateur dans le localstorage
-                            alert("Votre profil a bien été modifié !");
+                || this.state.avatar !== user.avatar) { // si au moins une information a été modifiée
+                let avatarPath;
+                if (this.state.updatedAvatar === true) { // si l'avatar a été modifié
+                    const avatarName = this.state.avatar.name.split(' ').join('_'); // récupération du nom de l'image uploadée, en remplaçant les espaces éventuels par des underscores
+                    avatarPath = 'images/' + avatarName;
+                    updateUserRequest(this.state.lastname, this.state.firstname, this.state.email, this.state.avatar, this.state.admin) // appel de la requête de mise à jour de l'utilisateur
+                        .then(() => { // si requête ok
+                                const newUser = { // création d'un nouvel utilisateur
+                                    lastname: this.state.lastname,
+                                    firstname: this.state.firstname,
+                                    email: this.state.email,
+                                    password: this.state.password,
+                                    avatar: avatarPath,
+                                    admin: this.state.admin
+                                }
+                                localStorage.setItem('user', JSON.stringify(newUser)); // stockage du nouvel utilisateur dans le localstorage
+                                alert("Votre profil a bien été modifié !");
 
-                            this.setState( { // nouvel état :
-                                avatar: 'http://localhost:3001/' + avatarPath // avatar => nouveau nom de fichier
-                            })
-                        }
-                    )
-                    .catch(error => { // si échec requête
-                        this.setState({error});
-                    })
+                                this.setState({ // nouvel état :
+                                    avatar: 'http://localhost:3001/' + avatarPath, // avatar => nouveau nom de fichier
+                                    updatedAvatar: false
+                                })
+                            }
+                        )
+                        .catch(error => { // si échec requête
+                            this.setState({error});
+                        })
+                } else {
+                    updateUserRequest(this.state.lastname, this.state.firstname, this.state.email, this.state.avatar, this.state.admin) // appel de la requête de mise à jour de l'utilisateur
+                        .then(() => { // si requête ok
+                                const newUser = { // création d'un nouvel utilisateur
+                                    lastname: this.state.lastname,
+                                    firstname: this.state.firstname,
+                                    email: this.state.email,
+                                    password: this.state.password,
+                                    avatar: this.state.avatar,
+                                    admin: this.state.admin
+                                }
+                                localStorage.setItem('user', JSON.stringify(newUser)); // stockage du nouvel utilisateur dans le localstorage
+                                alert("Votre profil a bien été modifié !");
+
+                                /*this.setState({ // nouvel état :
+                                    avatar: 'http://localhost:3001/' + avatarPath // avatar => nouveau nom de fichier
+                                })*/
+                            }
+                        )
+                        .catch(error => { // si échec requête
+                            this.setState({error});
+                        })
+                }
             }
         } else { // si les conditions de validité ne sont pas respectées
             console.error('La modification a échoué !')

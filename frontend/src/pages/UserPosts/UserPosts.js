@@ -75,9 +75,10 @@ class UserPosts extends React.Component {
     }
 
     handleClickDeletePost(post) { // au clic sur l'icon poubelle/"supprimer l'article"
-        localStorage.setItem('post', JSON.stringify(post)); // stockage de l'article sélectionné dans le localstorage
+        localStorage.setItem('postId', JSON.stringify(post.postId)); // stockage de l'article sélectionné dans le localstorage
         deletePostRequest() // appel de la requête de suppression d'un article
             .then(() => { // si requête ok
+                console.log(1);
                 alert('Article supprimé !');
                 window.location.href = "/userPosts"; // rechargement de la page actualisée
             })
