@@ -5,7 +5,7 @@
 const jwt = require('jsonwebtoken');
 const Post = require('../models/Post');
 const db = require('../db');
-const escapeString = require('../escape-string');
+
 
 // fonction de création d'un article
 exports.createPost = (req, res) => {
@@ -13,7 +13,6 @@ exports.createPost = (req, res) => {
         const token = req.headers.authorization.split(' ')[1]; // récupération du token dans le header authorization
         const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); // vérification du token pour authentification de l'utilisateur
         const userId = decodedToken.userId;
-        /*db.query(`SELECT firstname, lastname, avatar FROM users WHERE userId = '${userId}'`, (err, row) => { // recherche des infos de l'utilisateur connecté*/
         db.query(`SELECT firstname, lastname, avatar FROM users WHERE userId = ?`, userId, (err, row) => {
             if (err || row.length === 0) { // si aucun résultat ou erreur
                 res.status(401).json({message: 'Informations non trouvées !'})
@@ -27,11 +26,8 @@ exports.createPost = (req, res) => {
                     lastname: userInfos.lastname,
                     avatar: userInfos.avatar
                 });
-                /*db.query(`INSERT INTO posts(title, content, userId, firstname, lastname, avatar) VALUES ('${escapeString(post.title)}', '${escapeString(post.content)}',
-                '${post.userId}', '${post.firstname}', '${post.lastname}', '${post.avatar}')`) // sauvegarde du nouvel article*/
-                db.query(`INSERT INTO posts(title, content, userId, firstname, lastname, avatar)VALUES(?, ?, ?, ?, ?, ?
-                          )`,
-                    [escapeString(post.title), escapeString(post.content), post.userId, post.firstname, post.lastname, post.avatar])
+                db.query(`INSERT INTO posts(title, content, userId, firstname, lastname, avatar)VALUES(?, ?, ?, ?, ?, ?)`,
+                    [post.title, post.content, post.userId, post.firstname, post.lastname, post.avatar])
                 res.status(201).json({
                     message: 'Article pubié !',
                 });
@@ -46,7 +42,6 @@ exports.createPost = (req, res) => {
 exports.getOnePost = (req, res) => {
     try {
         const postId = req.params;
-        /*db.query(`SELECT * FROM posts WHERE postId = '${postId}'`, (err, row) => { // recherche d'un article avec son id*/
         db.query(`SELECT * FROM posts WHERE postId = ?`, postId, (err, row) => {
             if (err || row.length === 0) { // si aucun résultat ou erreur
                 res.status(401).json({message: 'Article non trouvé !'})
@@ -80,14 +75,12 @@ exports.getAllPosts = (req, res) => {
 // fonction de suppression d'un article
 exports.deletePost = (req, res) => {
     try {
-        /*db.query(`SELECT * FROM posts WHERE postId = '${req.query.postId}'`, (err, row) => { // recherche d'un article avec son id*/
         db.query(`SELECT * FROM posts WHERE postId = ?`, req.query.postId, (err, row) => {
             if (err || row.length === 0) { // si aucun résultat ou erreur
                 console.log(1)
                 res.status(401).json({message: 'Impossible de supprimer l article !'})
             } else { // si article trouvé
                 console.log(2)
-                /*db.query(`DELETE FROM posts WHERE postId = '${req.query.postId}'`); // suppression de l'article sélectionné*/
                 db.query(`DELETE FROM posts WHERE postId = ?`, req.query.postId); // suppression de l'article sélectionné
                 res.status(200).json({message: 'Article supprimé !'})
             }
@@ -103,7 +96,6 @@ exports.likePost = (req, res) => {
         const token = req.headers.authorization.split(' ')[1]; // récupération du token dans le header authorization
         const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); // vérification du token pour authetification de l'utilisateur
         const userId = decodedToken.userId;
-        /*db.query(`SELECT * FROM posts WHERE postId = '${req.query.postId}'`, (err, row) => { // recherche d'un article avec son id*/
         db.query(`SELECT * FROM posts WHERE postId = ?`, req.query.postId, (err, row) => { // recherche d'un article avec son id
             const postLikes = row[0].likes;
             const postDislikes = row[0].dislikes;
@@ -113,46 +105,29 @@ exports.likePost = (req, res) => {
             if (err || row.length === 0) { // si aucun résultat ou erreur
                 res.status(401).json({err})
             } else { // si article trouvé
-                /*db.query(`SELECT * FROM likes WHERE userId = '${userId}' AND postId = '${req.query.postId}'`, (err, row) => { // recherche d'un like de l'utilisateur connecté pour l'article sélectionné*/
                 db.query(`SELECT * FROM likes WHERE userId = ? AND postId =
                           ?`, [userId, req.query.postId], (err, row) => { // recherche d'un like de l'utilisateur connecté pour l'article sélectionné
                     if (row.length === 0) { // si pas de like
-                        /*db.query(`SELECT * FROM dislikes WHERE userId = '${userId}' AND postId = '${req.query.postId}'`, (err, row) => { // recherche d'un dislike de l'utilisateur connecté pour l'article sélectionné*/
-                        db.query(`SELECT * FROM dislikes WHERE userId = ? AND postId =
-                                  ?`, [userId, req.query.postId], (err, row) => { // recherche d'un dislike de l'utilisateur connecté pour l'article sélectionné
+                        db.query(`SELECT * FROM dislikes WHERE userId = ? AND postId = ?`, [userId, req.query.postId], (err, row) => { // recherche d'un dislike de l'utilisateur connecté pour l'article sélectionné
                             if (row.length === 0) { // si pas de dislike
-                                /*db.query(`INSERT INTO likes(userId, postId) VALUES ('${userId}', '${req.query.postId}')`); // sauvegarde du like de l'utilisateur pour l'article sélectionné*/
                                 db.query(`INSERT INTO likes(userId, postId)VALUES(?, ?)`, [userId, req.query.postId]); // sauvegarde du like de l'utilisateur pour l'article sélectionné
-                                /*db.query(`UPDATE posts SET posts.likes = '${likes}' WHERE postId = '${req.query.postId}'`); // ajout du like au total des likes pour l'article sélectionné*/
-                                db.query(`UPDATE posts SET posts.likes = ? WHERE postId =
-                                          ?`, [likes, req.query.postId]); // ajout du like au total des likes pour l'article sélectionné
+                                db.query(`UPDATE posts SET posts.likes = ? WHERE postId = ?`, [likes, req.query.postId]); // ajout du like au total des likes pour l'article sélectionné
                                 res.status(200).json({message: 'L utilisateur aime cet article !'});
                             } else if (err) { // si erreur
                                 res.status(401).json({err})
                             } else { // si dislike
-                                /*db.query(`DELETE FROM dislikes WHERE postId = '${req.query.postId}' AND userId = '${userId}'`); // suppression du dislike de l'utilisateur pour l'article sélectionné*/
-                                db.query(`DELETE FROM dislikes WHERE postId = ? AND userId =
-                                          ?`, [req.query.postId, userId]); // suppression du dislike de l'utilisateur pour l'article sélectionné
-                                /*db.query(`UPDATE posts SET posts.dislikes = '${undislikes}' WHERE postId = '${req.query.postId}'`); // déduction du dislike au total des dislikes pour l'article sélectionné*/
-                                db.query(`UPDATE posts SET posts.dislikes = ? WHERE postId =
-                                          ?`, [undislikes, req.query.postId]); // déduction du dislike au total des dislikes pour l'article sélectionné
-                                /*db.query(`INSERT INTO likes(userId, postId) VALUES ('${userId}', '${req.query.postId}')`); // sauvegarde du like de l'utilisateur pour l'article sélectionné*/
+                                db.query(`DELETE FROM dislikes WHERE postId = ? AND userId = ?`, [req.query.postId, userId]); // suppression du dislike de l'utilisateur pour l'article sélectionné
+                                db.query(`UPDATE posts SET posts.dislikes = ? WHERE postId = ?`, [undislikes, req.query.postId]); // déduction du dislike au total des dislikes pour l'article sélectionné
                                 db.query(`INSERT INTO likes(userId, postId)VALUES(?, ?)`, [userId, req.query.postId]); // sauvegarde du like de l'utilisateur pour l'article sélectionné
-                                /*db.query(`UPDATE posts SET posts.likes = '${likes}' WHERE postId = '${req.query.postId}'`);// ajout du like au total des likes pour l'article sélectionné*/
-                                db.query(`UPDATE posts SET posts.likes = ? WHERE postId =
-                                          ?`, [likes, req.query.postId]);// ajout du like au total des likes pour l'article sélectionné
-
+                                db.query(`UPDATE posts SET posts.likes = ? WHERE postId = ?`, [likes, req.query.postId]);// ajout du like au total des likes pour l'article sélectionné
                                 res.status(200).json({message: 'L utilisateur aime cet article !'});
                             }
                         })
                     } else if (err) { // si erreur
                         res.status(401).json({err})
                     } else { // si like
-                        /*db.query(`DELETE FROM likes WHERE postId = '${req.query.postId}' AND userId = '${userId}'`); // suppression du like de l'utilisateur pour l'article sélectionné*/
                         db.query(`DELETE FROM likes WHERE postId = ? AND userId = ?`, [req.query.postId, userId]); // suppression du like de l'utilisateur pour l'article sélectionné
-                        /*db.query(`UPDATE posts SET posts.likes = '${unlikes}' WHERE postId = '${req.query.postId}'`); // déduction du like de l'utilisateur pour l'article sélectionné*/
                         db.query(`UPDATE posts SET posts.likes = ? WHERE postId = ?`, [unlikes, req.query.postId]); // déduction du like de l'utilisateur pour l'article sélectionné
-
                         res.status(200).json({message: 'like supprimé !'})
                     }
                 })
@@ -170,7 +145,6 @@ exports.getPostUserLike = (req, res) => {
         const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); // vérification du token pour authentification  de l'utilisateur
         const userId = decodedToken.userId;
 
-        /*db.query(`SELECT likes.userId FROM likes WHERE userId = '${userId}' AND postId = '${req.query.postId}'`, (err, row) => { // recherche d'un like de l'utilisateur connecté pour l'article sélectionné*/
         db.query(`SELECT likes.userId FROM likes WHERE userId = ? AND postId = ?`, [userId, req.query.postId], (err, row) => { // recherche d'un like de l'utilisateur connecté pour l'article sélectionné
             if (row.length === 0) { // si pas de like
                 console.log("L'utilisateur n'a pas liké cet article");
@@ -192,7 +166,6 @@ exports.dislikePost = (req, res) => {
         const token = req.headers.authorization.split(' ')[1]; // récupération du token dans le header authorization
         const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); // vérification du token pour authentification  de l'utilisateur
         const userId = decodedToken.userId;
-        /*db.query(`SELECT * FROM posts WHERE postId = '${req.query.postId}'`, (err, row) => { // recherche d'un article avec son id*/
         db.query(`SELECT * FROM posts WHERE postId = ?`, req.query.postId, (err, row) => { // recherche d'un article avec son id
             const postLikes = row[0].likes;
             const postDislikes = row[0].dislikes;
@@ -202,27 +175,19 @@ exports.dislikePost = (req, res) => {
             if (err || row.length === 0) { // si aucun résultat ou erreur
                 return res.status(401).json({err})
             } else { // si article trouvé
-                /*db.query(`SELECT * FROM dislikes WHERE userId = '${userId}' AND postId = '${req.query.postId}'`, (err, row) => { // recherche d'un dislike de l'utilisateur connecté pour l'article sélectionné*/
                     db.query(`SELECT * FROM dislikes WHERE userId = ? AND postId = ?`, [userId, req.query.postId], (err, row) => { // recherche d'un dislike de l'utilisateur connecté pour l'article sélectionné
                         if (row.length === 0) { // si pas de dislike
-                        /*db.query(`SELECT * FROM likes WHERE userId = '${userId}' AND postId = '${req.query.postId}'`, (err, row) => { // recherche d'un like de l'utilisateur connecté pour l'article sélectionné*/
                             db.query(`SELECT * FROM likes WHERE userId = ? AND postId = ?`, [userId, req.query.postId], (err, row) => { // recherche d'un like de l'utilisateur connecté pour l'article sélectionné
                                 if (row.length === 0) { // si pas de like
-                                /*db.query(`INSERT INTO dislikes(userId, postId) VALUES ('${userId}', '${req.query.postId}')`); // sauvegarde du dislike de l'utilisateur pour l'article sélectionné*/
                                     db.query(`INSERT INTO dislikes(userId, postId) VALUES (?, ?)`, [userId, req.query.postId]); // sauvegarde du dislike de l'utilisateur pour l'article sélectionné
-                                    /*db.query(`UPDATE posts SET posts.dislikes = '${dislikes}' WHERE postId = '${req.query.postId}'`); // ajout du dislike au total des dislikes pour l'article sélectionné*/
                                     db.query(`UPDATE posts SET posts.dislikes = ? WHERE postId = ?`, [dislikes, req.query.postId]); // ajout du dislike au total des dislikes pour l'article sélectionné
                                     return res.status(200).json({message: 'L utilisateur n aime pas cet article !'});
                             } else if (err) { // si erreur
                                 return res.status(401).json({err})
                             } else { // si like
-                                /*db.query(`DELETE FROM likes WHERE postId = '${req.query.postId}' AND userId = '${userId}'`); // suppression du like de l'utilisateur pour l'article sélectionné*/
                                     db.query(`DELETE FROM likes WHERE postId = ? AND userId = ?`, [req.query.postId, userId]); // suppression du like de l'utilisateur pour l'article sélectionné
-                                    /*db.query(`UPDATE posts SET posts.likes = '${unlikes}' WHERE postId = '${req.query.postId}'`); // déduction du like du total des likes pour l'article sélectionné*/
                                     db.query(`UPDATE posts SET posts.likes = ? WHERE postId = ?`, [unlikes, req.query.postId]); // déduction du like du total des likes pour l'article sélectionné
-                                    /*db.query(`INSERT INTO dislikes(userId, postId) VALUES ('${userId}', '${req.query.postId}')`); // sauvegarde du dislike de l'utilisateur pour l'article sélectionné*/
                                     db.query(`INSERT INTO dislikes(userId, postId) VALUES (?, ?)`, [userId, req.query.postId]); // sauvegarde du dislike de l'utilisateur pour l'article sélectionné
-                                    /*db.query(`UPDATE posts SET posts.dislikes = '${dislikes}' WHERE postId = '${req.query.postId}'`); // ajout du dislike au total des dislikes pour l'article sélectionné*/
                                     db.query(`UPDATE posts SET posts.dislikes = ? WHERE postId = ?`, [dislikes, req.query.postId]); // ajout du dislike au total des dislikes pour l'article sélectionné
                                     return res.status(200).json({message: 'L utilisateur n aime pas cet article !'});
                             }
@@ -230,9 +195,7 @@ exports.dislikePost = (req, res) => {
                     } else if (err) { // si erreur
                         return res.status(401).json({err})
                     } else { // si dislike
-                        /*db.query(`DELETE FROM dislikes WHERE postId = '${req.query.postId}' AND userId = '${userId}'`); // suppression du dislike de l'utilisateur pour l'article sélectionné*/
                             db.query(`DELETE FROM dislikes WHERE postId = ? AND userId = ?`, [req.query.postId, userId]); // suppression du dislike de l'utilisateur pour l'article sélectionné
-                            /*db.query(`UPDATE posts SET posts.dislikes = '${undislikes}' WHERE postId = '${req.query.postId}'`); // déduction du dislike du totat des dislikes pour l'article sélectionné*/
                             db.query(`UPDATE posts SET posts.dislikes = ? WHERE postId = ?`, [undislikes, req.query.postId]); // déduction du dislike du totat des dislikes pour l'article sélectionné
                             return res.status(200).json({message: 'dislike supprimé !'})
                     }
@@ -250,9 +213,7 @@ exports.getPostUserDislike = (req, res) => {
         const token = req.headers.authorization.split(' ')[1]; // récupération du token dans le header authorization
         const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); // vérification du token pour authentification  de l'utilisateur
         const userId = decodedToken.userId;
-
-        /*db.query(`SELECT dislikes.userId FROM dislikes WHERE userId = '${userId}' AND postId = '${req.query.postId}'`, (err, row) => { // recherche d'un dislike de l'utilisateur connecté pour l'article sélectionné*/
-            db.query(`SELECT dislikes.userId FROM dislikes WHERE userId = ? AND postId = ?`, [userId, req.query.postId], (err, row) => { // recherche d'un dislike de l'utilisateur connecté pour l'article sélectionné
+         db.query(`SELECT dislikes.userId FROM dislikes WHERE userId = ? AND postId = ?`, [userId, req.query.postId], (err, row) => { // recherche d'un dislike de l'utilisateur connecté pour l'article sélectionné
                 if (row.length === 0) { // si pas de dislike
                 console.log("L'utilisateur n'a pas disliké cet article")
             } else if (err) { // si erreur
