@@ -85,6 +85,7 @@ class UserAccount extends React.Component {
 
     handleSubmit(event) { // à la soumission du formulaire
         event.preventDefault();
+
         const user = JSON.parse(localStorage.getItem('user')); // récupération de l'utilisateur dans le localstorage
         if (validateForm(this.state.errors)) { // si les conditions de validité sont respectées
             if (this.state.lastname === user.lastname && this.state.firstname === user.firstname && this.state.email === user.email &&
@@ -174,7 +175,7 @@ class UserAccount extends React.Component {
 
         return (
             <Fragment>
-                <Header avatar={this.state.avatar} onSubmitAvatar={this.handleSubmit}/>
+                <Header avatar={this.state.avatar} onSubmitAvatar={this.handleSubmit} updatedAvatar={this.state.updatedAvatar}/>
 
                 <main className="mainAccount">
                     <section className="accountBloc">

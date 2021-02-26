@@ -13,6 +13,7 @@ import Avatar from "../Avatar/Avatar";
 class Header extends React.Component {
     constructor(props) {
         super(props);
+        console.log(this.props);
         this.state = { // initialisation de l'état du composant
             width: window.innerWidth, // largeur de l'écran = largeur actuelle
         }
@@ -45,7 +46,7 @@ class Header extends React.Component {
 
                 {renderComponents()}
 
-                <Avatar avatar={this.props.avatar} onSubmitAvatar={this.props.onSubmitAvatar}/>
+                <Avatar avatar={this.props.avatar} onSubmitAvatar={this.props.onSubmitAvatar} updatedAvatar={this.props.updatedAvatar}/>
 
             </header>
         )
