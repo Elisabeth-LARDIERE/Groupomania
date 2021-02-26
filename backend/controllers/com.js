@@ -24,7 +24,8 @@ exports.createCom = (req, res) => {
                     lastname: userInfos.lastname,
                     avatar: userInfos.avatar,
                 });
-                db.query(`INSERT INTO coms(content, userId, postId, firstname, lastname, avatar)VALUES(?, ?, ?, ?, ?, ?)`,
+                db.query(`INSERT INTO coms(content, userId, postId, firstname, lastname, avatar)VALUES(?, ?, ?, ?, ?, ?
+                          )`,
                     [com.content, com.userId, com.postId, com.firstname, com.lastname, com.avatar]); // sauvegarde du nouveau commentaire
                 db.query(`SELECT totalComs from posts WHERE postId = ?`, com.postId, (err, row) => { // recherche du nombre de commentaires pour l'article sélectionné
                     if (err || row.length === 0) { // si aucun résultat ou erreur
@@ -50,7 +51,6 @@ exports.getOneCom = (req, res) => {
     try {
         const {comId} = req.params;
         db.query(`SELECT * FROM posts WHERE comId = ?`, comId, (err, row) => { // recherche d'un commentaire avec son id
-
             if (err || row.length === 0) { // si aucun résultat ou erreur
                 res.status(401).json({message: 'Commentaire non trouvé !'})
             } else { // si commentaire trouvé
@@ -84,20 +84,36 @@ exports.getAllComs = (req, res) => {
 // fonction de suppression d'un commentaire
 exports.deleteCom = (req, res) => {
     try {
-        db.query(`SELECT * FROM coms WHERE comId = ?`, req.query.comId, (err, row) => { // recherche d'un article avec son id
-            if (err || row.length === 0) { // si aucun résultat ou erreur
-                res.status(401).json({message: 'Impossible de supprimer le commentaire !'})
-            } else { // si commentaire trouvé
-                const postId = row[0].postId
-                db.query(`SELECT posts.totalComs FROM posts WHERE postId = ?`, postId, (err, row) => {
-                    const totalComs = row[0].totalComs;
-                    const newTotalComs = totalComs - 1;
-                    db.query(`UPDATE posts SET posts.totalComs = ? WHERE postId = ?`, [newTotalComs, postId]); // sauvegarde du nouveau total de commentaires
-                })
-                db.query(`DELETE FROM coms WHERE comId = ?`, req.query.comId); // suppression de l'article sélectionné
-                res.status(200).json({message: 'Commentaire supprimé !'})
+        const token = req.headers.authorization.split(' ')[1]; // récupération du token dans le header authorization
+        const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); // vérification du token pour authetification de l'utilisateur
+        const userId = decodedToken.userId;
+        db.query(`SELECT admin FROM users WHERE userId = ?`, userId, (err, row) => { // recherche du statut de l'utilisateur connecté
+                if (err || row.length === 0) { // si aucun résultat ou erreur
+                    res.status(401).json({message: 'Informations non trouvées !'})
+                } else {
+                    const admin = row[0].admin;
+                    console.log(admin);
+                    if (admin === 1) { // si l'utilisateur connecté est le modérateur
+                        db.query(`SELECT * FROM coms WHERE comId = ?`, req.query.comId, (err, row) => { // recherche d'un commentaire avec son id
+                            if (err || row.length === 0) { // si aucun résultat ou erreur
+                                res.status(401).json({message: 'Impossible de supprimer le commentaire !'})
+                            } else { // si commentaire trouvé
+                                const postId = row[0].postId
+                                db.query(`SELECT posts.totalComs FROM posts WHERE postId = ?`, postId, (err, row) => {
+                                    const totalComs = row[0].totalComs;
+                                    const newTotalComs = totalComs - 1;
+                                    db.query(`UPDATE posts SET posts.totalComs = ? WHERE postId = ?`, [newTotalComs, postId]); // sauvegarde du nouveau total de commentaires
+                                })
+                                db.query(`DELETE FROM coms WHERE comId = ?`, req.query.comId); // suppression du commentaire sélectionné
+                                res.status(200).json({message: 'Commentaire supprimé !'})
+                            }
+                        })
+                    } else { // si l'utilisateur connecté n'est pas le modérateur
+                        res.status(401).json({message: 'Impossible de supprimer le commentaire !'})
+                    }
+                }
             }
-        })
+        )
     } catch (error) {
         res.status(500).json({error})
     }
