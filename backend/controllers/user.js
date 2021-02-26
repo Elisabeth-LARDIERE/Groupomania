@@ -201,8 +201,7 @@ exports.deleteUser = (req, res) => {
                                         } else { // si article(s) trouvé(s)
                                             const totalComs = row[0].totalComs;
                                             const newTotal = totalComs - comsTotalComs;
-                                            db.query(`UPDATE posts SET posts.totalComs = ? WHERE postId =
-                                                      ?`, [newTotal, comsPostId]); // mise à jour du nombre total de commentaires pour chacun des articles sélectionnés
+                                            db.query(`UPDATE posts SET posts.totalComs = ? WHERE postId = ?`, [newTotal, comsPostId]); // mise à jour du nombre total de commentaires pour chacun des articles sélectionnés
                                         }
                                     }
                                 )
@@ -222,8 +221,7 @@ exports.deleteUser = (req, res) => {
                                 } else { // si article(s) trouvé(s)
                                     const totalLikes = row[0].likes;
                                     const newTotal = totalLikes - 1;
-                                    db.query(`UPDATE posts SET posts.likes = ? WHERE postId =
-                                              ?`, [newTotal, likesPostId]); // mise à jour du nombre total de likes pour chacun des articles sélectionnés
+                                    db.query(`UPDATE posts SET posts.likes = ? WHERE postId = ?`, [newTotal, likesPostId]); // mise à jour du nombre total de likes pour chacun des articles sélectionnés
                                 }
                             })
                         }

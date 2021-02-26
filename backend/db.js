@@ -2,15 +2,15 @@
 
 // imports
 const mysql = require('mysql');
-const config = require('./config');
+require('dotenv').config();
 
 // configuration de connexion à la base de données
 const db = mysql.createConnection({
-    'host': config.db.host,
-    'dialect': config.db.dialect,
-    'database': config.db.database,
-    'user': config.db.user,
-    'password': config.db.password
+    'host': process.env.host,
+    'dialect': 'mysql',
+    'database': process.env.database,
+    'user': process.env.user,
+    'password': process.env.password
 })
 
 // test de la connexion à la base de données
