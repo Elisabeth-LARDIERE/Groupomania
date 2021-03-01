@@ -97,13 +97,11 @@ class Home extends React.Component {
 
     handleClickOnePost(post) { // au clic sur le "voir plus" d'un article
         const postId = post.postId;
-        localStorage.setItem('postId', JSON.stringify(postId)); // récupération de l'id du post dans le localstorage
         localStorage.setItem('post', JSON.stringify(post)); // récupération du post dans le localstorage
-
+        localStorage.setItem('postId', JSON.stringify(postId)); // récupération de l'id du post dans le localstorage
         getOnePostRequest() // appel de la requête de récupération d'un article spécifique
             .then(() => { // si requête ok : redirection "afficher un article"
                 window.location.href = "/displayOnePost"
-
             })
             .catch(error => { // si échec requête
                 this.setState({error});

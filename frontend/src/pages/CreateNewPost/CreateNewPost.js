@@ -93,6 +93,7 @@ class CreateNewPost extends React.Component {
                                             onEditorChange={this.handleEditorChange}
                                             apiKey="w70adzec8zmy4avbouw9g5rg2yzn162jccapis8uqdc1ln67"
                                             init={{ // configuration de l'éditeur de texte
+                                                content_style: "body {color: #181E56;}" + ".tox-tinymce-aux {zIndex: 0;}",
                                                 selector: 'textarea',
                                                 height: 400,
                                                 menubar: false,
@@ -115,6 +116,7 @@ class CreateNewPost extends React.Component {
                                             }}
                                     />
                                 </form>
+
                             </div>
 
                             <button className="newPostValidationButtonSmallDevices button" type="submit"

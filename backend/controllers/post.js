@@ -30,6 +30,7 @@ exports.createPost = (req, res) => {
                           )`,
                     [post.title, post.content, post.userId, post.firstname, post.lastname, post.avatar])
                 res.status(201).json({
+                    post,
                     message: 'Article pubié !',
                 });
             }
@@ -42,12 +43,11 @@ exports.createPost = (req, res) => {
 // fonction de récupération d'un article
 exports.getOnePost = (req, res) => {
     try {
-        const postId = req.params;
-        db.query(`SELECT * FROM posts WHERE postId = ?`, postId, (err, row) => { // récupération d'un article avec son id
+        db.query(`SELECT * FROM posts WHERE postId = ?`, req.query.postId, (err, row) => {// récupération d'un article avec son id
             if (err || row.length === 0) { // si aucun résultat ou erreur
                 res.status(401).json({message: 'Article non trouvé !'})
             } else { // si article trouvé
-                const post = row;
+                const post = row[0];
                 res.status(200).json(post); // récupération de l'article en question
             }
         })

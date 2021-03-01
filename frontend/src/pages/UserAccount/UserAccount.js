@@ -154,6 +154,7 @@ class UserAccount extends React.Component {
             .then(() => { // si requête ok : redirection "connexion"
                 alert('Compte supprimé');
                 window.location.href = "/";
+                localStorage.clear();
             })
             .catch(error => { // si échec requête
                 this.setState({error});

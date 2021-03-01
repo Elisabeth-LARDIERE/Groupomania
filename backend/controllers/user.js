@@ -169,7 +169,7 @@ exports.updateUser = (req, res) => {
                 }
                 if (updated) { // si au moins un paramètre modifié
                     db.query(query + `WHERE userId = ?`, req.query.userId); // mise à jour du profil utilisateur
-                    res.status(200).json({avatar: userUpdated.avatar ? userUpdated.avatar : user.avatar}); // avec avatar modifié ou non
+                    res.status(200).json({firstname: userUpdated.firstname, lastname: userUpdated.lastname, email: userUpdated.email, avatar: userUpdated.avatar ? userUpdated.avatar : user.avatar}); // avec avatar modifié ou non
                 } else { // si aucun paramètre modifié
                     res.status(204).json(); // réponse de non-modification
                 }
