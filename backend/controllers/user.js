@@ -32,7 +32,7 @@ exports.signup = async (req, res) => {
                     '8 et 60 caractères sans espace, et inclure au moins une majuscule, une minuscule et un chiffre'
             })
         } else if (emailValidator.validate(req.body.email) && passwordSchema.validate(req.body.password)) { // si l'adresse mail et le mot de passe sont valides
-            if (req.body.email === 'groupomodo@gmail.com' && req.body.password === 'AD23min10!') {
+            if (req.body.email === 'groupomodo@gmail.com' && req.body.password === 'BE34max21!') {
                 const hash = await bcrypt.hash(req.body.password, 10); // hachage du mot de passe
                 const user = new User({
                     firstname: req.body.firstname,
