@@ -1,0 +1,528 @@
+FORMAT: 1A
+HOST: https://polls.apiblueprint.org/
+
+# Groupomania
+- Réseau social d'entreprise qui permet aux utilisateurs de publier des articles et de réagir aux articles publiés par les autres utilisateurs, en ajoutant des likes, des dislikes, et/ou des commentaires.
+- Chaque utilisateur a le droit de supprimer ses propres articles et son propre compte.
+- Un modérateur est présent sur l'application. En plus des droits liés à son statut d'utilisateur, le modérateur a la possibilité de supprimer des articles et des commentaires d'autres utilisateurs,s'il les jugeait non respectueux de la charte d'utilisation de l'application.
+
+
+# Group Utilisateur
+
+# Data Structures
+
+## UserName
+
++ lastname: Banner (string) - Nom de l'utilisateur.
++ firstname: Bruce (string) - Prénom de l'utilisateur.
+
+## UserMail
+
++ email: hulk@gmail.com (string) - Email de l'utilisateur.
+
+## UserPassword
+
++ password: Jesuisvert44! (string) - Mot de passe de l'utilisateur.
+
+## UserInfos (UserName)
+
++ Include UserMail
++ Include UserPassword
+
+## UserId
+
++ userId: 2 (number) - Id unique de l'utilisateur, auto-increment.
+
+## UserInfosAuto 
+
++ userId: 2 (number) - Id unique de l'utilisateur, auto-increment.
++ avatar: http://localhost:3001/images/avatar-default.jpg (string) - Adresse de l'avatar par défaut.
++ admin: 0 (number) - Rôle de l'utilisateur, par défaut 0: utilisateur simple.
+
+
+# Users Collection [/users]
+
+## /api/users/signup
+
+### Inscription d'un nouvel utilisateur [POST]
+- Envoi des informations nécessaires à la création d'un nouvel utilisateur : nom, prénom, email et mot de passe (chacun de ses paramètres devant remplir des conditions de validité).
+- Réponse : nom, prénom, email et mot de passe crypté (+ rôle d'admin si l'email et le mdp sont ceux affiliés au modérateur de l'application) + message de confirmation de création du compte.
+
++ Request (application/json)
+
+    + Attributes (UserInfos)
+  
++ Response 201 (application/json)
+
+    + Attributes (UserName)
+    
+        + Include UserMail
+        + password: $2b$10$NmKH2Vu..ng0SYkHcOwC4OuN2NB/iH9boEdYIZemBAABKkD8NlLiC (string) - Mot de passe crypté.
+
+
+## /api/users/login
+
+### Connexion à un compte [POST]
+- Envoi des informations de connexion : email et mot de passe (vérification de leur exactitude).
+- Réponse : id unique d'utilisateur, token d'authentification qui sera renvoyé avec chaque requête ultérieure, message de succès de connexion.
+
++ Request (application/json)
+
+    + Attributes (UserMail)
+    
+        + Include UserPassword
+        
++ Response 200 (application/json)
+    
+    + Attributes (UserId)
+        
+        + token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI0LCJpYXQiOjE2MTQ2MTIyMjgsImV4cCI6MTYxNDY5ODYyOH0.ZANYBxCWgLSyoX7C_JH-wfFnbyxrI2wi1PZ3xUWZw5I (string) 
+                - Token d'authentification unique généré automatiquement
+                - Expiration après un temps défini.
+                                 
+        + message: Utilisateur connecté (string).                         
+
+
+# User Resource [/users/{userId}]
+
+## /api/users/{userId}
+
+### Récupération d'un utilisateur [GET]
+- Envoi de l'id de l'utilisateur en paramètre.
+- Réponse : informations complètes de l'utilisateur (nom, prénom, email, id, adresse de l'avatar,  mot de passe crypté, rôle - admin ou non).
+
++ Request
+
+    + Headers
+    
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI0LCJpYXQiOjE2MTQ2MTIyMjgsImV4cCI6MTYxNDY5ODYyOH0.ZANYBxCWgLSyoX7C_JH-wfFnbyxrI2wi1PZ3xUWZw5I
+
++ Parameters 
+
+    + userId: 2
+    
++ Response 200 (application/json)
+
+    + Attributes (UserName)
+     
+        + Include UserMail
+        + Include UserInfosAuto
+        + password: $2b$10$NmKH2Vu..ng0SYkHcOwC4OuN2NB/iH9boEdYIZemBAABKkD8NlLiC (string) - Mot de passe crypté.
+
+
+## /api/users/update/{userId}
+
+### Modification d'un compte [PUT]
+- Envoi des informations modifiées et non modifiées sur le profil utilisateur : nom et/ou prénom et/ou mail et/ou adresse de l'avatar.
+- Réponse : profil utilisateur avec toutes les informations, modifiées et non modifiées + message de confirmation de modification du profil.
+
++ Request (multipart/form-data)
+
+    + Headers
+
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI0LCJpYXQiOjE2MTQ2MTIyMjgsImV4cCI6MTYxNDY5ODYyOH0.ZANYBxCWgLSyoX7C_JH-wfFnbyxrI2wi1PZ3xUWZw5I
+
+    + Attributes (UserName)
+    
+        + email: superhulk@gmail.com (string) - Nouvelle adresse mail.
+        + avatar: http://localhost:3001/images/hulk.jpg (string) - Adresse du nouvel avatar
+        
++ Parameters 
+
+    + userId: 2        
+
++ Response 200 (application/json)
+
+    + Attributes (UserName)
+    
+        + email: superhulk@gmail.com (string) - Nouvelle adresse mail.
+        + avatar: http://localhost:3001/images/hulk.jpg (string) - Adresse du nouvel avatar
+   
+        
+## /api/users/delete/{userId}
+
+### Suppression d'un compte [DELETE]
+- Envoi de l'id de utilisateur en paramètre.
+- Réponse : confirmation de la suppression du compte.
+
++ Request
+
+    + Headers
+
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI0LCJpYXQiOjE2MTQ2MTIyMjgsImV4cCI6MTYxNDY5ODYyOH0.ZANYBxCWgLSyoX7C_JH-wfFnbyxrI2wi1PZ3xUWZw5I
+
++ Parameters 
+
+    + userId: 2 
+
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + message: Compte supprimé ! (string)        
+    
+      
+
+# Group Article
+
+# Data Structures
+
+## PostCreation 
+
++ title: Bien dans sa peau au travail (string) - Titre de l'article.
++ content: Les remarques incessantes de J. du service trombones vous rendent vert de rage? Apprenez à gérer vos émotions dans le cadre professionnel. (string) - Contenu de l'article.
+
+## PostFull 
+
++ postId: 2 (number) - Id unique de l'article, auto-increment.
++ Include PostCreation
++ date: 2021/01/02 (string) - Date de création de l'article. Par défaut: date courante, générée automatiquement.
++ totalComs: 3 (number) - Total des commentaires de l'article.
++ likes: 0 (number) - Total des likes de l'article.
++ dislikes: 1 (number) - Total des dislikes de l'article.
++ userId: 2 (number) - Id unique de l'auteur de l'article.
++ Include UserName
++ avatar: http://localhost:3001/images/hulk.jpg (string) - Adresse de l'avatar de l'auteur de l'article.
+
+
+# Posts Collection [/posts]
+
+## /api/posts/create
+
+### Publication d'un article [POST]
+- Envoi des informations nécessaires à la création d'un nouvel article : titre et contenu.
+- Réponse : informations complètes de l'article publié (nom, prénom, id et adresse de l'avatar de l'auteur + titre, contenu et id unique de l'article) + message de confirmation de publication de l'article.
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI0LCJpYXQiOjE2MTQ2MTIyMjgsImV4cCI6MTYxNDY5ODYyOH0.ZANYBxCWgLSyoX7C_JH-wfFnbyxrI2wi1PZ3xUWZw5I
+
+    + Attributes (PostCreation)
+     
++ Response 201 (application/json)
+ 
+    + Attributes (PostCreation)
+    
+        + Include UserName
+        + userId: 2 (string)
+        + avatar: http://localhost:3001/images/hulk.jpg (string) - Adresse de l'avatar de l'auteur de l'article.
+        + message: Article publié ! (string)
+
+
+## /api/posts
+
+### Récupération de tous les articles [GET]
+- Réponse : tableau contenant tous les articles de l'application (avec toutes leurs informations).
+
++ Request
+
+    + Headers
+
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI0LCJpYXQiOjE2MTQ2MTIyMjgsImV4cCI6MTYxNDY5ODYyOH0.ZANYBxCWgLSyoX7C_JH-wfFnbyxrI2wi1PZ3xUWZw5I
+
++ Response 200 (application/json)
+
+    + Attributes (array)
+        
+        + Posts (PostFull)
+        
+
+## /api/posts/old
+
+### Récupération de tous les articles par ordre croissant de dates [GET]
+- Réponse : tableau contenant tous les articles de l'application (avec toutes leurs informations) et classés du plus ancien au plus récent.
+
++ Request
+
+    + Headers
+
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI0LCJpYXQiOjE2MTQ2MTIyMjgsImV4cCI6MTYxNDY5ODYyOH0.ZANYBxCWgLSyoX7C_JH-wfFnbyxrI2wi1PZ3xUWZw5I
+
++ Response 200 (application/json)
+
+    + Attributes (array)
+        
+        + Posts (PostFull) - articles triés par dates, du plus ancien au plus récent     
+
+
+## /api/posts/popular
+
+### Récupération de tous les articles par ordre de popularité [GET]
+- Réponse : tableau contenant tous les articles de l'application (avec toutes leurs informations) et classés du plus au moins liké.
+
++ Request
+
+    + Headers
+
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI0LCJpYXQiOjE2MTQ2MTIyMjgsImV4cCI6MTYxNDY5ODYyOH0.ZANYBxCWgLSyoX7C_JH-wfFnbyxrI2wi1PZ3xUWZw5I
+
++ Response 200 (application/json)
+
+    + Attributes (array)
+        
+        + Posts (PostFull) - articles triés par popularité, du plus au moins liké
+
+
+# Post Resource [/posts/{postId}]
+
+## /api/posts/{postId}
+
+### Récupération d'un article [GET]
+- Envoi de l'id de l'article en paramètre.
+- Réponse : informations complètes de l'article.
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI0LCJpYXQiOjE2MTQ2MTIyMjgsImV4cCI6MTYxNDY5ODYyOH0.ZANYBxCWgLSyoX7C_JH-wfFnbyxrI2wi1PZ3xUWZw5I
+
++ Parameters
+
+    + postId: 2
+    
++ Response 200 (application/json)
+
+     + Attributes (PostFull)
+
+
+## /api/posts/like/{postId}
+
+### Ajout ou suppression d'un like sur un article [PUT]
+- Envoi de l'id de l'article en paramètre + envoi du nombre de likes mis à jour après l'ajout ou la suppression du like de l'utilisateur.
+- Réponse : message de confirmation du positionnement de l'utilisateur (il aime cet article s'il ne l'a jamais aimé, ou il ne l'aime plus s'il l'a aimé auparavant).
+
++ Request 
+
+    + Headers
+
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI0LCJpYXQiOjE2MTQ2MTIyMjgsImV4cCI6MTYxNDY5ODYyOH0.ZANYBxCWgLSyoX7C_JH-wfFnbyxrI2wi1PZ3xUWZw5I
+        
+    + Attributes
+    
+        + likes: 1 (number)
+
++ Parameters 
+
+    + postId: 2 
+    
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + message: L'utilisateur aime cet article ! (string)
+        
+        
+## /api/posts/userLike/{postId}      
+
+### Récupération d'un utilisateur qui a liké l'article [GET]
+- Envoi de l'id de l'article en paramètre.
+- Réponse : id de l'utilisateur connecté s'il a déjà liké l'article, ou message d'information dans le cas contraire ("L'utilisateur n'a pas liké cet article").
+
++ Request 
+
+    + Headers
+
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI0LCJpYXQiOjE2MTQ2MTIyMjgsImV4cCI6MTYxNDY5ODYyOH0.ZANYBxCWgLSyoX7C_JH-wfFnbyxrI2wi1PZ3xUWZw5I
+            
++ Parameters 
+
+    + postId: 2            
+        
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + userId: 3 (number)   
+ 
+        
+## /api/posts/dislike/{postId}
+
+### Ajout ou suppression d'un dislike sur un article [PUT]
+- Envoi de l'id de l'article en paramètre + envoi du nombre de dislikes mis à jour après l'ajout ou la suppression du dislike de l'utilisateur.
+- Réponse : message de confirmation du positionnement de l'utilisateur (il n'aime pas cet article s'il ne l'a jamais disliké, ou il ne le dislike plus s'il l'a disliké auparavant).
+    
++ Request
+
+    + Headers
+
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI0LCJpYXQiOjE2MTQ2MTIyMjgsImV4cCI6MTYxNDY5ODYyOH0.ZANYBxCWgLSyoX7C_JH-wfFnbyxrI2wi1PZ3xUWZw5I
+        
+    + Attributes
+    
+        + dislikes: 0 (number)
+
++ Parameters 
+
+    + postId: 2
+    
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + message: Dislike supprimé ! (string) 
+        
+
+## /api/posts/userDislike/{postId}      
+
+### Récupération d'un utilisateur qui a disliké l'article [GET]
+- Envoi de l'id de l'article en paramètre.
+- Réponse : id de l'utilisateur connecté s'il a déjà disliké l'article, ou message d'information dans le cas contraire ("L'utilisateur n'a pas disliké cet article").
+
++ Request 
+
+    + Headers
+
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI0LCJpYXQiOjE2MTQ2MTIyMjgsImV4cCI6MTYxNDY5ODYyOH0.ZANYBxCWgLSyoX7C_JH-wfFnbyxrI2wi1PZ3xUWZw5I
+            
++ Parameters 
+
+    + postId: 2            
+        
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + message: L'utilisateur n'a pas disliké cet article (string)          
+        
+        
+## /api/posts/delete/{postId}
+
+### Suppression d'un article [DELETE]
+- Envoi de l'id de l'article en paramètre (une vérification est effectuée sur le statut de l'utilisateur. Le modérateur peut supprimer n'importe quel article, alors qu'un utilisateur lambda ne peut supprimer que ses propres articles).
+- Réponse : message de confirmation de suppression de l'article.
+
++ Request 
+
+    + Headers
+
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI0LCJpYXQiOjE2MTQ2MTIyMjgsImV4cCI6MTYxNDY5ODYyOH0.ZANYBxCWgLSyoX7C_JH-wfFnbyxrI2wi1PZ3xUWZw5I
+
++ Parameters 
+
+    + postId: 2
+
++ Response 200 (application/json)
+
+    + Attributes
+        
+        + message: Article supprimé ! (string)    
+        
+        
+
+# Group Commentaire
+
+# Data Structures
+
+## ComCreation (object)
+
++ content: Je ne me sens pas concerné. Je suis toujours très calme. (string) - Contenu du commentaire.
++ postId: 2 (number) - Identifiant unique de l'article pour lequel le commentaire a été laissé.
+
+## ComFull (object)
+
++ comId: 4 (number) - Identifiant unique du commentaire, auto-increment.
++ Include ComCreation
++ userId: 3 (number) - Identifiant unique de l'auteur du commentaire.
++ firstname: Arthur (string) - Prénom de l'auteur du commentaire.
++ lastname: Fleck (string) - Nom de l'auteur du commentaire.
++ avatar: http://localhost:3001/images/joker.jpg (string) - Adresse de l'avatar de l'auteur du commentaire.
+
+
+# Coms Collection [/coms]
+
+## /api/coms/create
+
+### Publication d'un commentaire [POST]
+- Envoi des informations nécessaires à la création d'un nouvel commentaire : contenu et id de l'article.
+- Réponse : informations complètes du commentaire publié (nom, prénom, id et adresse de l'avatar de l'auteur + contenu et id unique du commentaire + id de l'article) + message de confirmation de publication du commentaire.
+
++ Request (application/json)
+
+     + Headers
+    
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTYxNDY4MTc5NCwiZXhwIjoxNjE0NzY4MTk0fQ.xLMEFKM3g8KhK6uYBnu81WKUpsOohev6zO98n3bg0WE
+
+     + Attributes (ComCreation)
+
++ Response 201 (application/json)
+
+    + Attributes (ComFull)
+    
+        + message: Commentaire publié ! (string)
+
+
+# Com Resource [/coms/{comId}]
+
+## /api/coms/delete/{comId}
+
+### Suppression d'un commentaire [DELETE]
+- Envoi de l'id du commentaire en paramètre (une vérification est effectuée sur le statut de l'utilisateur. Seul le modérateur est autorisé à supprimer des commentaires).
+- Réponse : message de confirmation de suppression du commentaire.
+
++ Request 
+
+     + Headers
+    
+            Authorization: Bearer <token attribué au modérateur de l'application>
+            
++ Parameters 
+
+    + comId: 4
+
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + message: Commentaire supprimé ! (string)      
+        
+        
+
+# Group Chaînage des ressources
+
+## /api/users/{userId}/posts
+
+### Récupération de tous les articles d'un utilisateur [GET]
+- Envoi de l'id de l'utilisateur en paramètre.
+- Réponse : tableau contenant tous les articles (avec toutes leurs informations) créés par cet utilisateur.
+
++ Request 
+
+     + Headers
+    
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI0LCJpYXQiOjE2MTQ2MTIyMjgsImV4cCI6MTYxNDY5ODYyOH0.ZANYBxCWgLSyoX7C_JH-wfFnbyxrI2wi1PZ3xUWZw5I
+
++ Parameters
+
+    + userId: 2
+
++ Response 200 (application/json)
+
+    + Attributes (array)
+        
+        + Posts (PostFull)
+
+
+## /api/posts/{postId}/coms
+
+### Récupération de tous les commentaires d'un article [GET]
+- Envoi de l'id de l'article en paramètre.
+- Réponse : tableau contenant tous les commentaires (avec toutes leurs informations) publiés pour cet article.
+
++ Request 
+
+     + Headers
+    
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI0LCJpYXQiOjE2MTQ2MTIyMjgsImV4cCI6MTYxNDY5ODYyOH0.ZANYBxCWgLSyoX7C_JH-wfFnbyxrI2wi1PZ3xUWZw5I
+
++ Parameters
+
+    + postId: 2
+
++ Response 200 (application/json)
+
+    + Attributes (array)
+    
+        + Coms (ComFull)
