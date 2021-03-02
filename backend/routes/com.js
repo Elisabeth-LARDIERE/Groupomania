@@ -11,7 +11,7 @@ const router = express.Router();
 // application des fonctions de gestion des commentaires aux différentes routes
 router.post('/create', auth, comCtrl.createCom);
 router.get('/', auth, comCtrl.getAllComs);
-router.get('/:comId', auth, comCtrl.getOneCom);
+//router.get('/:comId', auth, comCtrl.getOneCom);
 router.delete('/:comId', auth, comCtrl.deleteCom);
 
 // export du router article

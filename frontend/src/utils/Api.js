@@ -8,6 +8,8 @@ const contentType = {
     'Content-type': 'application/json'
 };
 
+/********** FONCTIONS UTILISATEUR **********/
+
 // fonction d'inscription d'un utilisateur
 const signupRequest = (firstname, lastname, email, password) => {
     return axios.post(
@@ -41,6 +43,77 @@ const getOneUserRequest = () => {
     )
 }
 
+// fonction de récupération de tous les articles d'un utilisateur
+const getAllUserPostsRequest = () => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    const userId = JSON.parse(localStorage.getItem('userId'));
+    return axios.get(
+        'http://localhost:3001/api/v1/auth/:userId/posts',
+        {
+            headers: {
+                contentType,
+                'Authorization': 'Bearer ' + token
+            },
+            params: {
+                'userId': userId
+            }
+        }
+    )
+}
+
+// fonction de mise à jour de l'utilisateur
+const updateUserRequest = (lastname, firstname, email, avatar) => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    const userId = JSON.parse(localStorage.getItem('userId'));
+    const formData = new FormData();
+    formData.append('firstname', firstname);
+    formData.append('lastname', lastname);
+    formData.append('email', email);
+    formData.append('image', avatar);
+    return axios.put(
+        'http://localhost:3001/api/v1/auth/update/?userId=' + userId,
+        formData,
+        {
+            headers: {
+                'Content-type': 'multipart/form-data',
+                'Authorization': 'Bearer ' + token
+            }
+        }
+    );
+}
+
+// fonction de suppression d'un profil utilisateur
+const deleteUserRequest = () => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    const userId = JSON.parse(localStorage.getItem('userId'));
+    return axios.delete(
+        'http://localhost:3001/api/v1/auth/delete/?userId=' + userId,
+        {
+            headers: {
+                contentType,
+                'Authorization': 'Bearer ' + token
+            }
+        }
+    );
+}
+
+/********** FONCTIONS ARTICLE **********/
+
+// fonction de création d'un article
+const createPostRequest = (title, content) => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    return axios.post(
+        'http://localhost:3001/api/v1/posts/create',
+        {title, content},
+        {
+            headers: {
+                contentType,
+                'Authorization': 'Bearer ' + token
+            }
+        }
+    );
+}
+
 // fonction de récupération de tous les articles
 const getAllPostsRequest = () => {
     const token = JSON.parse(localStorage.getItem('token'))
@@ -56,12 +129,12 @@ const getAllPostsRequest = () => {
 }
 
 
-// fonction de récupération d'un utilisateur spécifique
+// fonction de récupération d'un article spécifique
 const getOnePostRequest = () => {
     const token = JSON.parse(localStorage.getItem('token'));
     const postId = JSON.parse(localStorage.getItem('postId'));
     return axios.get(
-        'http://localhost:3001/api/v1/posts/?postId=' + postId,
+        'http://localhost:3001/api/v1/posts/get/?postId=' + postId,
         {
             headers: {
                 contentType,
@@ -104,7 +177,7 @@ const likePostRequest = (likes) => {
     const token = JSON.parse(localStorage.getItem('token'));
     const postId = JSON.parse(localStorage.getItem('postId'));
     return axios.put(
-        'http://localhost:3001/api/v1/posts/updateLike/?postId=' + postId,
+        'http://localhost:3001/api/v1/posts/like/?postId=' + postId,
         {likes},
         {
             headers: {
@@ -139,7 +212,7 @@ const dislikePostRequest = (dislikes) => {
     const token = JSON.parse(localStorage.getItem('token'));
     const postId = JSON.parse(localStorage.getItem('postId'));
     return axios.put(
-        'http://localhost:3001/api/v1/posts/updateDislike/?postId=' + postId,
+        'http://localhost:3001/api/v1/posts/dislike/?postId=' + postId,
         {dislikes},
         {
             headers: {
@@ -169,6 +242,23 @@ const getPostUserDislikeRequest = () => {
     )
 }
 
+// fonction de suppression d'unn article
+const deletePostRequest = () => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    const postId = JSON.parse(localStorage.getItem('postId'));
+    return axios.delete(
+        'http://localhost:3001/api/v1/posts/delete/?postId=' + postId,
+        {
+            headers: {
+                contentType,
+                'Authorization': 'Bearer ' + token
+            }
+        }
+    );
+}
+
+/********** FONCTIONS COMMENTAIRE **********/
+
 // fonction de création d'un commentaire
 const createComRequest = (content, postId) => {
     const token = JSON.parse(localStorage.getItem('token'));
@@ -184,7 +274,7 @@ const createComRequest = (content, postId) => {
     );
 }
 
-// fonction de récupération de tous les commentaires
+// fonction de récupération de tous les commentaires d'un article
 const getAllComsRequest = () => {
     const token = JSON.parse(localStorage.getItem('token'))
     const postId = JSON.parse(localStorage.getItem('postId'));
@@ -195,7 +285,6 @@ const getAllComsRequest = () => {
                 contentType,
                 'Authorization': 'Bearer ' + token
             }
-
         }
     );
 }
@@ -215,91 +304,8 @@ const deleteComRequest = () => {
     );
 }
 
-// fonction de création d'un article
-const createPostRequest = (title, content) => {
-    const token = JSON.parse(localStorage.getItem('token'));
-    return axios.post(
-        'http://localhost:3001/api/v1/posts/create',
-        {title, content},
-        {
-            headers: {
-                contentType,
-                'Authorization': 'Bearer ' + token
-            }
-        }
-    );
-}
-
-// fonction de mise à jour de l'utilisateur
-const updateUserRequest = (lastname, firstname, email, avatar) => {
-    const token = JSON.parse(localStorage.getItem('token'));
-    const userId = JSON.parse(localStorage.getItem('userId'));
-    const formData = new FormData();
-    formData.append('firstname', firstname);
-    formData.append('lastname', lastname);
-    formData.append('email', email);
-    formData.append('image', avatar);
-    return axios.put(
-        'http://localhost:3001/api/v1/auth/update/?userId=' + userId,
-        formData,
-        {
-            headers: {
-                'Content-type': 'multipart/form-data',
-                'Authorization': 'Bearer ' + token
-            }
-        }
-    );
-}
-
-// fonction de suppression d'un profil utilisateur
-const deleteUserRequest = () => {
-    const token = JSON.parse(localStorage.getItem('token'));
-    const userId = JSON.parse(localStorage.getItem('userId'));
-    return axios.delete(
-        'http://localhost:3001/api/v1/auth/delete/?userId=' + userId,
-        {
-            headers: {
-                contentType,
-                'Authorization': 'Bearer ' + token
-            }
-        }
-    );
-}
-
-// fonction de suppression d'unn article
-const deletePostRequest = () => {
-    const token = JSON.parse(localStorage.getItem('token'));
-    const postId = JSON.parse(localStorage.getItem('postId'));
-    return axios.delete(
-        'http://localhost:3001/api/v1/posts/delete/?postId=' + postId,
-        {
-            headers: {
-                contentType,
-                'Authorization': 'Bearer ' + token
-            }
-        }
-    );
-}
-
-// fonction de récupération de tous les articles d'un utilisateur
-const getAllUserPostsRequest = () => {
-    const token = JSON.parse(localStorage.getItem('token'));
-    const userId = JSON.parse(localStorage.getItem('userId'));
-    return axios.get(
-        'http://localhost:3001/api/v1/auth/:userId/posts',
-        {
-            headers: {
-                contentType,
-                'Authorization': 'Bearer ' + token
-            },
-            params: {
-                'userId': userId
-            }
-        }
-    )
-}
-
-export { signupRequest, loginRequest, getOneUserRequest, getAllPostsRequest, getOnePostRequest, getOldPostsRequest,
-        getPopularPostsRequest, likePostRequest, dislikePostRequest, createComRequest, getAllComsRequest, deleteComRequest, createPostRequest,
-        updateUserRequest, deleteUserRequest, deletePostRequest, getAllUserPostsRequest, getPostUserLikeRequest, getPostUserDislikeRequest
+export { signupRequest, loginRequest, getOneUserRequest, getAllUserPostsRequest, updateUserRequest, deleteUserRequest,
+         createPostRequest, getAllPostsRequest, getOnePostRequest, getOldPostsRequest, getPopularPostsRequest,
+         likePostRequest, getPostUserLikeRequest,dislikePostRequest, getPostUserDislikeRequest, deletePostRequest,
+         createComRequest, getAllComsRequest, deleteComRequest
 };

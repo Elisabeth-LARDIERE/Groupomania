@@ -16,8 +16,8 @@ router.get('/popular', auth, postCtrl.getPopularPosts);
 router.get('/old', auth, postCtrl.getOldPosts);
 router.get('/:postId', auth, postCtrl.getOnePost);
 router.delete('/delete', auth, postCtrl.deletePost);
-router.put('/updateLike', auth, postCtrl.likePost);
-router.put('/updateDislike', auth, postCtrl.dislikePost);
+router.put('/like', auth, postCtrl.likePost);
+router.put('/dislike', auth, postCtrl.dislikePost);
 router.get('/:postId/userLike', auth, postCtrl.getPostUserLike);
 router.get('/:postId/userDislike', auth, postCtrl.getPostUserDislike);
 

@@ -35,6 +35,7 @@ exports.createCom = (req, res) => {
                         const newTotalComs = totalComs + 1; // ajout du commentaire créé au nombre total de commentaires
                         db.query(`UPDATE posts SET posts.totalComs = ? WHERE postId = ?`, [newTotalComs, com.postId]); // sauvegarde du nouveau total de commentaires
                         res.status(201).json({
+                            com,
                             message: 'Commentaire publié !'
                         });
                     }
@@ -47,7 +48,7 @@ exports.createCom = (req, res) => {
 };
 
 // fonction de récupération d'un commentaire
-exports.getOneCom = (req, res) => {
+/*exports.getOneCom = (req, res) => {
     try {
         const {comId} = req.params;
         db.query(`SELECT * FROM posts WHERE comId = ?`, comId, (err, row) => { // recherche d'un commentaire avec son id
@@ -61,12 +62,13 @@ exports.getOneCom = (req, res) => {
     } catch (error) {
         res.status(500).json({error})
     }
-};
+};*/
 
 
 // fonction de récupération de tous les commentaires d'un article
 exports.getAllComs = (req, res) => {
     try {
+
         const postId = req.query.postId;
         db.query(`SELECT * FROM coms WHERE postId = ?`, postId, (err, row) => { // recherche des commentaires d'un article avec son id
             if (err) { // si aucun résultat ou erreur

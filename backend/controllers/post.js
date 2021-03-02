@@ -48,6 +48,7 @@ exports.getOnePost = (req, res) => {
                 res.status(401).json({message: 'Article non trouvé !'})
             } else { // si article trouvé
                 const post = row[0];
+                console.log(post);
                 res.status(200).json(post); // récupération de l'article en question
             }
         })
@@ -251,6 +252,7 @@ exports.getPostUserDislike = (req, res) => {
         db.query(`SELECT dislikes.userId FROM dislikes WHERE userId = ? AND postId =
                   ?`, [userId, req.query.postId], (err, row) => { // recherche d'un dislike de l'utilisateur connecté pour l'article sélectionné
             if (row.length === 0) { // si pas de dislike
+                res.status()
                 console.log("L'utilisateur n'a pas disliké cet article")
             } else if (err) { // si erreur
                 return res.status(401).json({err})

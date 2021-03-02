@@ -197,7 +197,7 @@ class DisplayOnePost extends React.Component {
                 getAllComsRequest() // appel de la requête de récupération de tous les commentaires
                     .then(res => { // si requête ok
                         const comsList = res.data;
-                        this.setState({comsList}); // nouvel état : ajout du commentaire au tableau de commentaires
+                        this.setState({comsList}); // nouvel état : suppression du commentaire du tableau de commentaires
                     })
                     .catch(error => { // si échec requête
                         this.setState({error});

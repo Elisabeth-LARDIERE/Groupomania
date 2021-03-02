@@ -43,7 +43,7 @@ exports.signup = async (req, res) => {
                 });
                 db.query(`INSERT INTO users(firstname, lastname, email, password, admin) VALUES(?, ?, ?, ?, ?)`, // sauvegarde du nouvel utilisateur
                     [user.firstname, user.lastname, user.email, user.password, user.admin])
-                res.status(201).json(user)
+                res.status(201).json({user, message: "Compte créé !"})
             } else {
                 const hash = await bcrypt.hash(req.body.password, 10); // hachage du mot de passe
                 const user = new User({ // création d'un nouvel utilisateur avec mot de passe crypté
@@ -54,7 +54,7 @@ exports.signup = async (req, res) => {
                 });
                 db.query(`INSERT INTO users(firstname, lastname, email, password) VALUES(?, ?, ?, ?)`, // sauvegarde du nouvel utilisateur
                     [user.firstname, user.lastname, user.email, user.password])
-                res.status(201).json(user)
+                res.status(201).json({user, message: "Compte créé !"})
             }
         }
     } catch (error) {
@@ -169,7 +169,7 @@ exports.updateUser = (req, res) => {
                 }
                 if (updated) { // si au moins un paramètre modifié
                     db.query(query + `WHERE userId = ?`, req.query.userId); // mise à jour du profil utilisateur
-                    res.status(200).json({firstname: userUpdated.firstname, lastname: userUpdated.lastname, email: userUpdated.email, avatar: userUpdated.avatar ? userUpdated.avatar : user.avatar}); // avec avatar modifié ou non
+                    res.status(200).json({firstname: userUpdated.firstname, lastname: userUpdated.lastname, email: userUpdated.email, avatar: userUpdated.avatar ? userUpdated.avatar : user.avatar, message: "Profil modifié !"}); // avec avatar modifié ou non
                 } else { // si aucun paramètre modifié
                     res.status(204).json(); // réponse de non-modification
                 }
@@ -247,7 +247,7 @@ exports.deleteUser = (req, res) => {
                 })
 
                 db.query(`DELETE FROM users WHERE userId = ?`, req.query.userId) // suppression de l'utilisateur
-                res.status(204).json();
+                res.status(200).json({message: 'Compte supprimé !'});
 
                 const path = user[0].avatar;
                 const filename = path.split('/')[1];
