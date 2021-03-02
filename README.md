@@ -1,4 +1,4 @@
-# Groupomania - Formation Développeur Web d'Openclassrooms.
+# Groupomania - Formation Développeur Web d'Openclassrooms
 Projet 7 : création d'un réseau social d'entreprise.
 
 ## Stack technique :
