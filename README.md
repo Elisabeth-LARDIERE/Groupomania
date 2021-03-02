@@ -7,31 +7,34 @@ Projet 7 : création d'un réseau social d'entreprise.
 - Backend : NodeJs / Express.
 - Frontend : React.
 
+## Prérequis :
+
+- Copier les données du fichier .env (fourni à part) dans le fichier .env du projet (backend > .env).
+
 ## Importation de la base de données :
 
 - Dans un serveur MySql, entrez la commande suivante pour créer une nouvelle base de donnéees :
-  CREATE DATABASE groupomania;
+  ### `CREATE DATABASE groupomania;`
 
 - Pour importer le contenu du fichier groupomania.sql (backend > database > groupomania.sql) dans cette nouvelle base de données, entrez la commande suivante, 
-  en remplaçant "user" et "password" par les données du fichier .env (fourni à part) :
+  en remplaçant "user" et "password" par les données du fichier .env :
 
-  mysql -u user -p password groupomania < groupomania.sql
+  ### `mysql -u user -p password groupomania < groupomania.sql`
 
 ## Lancement de l'application :
 
 - Dans votre éditeur, allez dans le dossier backend de l'application :
 
   - installez les dépendances avec la commande suivante :
-    npm install
+    ### `npm install`
   - lancez le serveur avec la commande suivante :
-    nodemon serve
-
+    ### `nodemon serve`
 - Dans votre éditeur, allez dans le dossier frontend de l'application :
 
   - installez les dépendances avec la commande suivante :
-    npm install
+    ### `npm install`
   - lancez l'application avec la commande suivante :
-    npm start (http://localhost:3000/)
+    ### `npm start` (http://localhost:3000/)
 
 ## Fonctionnement de l'application :
 
