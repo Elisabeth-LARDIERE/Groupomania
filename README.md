@@ -9,13 +9,16 @@ Projet 7 : création d'un réseau social d'entreprise.
 
 ## Prérequis :
 
+- Installer NodeJs et MySql.
 - Cloner le projet sur votre machine.
-- Copier les données du fichier .env (fourni à part) dans le fichier .env du projet (backend > .env).
+- Copier le contenu du fichier .env fourni à part dans le fichier du même nom situé dans le projet (backend > .env).
 
 ## Importation de la base de données :
 
 - Dans un serveur MySql, entrez la commande suivante pour créer une nouvelle base de donnéees :
   #### `CREATE DATABASE groupomania;`
+  
+- Dans le fichier .env, remplacer [your_root_password] par votre mot de passe root mysql.  
 
 - Pour importer le contenu du fichier groupomania.sql (backend > database > groupomania.sql) dans cette nouvelle base de données, entrez la commande suivante, 
   en remplaçant "user" et "password" par les données du fichier .env :
@@ -24,13 +27,14 @@ Projet 7 : création d'un réseau social d'entreprise.
 
 ## Lancement de l'application :
 
-- Dans votre éditeur, allez dans le dossier backend de l'application :
+- Allez dans le dossier backend de l'application :
 
   - installez les dépendances avec la commande suivante :
     #### `npm install`
   - lancez le serveur avec la commande suivante :
-    #### `nodemon serve`
-- Dans votre éditeur, allez dans le dossier frontend de l'application :
+    #### `nodemon`
+    
+- Allez dans le dossier frontend de l'application :
 
   - installez les dépendances avec la commande suivante :
     #### `npm install`
@@ -39,10 +43,10 @@ Projet 7 : création d'un réseau social d'entreprise.
 
 ## Fonctionnement de l'application :
 
-- Créez un compte sur la page d'inscription en renseignant un nom, un prénom, une adresse mail valide et un mot de passe. 
+- Créez un compte sur la page d'inscription en renseignant un nom, un prénom, une adresse mail et un mot de passe. 
   Chacun de ses paramètres doit répondre à des conditions de validité qui apparaissent sous les champs lorsque ses conditions ne sont pas remplies.
 
-- Connectez vous ensuite sur la page de connexion en renseignant votre adresse mail et votre mot de passe.
+- Connectez vous ensuite sur la page de connexion en renseignant l'adresse mail et le mot de passe précédemment enregistrés.
 
 - Une fois sur la page d'accueil, vous avez accès à la totalité des articles déjà publiés par les autres utilisateurs. 
   Vous avez la possibilité de trier ces articles par dates ou par popularité.
