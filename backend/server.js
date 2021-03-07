@@ -43,7 +43,7 @@ const errorHandler = error => {
 // création du serveur
 const server = http.createServer(app);
 
-//e nregistrement d'un écouteur d'évènements, consignant le port ou le canal nommé sur lequel le serveur s'exécute dans la console
+// enregistrement d'un écouteur d'évènements, consignant le port ou le canal nommé sur lequel le serveur s'exécute dans la console
 server.on('error', errorHandler);
 server.on('listening', () => {
     const address = server.address();

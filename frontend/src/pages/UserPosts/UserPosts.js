@@ -57,6 +57,7 @@ class UserPosts extends React.Component {
 
     handleClickOnePost(post) { // au clic sur l'icon oeil/"voir l'article"
         localStorage.setItem('post', JSON.stringify(post)); // stockage de l'article sélectionné dans le localstorage
+        localStorage.setItem('postId', JSON.stringify(post.postId)); // stockage de l'id de l'article sélectionné dans le localstorage
         getOnePostRequest() // appel de la requête de récupération d'un article spécifique
             .then(() => { // si requête ok
                 window.location.href = "/displayOnePost" // redirection "article individuel"

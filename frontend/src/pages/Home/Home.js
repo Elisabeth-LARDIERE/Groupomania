@@ -10,8 +10,6 @@ import Header from '../../components/Header/Header';
 import Footer from "../../components/Footer/Footer";
 import Filter from "../../components/Filter/Filter";
 import Aside from "../../components/Aside/Aside";
-import Avatar from "../../components/Avatar/Avatar";
-
 
 class Home extends React.Component {
     constructor(props) {

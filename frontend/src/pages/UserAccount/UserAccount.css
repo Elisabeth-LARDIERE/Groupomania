@@ -6,7 +6,7 @@
     background-color: #F1FCFC;
     display: flex;
     flex-direction: column;
-    height: 88vh;
+    height: 98vh;
 }
 
 .accountBoxInfos {
@@ -95,7 +95,7 @@
 @media screen and (min-width: 480px) {
 
     .accountBloc {
-        height: 86vh;
+
     }
 
     .accountBoxInfos {
@@ -132,7 +132,7 @@
 @media screen and (min-width: 768px) {
 
     .accountBloc {
-        height: 79vh;
+        height: 85vh;
     }
 
     .accountInfosList {

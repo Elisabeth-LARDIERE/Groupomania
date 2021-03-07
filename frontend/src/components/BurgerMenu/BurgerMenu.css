@@ -6,7 +6,7 @@
     position: fixed;
     left: 0;
     width: 50%;
-    margin-top: 87px;
+    margin-top: 75px;
     transform: translateX(-50vw);
     transition: transform 250ms ease-in-out;
     background-image: radial-gradient(#2FC4D5, #07ADC1);
@@ -151,7 +151,7 @@ input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
     }
 
     #sidebarMenu {
-        margin-top: 102px;
+        margin-top: 88px;
     }
 
     .sidebarIconToggle {
@@ -174,7 +174,7 @@ input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
 @media screen and (min-width: 768px) {
 
     #sidebarMenu {
-        margin-top: 96px;
+        margin-top: 81px;
     }
 
     .spinner {

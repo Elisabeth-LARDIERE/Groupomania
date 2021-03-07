@@ -9,6 +9,7 @@ Projet 7 : création d'un réseau social d'entreprise.
 
 ## Prérequis :
 
+- Cloner le projet sur votre machine.
 - Copier les données du fichier .env (fourni à part) dans le fichier .env du projet (backend > .env).
 
 ## Importation de la base de données :

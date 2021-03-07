@@ -31,7 +31,7 @@ class Footer extends React.Component {
         return (
 
             <footer className="footer footerLargeDevices">
-                <input type="checkbox" className="openContact" id="openContact"/>
+                <input type="checkbox" className="openContact"/>
 
                 <label htmlFor="openContact" className="openContactTitleFooter">
                     <p className="contactTitleFooter titleFooter">Contact</p>

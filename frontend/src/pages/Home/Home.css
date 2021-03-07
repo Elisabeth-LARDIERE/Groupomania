@@ -121,13 +121,13 @@
 .comsIconHome, .likesIconHome, .dislikesIconHome {
     padding-right: 5px;
     font-size: 0.8em;
-    color: darkgrey;
+    color: #787676;
 }
 
 .iconStyleHome {
     font-family: 'Libre Baskerville', 'serif';
     font-size: 0.8em;
-    color: darkgrey;
+    color:#787676;
     margin: 0;
 }
 
