@@ -2,4 +2,3 @@ node_modules
 .idea
 frontend/.eslintcache
 npm-debug.log*
-backend/.env
