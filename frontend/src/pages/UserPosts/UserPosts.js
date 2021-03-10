@@ -67,7 +67,6 @@ class UserPosts extends React.Component {
             })
     }
 
-    /********** ne fonctionne pas **********/
     handlePressEnterOnePost(event) { // à la pression d'une touche sur l'icon oeil/"voir l'article"
         if (event.key === 'Enter') { // si c'est la touche Entrée : exécution de la fonction handleClickOnePost
             event.preventDefault();
@@ -79,7 +78,6 @@ class UserPosts extends React.Component {
         localStorage.setItem('postId', JSON.stringify(post.postId)); // stockage de l'article sélectionné dans le localstorage
         deletePostRequest() // appel de la requête de suppression d'un article
             .then(() => { // si requête ok
-                console.log(1);
                 alert('Article supprimé !');
                 window.location.href = "/userPosts"; // rechargement de la page actualisée
             })
@@ -88,7 +86,6 @@ class UserPosts extends React.Component {
             })
     }
 
-    /********** ne fonctionne pas **********/
     handlePressEnterDeletePost(event) { // à la pression d'une touche sur l'icon poubelle/"supprimer l'article"
         if (event.key === 'Enter') { // si c'est la touche Entrée : exécution de la fonction handleClickDeletePost
             event.preventDefault();

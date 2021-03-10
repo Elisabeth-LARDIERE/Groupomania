@@ -26,7 +26,6 @@ class Avatar extends React.Component {
                 </img>
             )
         }
-
     }
 }
 

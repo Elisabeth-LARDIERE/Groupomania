@@ -48,7 +48,6 @@ exports.getOnePost = (req, res) => {
                 res.status(401).json({message: 'Article non trouvé !'})
             } else { // si article trouvé
                 const post = row[0];
-                console.log(post);
                 res.status(200).json(post); // récupération de l'article en question
             }
         })
@@ -56,7 +55,6 @@ exports.getOnePost = (req, res) => {
         res.status(500).json({error})
     }
 };
-
 
 // fonction de récupération de tous les articles
 exports.getAllPosts = (req, res) => {

@@ -14,7 +14,6 @@ import Aside from "../../components/Aside/Aside";
 class Home extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props);
         this.state = { // initialisation du composant
             showPosts: true, // visibilité de l'option "les plus récentes" dans la barre de tri des publications
             showPopularPosts: false, // invisibilité de l'option "les plus populaires" dans la barre de tri des publications
@@ -23,6 +22,7 @@ class Home extends React.Component {
             width: window.innerWidth, // largeur de l'écran = largeur actuelle
             location: window.location // localisation = localisation actuelle
         }
+
         this.handleResize = this.handleResize.bind(this);
 
         this.handleClickOnePost = this.handleClickOnePost.bind(this);
@@ -214,7 +214,6 @@ class Home extends React.Component {
                     </section>
 
                     {renderAside()}
-
                 </main>
 
                 <Footer/>

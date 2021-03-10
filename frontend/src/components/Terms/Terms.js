@@ -2,7 +2,7 @@
 
 // imports
 import React from "react";
-import './Terms.css';
+
 
 class Terms extends React.Component {
     constructor(props) {

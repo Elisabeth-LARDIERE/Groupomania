@@ -42,6 +42,7 @@
     margin: 0;
 }
 
+
 /******************** MEDIA QUERIES ********************/
 
 /********** Small Devices **********/
@@ -113,7 +114,6 @@
     .formButtonLogin {
         margin-top: 40px;
     }
-
 }
 
 @media screen and (min-width: 1920px) {

@@ -8,6 +8,7 @@ const auth = require('../middleware/auth');
 // création d'un routeur express
 const router = express.Router();
 
+
 // application des fonctions de gestion des commentaires aux différentes routes
 router.post('/create', auth, comCtrl.createCom);
 router.get('/', auth, comCtrl.getAllComs);

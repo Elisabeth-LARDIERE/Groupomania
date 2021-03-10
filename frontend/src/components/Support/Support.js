@@ -23,8 +23,6 @@ function Support() {
                     <a className=" contactMail"
                        href="mailto:social@groupomania.com">social@groupomania.com</a>
                 </p>
-
-
             </div>
         </div>
     )

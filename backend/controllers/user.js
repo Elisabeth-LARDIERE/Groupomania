@@ -96,7 +96,6 @@ exports.login = (req, res) => {
 };
 
 // fonction de récupération d'un utilisateur
-
 exports.getOneUser = (req, res) => {
     try {
         db.query(`SELECT * FROM users WHERE userId = ?`, req.query.userId, (err, row) => { // vérification de la présence de l'utilisateur dans la bdd
@@ -113,7 +112,6 @@ exports.getOneUser = (req, res) => {
 };
 
 // fonction de modification d'un utilisateur
-
 exports.updateUser = (req, res) => {
     try {
         db.query(`SELECT * FROM users WHERE userId = ?`, req.query.userId, (err, row) => { // vérification de la présence de l'utilisateur dans la bdd

@@ -47,24 +47,6 @@ exports.createCom = (req, res) => {
     }
 };
 
-// fonction de récupération d'un commentaire
-/*exports.getOneCom = (req, res) => {
-    try {
-        const {comId} = req.params;
-        db.query(`SELECT * FROM posts WHERE comId = ?`, comId, (err, row) => { // recherche d'un commentaire avec son id
-            if (err || row.length === 0) { // si aucun résultat ou erreur
-                res.status(401).json({message: 'Commentaire non trouvé !'})
-            } else { // si commentaire trouvé
-                const com = row[0];
-                res.status(200).json(com); // récupération du commentaire en question
-            }
-        })
-    } catch (error) {
-        res.status(500).json({error})
-    }
-};*/
-
-
 // fonction de récupération de tous les commentaires d'un article
 exports.getAllComs = (req, res) => {
     try {
@@ -94,7 +76,6 @@ exports.deleteCom = (req, res) => {
                     res.status(401).json({message: 'Informations non trouvées !'})
                 } else {
                     const admin = row[0].admin;
-                    console.log(admin);
                     if (admin === 1) { // si l'utilisateur connecté est le modérateur
                         db.query(`SELECT * FROM coms WHERE comId = ?`, req.query.comId, (err, row) => { // recherche d'un commentaire avec son id
                             if (err || row.length === 0) { // si aucun résultat ou erreur
