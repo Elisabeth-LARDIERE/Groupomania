@@ -33,19 +33,20 @@ class FormLogin extends React.Component {
                 const userId = decodedToken.userId;
                 localStorage.setItem('token', JSON.stringify(res.data.token)); // stockage du token dans le localstorage
                 localStorage.setItem('userId', JSON.stringify(userId)); // stockage de l'id utilisateur dans le localstorage
-                window.location.href = "/home"; // redirection "accueil"
             })
-            .catch(error => { // si échec requête
-                this.setState({error});
-                alert('Nous n\'avons pas pu vous connecter, veuillez vérifier vos informations !');
-            })
-        getOneUserRequest() // appel de la requête de récupération d'un utilisateur
-            .then(res => { // si resuête ok
-                const user = res.data;
-                localStorage.setItem('user', JSON.stringify(user)); // stockage de l'utilisateur dans le localstorage
-            })
-            .catch(error => { // si échec requête
-                this.setState({error});
+            .then(() => {
+                getOneUserRequest() // appel de la requête de récupération d'un utilisateur
+                    .then(res => { // si resuête ok
+                        const user = res.data;
+                        localStorage.setItem('user', JSON.stringify(user)); // stockage de l'utilisateur dans le localstorage
+                    })
+                    .then(() => {
+                        window.location.href = "/home"; // redirection "accueil"
+                    })
+                    .catch(error => { // si échec requête
+                        this.setState({error});
+                        alert('Nous n\'avons pas pu vous connecter, veuillez vérifier vos informations !');
+                    })
             })
     }
 
