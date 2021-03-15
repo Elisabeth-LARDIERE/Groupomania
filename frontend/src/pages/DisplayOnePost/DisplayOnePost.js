@@ -10,7 +10,7 @@ import {
     getAllComsRequest,
     likePostRequest,
     dislikePostRequest,
-    getPostUserLikeRequest, getPostUserDislikeRequest, deletePostRequest, deleteComRequest
+    getPostUserLikeRequest, getPostUserDislikeRequest, deletePostRequest, deleteComRequest, getOnePostRequest
 
 } from "../../utils/Api";
 import {faComments, faThumbsDown, faThumbsUp} from "@fortawesome/fontawesome-free-regular";
@@ -221,6 +221,14 @@ class DisplayOnePost extends React.Component {
     }
 
     componentDidMount() { // quand le composant est monté
+        getOnePostRequest() // appel de la requête de récupération d'un article spécifique
+            .then(res => { // si requête ok
+                const post = res.data;
+                return post; // récupération de l'article en question
+                })
+            .catch(error => { // si échec requête
+                this.setState({error});
+            })
         getAllComsRequest() // appel de la requête de récupération de tous les commentaires
             .then(res => { // si requête ok
                 const comsList = res.data;

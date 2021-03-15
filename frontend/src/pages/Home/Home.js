@@ -20,7 +20,8 @@ class Home extends React.Component {
             showOldPosts: false, // invisibilité de l'option "les plus anciennes" dans la barre de tri des publications
             postsList: [], // tableau des articles*/
             width: window.innerWidth, // largeur de l'écran = largeur actuelle
-            location: window.location // localisation = localisation actuelle
+            location: window.location, // localisation = localisation actuelle
+            redirect: false // pas de redirection
         }
 
         this.handleResize = this.handleResize.bind(this);
@@ -97,13 +98,15 @@ class Home extends React.Component {
         const postId = post.postId;
         localStorage.setItem('post', JSON.stringify(post)); // récupération du post dans le localstorage
         localStorage.setItem('postId', JSON.stringify(postId)); // récupération de l'id du post dans le localstorage
-        getOnePostRequest() // appel de la requête de récupération d'un article spécifique
-            .then(() => { // si requête ok : redirection "afficher un article"
-                window.location.href = "/displayOnePost"
-            })
-            .catch(error => { // si échec requête
-                this.setState({error});
-            })
+        this.setState({ // nouvel état : redirection
+            redirect: true
+        })
+        const redirect = this.state.redirect;
+        if (redirect) { // si redirection : redirection "article individuel"
+            return (
+                window.location = '/displayOnePost'
+            )
+        }
     }
 
     async componentDidMount() { // quand le composant est monté
@@ -133,7 +136,8 @@ class Home extends React.Component {
         const renderAside = () => { // fonction d'affichage du aside selon la largeur de l'écran
             if (this.state.width > 1279) {
                 return (
-                    <Aside location={this.state.location} onChangeFilter={this.handleChangeFilter} details={this.state.value}/>
+                    <Aside location={this.state.location} onChangeFilter={this.handleChangeFilter}
+                           details={this.state.value}/>
                 )
             } else {
                 return null
